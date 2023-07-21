@@ -1,0 +1,999 @@
+<template>
+    <div>
+            <!-- start sidebar -->
+    <section class="sidebar side-width">
+        <div class="side-content">
+
+            <div class="toggle-icon">
+                <i class="fa fa-navicon"></i>
+            </div>
+
+            <div class="user">
+                <div class="user-info">
+                    <a href="profile.html">
+                        <img class="" src="front/img/user_profile.png" alt="">
+                    </a>
+                    <a href="profile.html" style="all: unset; cursor: pointer;">
+                        <h6 class="name">Alkahir Abdelmoneim</h6>
+                    </a>
+                    <p class="email">test@gmail.com &nbsp;- <span>تم التحقق</span></p>
+                    <p class="sign-out">
+                        <i class="fa fa-sign-out"></i>
+                    </p>
+                </div>
+
+                <a href="updateProfile.html" class="btn">تعديل الملف الشخصي</a>
+                <a href="https://animeeplus.net/subscriptions/" class="btn subsc-btn">إشتراك الاَن</a>
+
+
+                <div class="social-media">
+                    <span>
+                        <i class="fa fa-telegram"></i>
+                    </span>
+                    <span>
+                        <i class="fa fa-instagram"></i>
+                    </span>
+                    <span>
+                        <i class="fa fa-twitter"></i>
+                    </span>
+                    <span>
+                        <i class="fa fa-facebook"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="list-view">
+                <ul>
+                    <li>
+                        <i class="fa fa-clock-o"></i>
+                        <a href="index.html">
+                            مواعيد إصدار الحلقات
+                        </a>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-fire"></i>
+                        <a href="index.html">
+                            اخر الحلقات
+                        </a>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-fire"></i>
+                        <a href="index.html">
+                            اخر حلقات الكرتون
+                        </a>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-heart"></i>
+                        <a href="fav.html">
+                            قائمتي
+                        </a>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-exclamation-circle"></i>
+                        <a href="index.html">
+                            الإقتراحات
+                        </a>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-share-alt"></i>
+                        <a href="index.html">
+                            شارك الموقع
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="mt-3"></div>
+
+    </section>
+    <!-- End sidebar -->
+
+    <section class="main-slider">
+        <div class="header-content h-100">
+            <div class=" h-100">
+                <div id="carouselExampleCaptions" class="carousel h-100 slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
+                            class="active " aria-current="true" aria-label="Slide 1">
+                        </button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                            aria-label="Slide 2">
+                        </button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                            aria-label="Slide 3">
+                        </button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
+                            aria-label="Slide 4">
+                        </button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4"
+                            aria-label="Slide 5">
+                        </button>
+                    </div>
+                    <div class="carousel-inner h-100">
+                        <div class="carousel-item  h-100 active">
+                            <div class="shadow"></div>
+                            <div class="w-100 h-100 position-absolute" style="z-index: -1;
+                                background: url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg') center center;
+                                        filter: blur(15px);
+                                        -webkit-filter: blur(8px);">
+                            </div>
+                            <div class="w-100 h-100 row d-flex justify-content-center">
+                                <div class="d-block  h-100 px-5 pb-4 col-5">
+                                    <div class="w-100 h-100" style="box-shadow: 0 0 8px 8px rgb(10, 9, 9) inset;
+                                        box-shadow: 0 0 8px 8px rgb(10, 9, 9) ;
+                                                background: center center url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg');
+                                                background-size: cover;" alt="...">
+                                    </div>
+                                </div>
+                                <div class="col-4 h-100 position-relative d-flex align-items-end">
+                                    <div class="w-100 mb-5">
+                                        <div class="w-100">
+                                            <img src="https://image.tmdb.org/t/p/w780/eJJ4ZKQli414XVmCEyvntI3E9Rr.png"
+                                                class="w-100" alt="...">
+                                        </div>
+                                        <div class="w-100 text-white">
+                                            <h4>Bleach: Sennen Kessen-hen - Ketsubetsu-tan</h4>
+                                            <h6>خارق للطبيعه <span class="text-danger">.</span> 2023 <span
+                                                    class="text-danger">.</span> IMDB 7.5</h6>
+                                            <div>
+                                                <button style="padding: 2px 15px; 
+                                                border-radius: 6px;
+                                                border: 0;
+                                                color: white;
+                                                background-color: #B41D1E;">شاهد الأن</button>
+                                                <button style="padding: 2px 15px; 
+                                                border-radius: 6px;
+                                                border: 0;">اضافه لقائمتي</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="carousel-caption d-none d-md-block">
+                                <h5>First slide label</h5>
+                                <p>Some representative placeholder content for the first slide.</p>
+                            </div> -->
+                        </div>
+                        <div class="carousel-item h-100">
+                            <div class="shadow"></div>
+                            <div class="w-100 h-100 position-absolute" style="z-index: -1;
+                                background: url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg') center center;
+                                        filter: blur(15px);
+                                        -webkit-filter: blur(8px);">
+                            </div>
+                            <div class="w-100 h-100 row d-flex justify-content-center">
+                                <div class="d-block  h-100 px-5 pb-4 col-5">
+                                    <div class="w-100 h-100" style="box-shadow: 0 0 8px 8px rgb(10, 9, 9) inset;
+                                        box-shadow: 0 0 8px 8px rgb(10, 9, 9) ;
+                                                background: center center url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg');
+                                                background-size: cover;" alt="...">
+                                    </div>
+                                </div>
+                                <div class="col-4 h-100 position-relative d-flex align-items-end">
+                                    <div class="w-100 mb-5">
+                                        <div class="w-100">
+                                            <img src="https://image.tmdb.org/t/p/w780/eJJ4ZKQli414XVmCEyvntI3E9Rr.png"
+                                                class="w-100" alt="...">
+                                        </div>
+                                        <div class="w-100 text-white">
+                                            <h4>Bleach: Sennen Kessen-hen - Ketsubetsu-tan</h4>
+                                            <h6>خارق للطبيعه <span class="text-danger">.</span> 2023 <span
+                                                    class="text-danger">.</span> IMDB 7.5</h6>
+                                            <div>
+                                                <button style="padding: 2px 15px; 
+                                                border-radius: 6px;
+                                                border: 0;
+                                                color: white;
+                                                background-color: #B41D1E;">شاهد الأن</button>
+                                                <button style="padding: 2px 15px; 
+                                                border-radius: 6px;
+                                                border: 0;">اضافه لقائمتي</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="carousel-caption d-none d-md-block">
+                                <h5>First slide label</h5>
+                                <p>Some representative placeholder content for the first slide.</p>
+                            </div> -->
+                        </div>
+                        <div class="carousel-item h-100">
+                            <div class="shadow"></div>
+                            <div class="w-100 h-100 position-absolute" style="z-index: -1;
+                                background: url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg') center center;
+                                        filter: blur(15px);
+                                        -webkit-filter: blur(8px);">
+                            </div>
+                            <div class="w-100 h-100 row d-flex justify-content-center">
+                                <div class="d-block  h-100 px-5 pb-4 col-5">
+                                    <div class="w-100 h-100" style="box-shadow: 0 0 8px 8px rgb(10, 9, 9) inset;
+                                        box-shadow: 0 0 8px 8px rgb(10, 9, 9) ;
+                                                background: center center url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg');
+                                                background-size: cover;" alt="...">
+                                    </div>
+                                </div>
+                                <div class="col-4 h-100 position-relative d-flex align-items-end">
+                                    <div class="w-100 mb-5">
+                                        <div class="w-100">
+                                            <img src="https://image.tmdb.org/t/p/w780/eJJ4ZKQli414XVmCEyvntI3E9Rr.png"
+                                                class="w-100" alt="...">
+                                        </div>
+                                        <div class="w-100 text-white">
+                                            <h4>Bleach: Sennen Kessen-hen - Ketsubetsu-tan</h4>
+                                            <h6>خارق للطبيعه <span class="text-danger">.</span> 2023 <span
+                                                    class="text-danger">.</span> IMDB 7.5</h6>
+                                            <div>
+                                                <button style="padding: 2px 15px; 
+                                                border-radius: 6px;
+                                                border: 0;
+                                                color: white;
+                                                background-color: #B41D1E;">شاهد الأن</button>
+                                                <button style="padding: 2px 15px; 
+                                                border-radius: 6px;
+                                                border: 0;">اضافه لقائمتي</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="carousel-caption d-none d-md-block">
+                                <h5>First slide label</h5>
+                                <p>Some representative placeholder content for the first slide.</p>
+                            </div> -->
+                        </div>
+                        <div class="carousel-item h-100">
+                            <div class="shadow"></div>
+                            <div class="w-100 h-100 position-absolute" style="z-index: -1;
+                                background: url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg') center center;
+                                        filter: blur(15px);
+                                        -webkit-filter: blur(8px);">
+                            </div>
+                            <div class="w-100 h-100 row d-flex justify-content-center">
+                                <div class="d-block  h-100 px-5 pb-4 col-5">
+                                    <div class="w-100 h-100" style="box-shadow: 0 0 8px 8px rgb(10, 9, 9) inset;
+                                        box-shadow: 0 0 8px 8px rgb(10, 9, 9) ;
+                                                background: center center url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg');
+                                                background-size: cover;" alt="...">
+                                    </div>
+                                </div>
+                                <div class="col-4 h-100 position-relative d-flex align-items-end">
+                                    <div class="w-100 mb-5">
+                                        <div class="w-100">
+                                            <img src="https://image.tmdb.org/t/p/w780/eJJ4ZKQli414XVmCEyvntI3E9Rr.png"
+                                                class="w-100" alt="...">
+                                        </div>
+                                        <div class="w-100 text-white">
+                                            <h4>Bleach: Sennen Kessen-hen - Ketsubetsu-tan</h4>
+                                            <h6>خارق للطبيعه <span class="text-danger">.</span> 2023 <span
+                                                    class="text-danger">.</span> IMDB 7.5</h6>
+                                            <div>
+                                                <button style="padding: 2px 15px; 
+                                                border-radius: 6px;
+                                                border: 0;
+                                                color: white;
+                                                background-color: #B41D1E;">شاهد الأن</button>
+                                                <button style="padding: 2px 15px; 
+                                                border-radius: 6px;
+                                                border: 0;">اضافه لقائمتي</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="carousel-caption d-none d-md-block">
+                                <h5>First slide label</h5>
+                                <p>Some representative placeholder content for the first slide.</p>
+                            </div> -->
+                        </div>
+                        <div class="carousel-item h-100">
+                            <div class="shadow"></div>
+                            <div class="w-100 h-100 position-absolute" style="z-index: -1;
+                                background: url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg') center center;
+                                        filter: blur(15px);
+                                        -webkit-filter: blur(8px);">
+                            </div>
+                            <div class="w-100 h-100 row d-flex justify-content-center">
+                                <div class="d-block  h-100 px-5 pb-4 col-5">
+                                    <div class="w-100 h-100" style="box-shadow: 0 0 8px 8px rgb(10, 9, 9) inset;
+                                        box-shadow: 0 0 8px 8px rgb(10, 9, 9) ;
+                                                background: center center url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg');
+                                                background-size: cover;" alt="...">
+                                    </div>
+                                </div>
+                                <div class="col-4 h-100 position-relative d-flex align-items-end">
+                                    <div class="w-100 mb-5">
+                                        <div class="w-100">
+                                            <img src="https://image.tmdb.org/t/p/w780/eJJ4ZKQli414XVmCEyvntI3E9Rr.png"
+                                                class="w-100" alt="...">
+                                        </div>
+                                        <div class="w-100 text-white">
+                                            <h4>Bleach: Sennen Kessen-hen - Ketsubetsu-tan</h4>
+                                            <h6>خارق للطبيعه <span class="text-danger">.</span> 2023 <span
+                                                    class="text-danger">.</span> IMDB 7.5</h6>
+                                            <div>
+                                                <button style="padding: 2px 15px; 
+                                                border-radius: 6px;
+                                                border: 0;
+                                                color: white;
+                                                background-color: #B41D1E;">شاهد الأن</button>
+                                                <button style="padding: 2px 15px; 
+                                                border-radius: 6px;
+                                                border: 0;">اضافه لقائمتي</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="carousel-caption d-none d-md-block">
+                                <h5>First slide label</h5>
+                                <p>Some representative placeholder content for the first slide.</p>
+                            </div> -->
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev text-dark" style="width: 5%;" type="button"
+                        data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon text-dark" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" style="width: 5%;" type="button"
+                        data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+
+        <section class="premium-account">
+            <div class="container">
+                <a href="subscription.html">
+                    <img src="https://animeeplus.online/api/image/custombanner" alt="">
+                </a>
+            </div>
+        </section>
+
+        <section id="popular" class="section-padding">
+            <div class="container">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>الافلام الشائعه</h2>
+                    </div>
+
+                    <div class="right">
+                        <a href="test.html">
+                            <p>مشاهدة الكل</p>
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mx-2 owl-carousel popular-slider owl-theme">
+
+                    <div class="item movie-item">
+                        <div class="row">
+                            <div class="movie-poster-box p-0 col-5">
+                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <div class="p-2 desc col-7 text-white">
+                                <h5>محاربون الشاولين مدبلج</h5>
+                                <p>
+                                    <i class="far fa-clock"></i> قبل 18 ساعة
+                                </p>
+                                <h6 class="season">الموسم 1</h6>
+                                <h6 class="episode">الحلقه 20</h6>
+                                <div class="mt-3 row">
+                                    <div class="col-6  text-center">
+                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
+                                    </div>
+                                    <div class="col-6 text-center" style="padding-right: 5px;">
+                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="item movie-item">
+                        <div class="row">
+                            <div class="movie-poster-box p-0 col-5">
+                                <img src="https://i.pinimg.com/474x/4f/de/02/4fde02bc4a420213d1ab083ada7c4f2c.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <div class="p-2 desc col-7 text-white">
+                                <h5>محاربون الشاولين مدبلج</h5>
+                                <p>
+                                    <i class="far fa-clock"></i> قبل 18 ساعة
+                                </p>
+                                <h6 class="season">الموسم 1</h6>
+                                <h6 class="episode">الحلقه 20</h6>
+                                <div class="mt-3 row">
+                                    <div class="col-6  text-center">
+                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
+                                    </div>
+                                    <div class="col-6 text-center" style="padding-right: 5px;">
+                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="item movie-item">
+                        <div class="row">
+                            <div class="movie-poster-box p-0 col-5">
+                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <div class="p-2 desc col-7 text-white">
+                                <h5>محاربون الشاولين مدبلج</h5>
+                                <p>
+                                    <i class="far fa-clock"></i> قبل 18 ساعة
+                                </p>
+                                <h6 class="season">الموسم 1</h6>
+                                <h6 class="episode">الحلقه 20</h6>
+                                <div class="mt-3 row">
+                                    <div class="col-6  text-center">
+                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
+                                    </div>
+                                    <div class="col-6 text-center" style="padding-right: 5px;">
+                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="item movie-item">
+                        <div class="row">
+                            <div class="movie-poster-box p-0 col-5">
+                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <div class="p-2 desc col-7 text-white">
+                                <h5>محاربون الشاولين مدبلج</h5>
+                                <p>
+                                    <i class="far fa-clock"></i> قبل 18 ساعة
+                                </p>
+                                <h6 class="season">الموسم 1</h6>
+                                <h6 class="episode">الحلقه 20</h6>
+                                <div class="mt-3 row">
+                                    <div class="col-6  text-center">
+                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
+                                    </div>
+                                    <div class="col-6 text-center" style="padding-right: 5px;">
+                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="item movie-item">
+                        <div class="row">
+                            <div class="movie-poster-box p-0 col-5">
+                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <div class="p-2 desc col-7 text-white">
+                                <h5>محاربون الشاولين مدبلج</h5>
+                                <p>
+                                    <i class="far fa-clock"></i> قبل 18 ساعة
+                                </p>
+                                <h6 class="season">الموسم 1</h6>
+                                <h6 class="episode">الحلقه 20</h6>
+                                <div class="mt-3 row">
+                                    <div class="col-6  text-center">
+                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
+                                    </div>
+                                    <div class="col-6 text-center" style="padding-right: 5px;">
+                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="item movie-item">
+                        <div class="row">
+                            <div class="movie-poster-box p-0 col-5">
+                                <img src="https://i.pinimg.com/474x/4f/de/02/4fde02bc4a420213d1ab083ada7c4f2c.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <div class="p-2 desc col-7 text-white">
+                                <h5>محاربون الشاولين مدبلج</h5>
+                                <p>
+                                    <i class="far fa-clock"></i> قبل 18 ساعة
+                                </p>
+                                <h6 class="season">الموسم 1</h6>
+                                <h6 class="episode">الحلقه 20</h6>
+                                <div class="mt-3 row">
+                                    <div class="col-6  text-center">
+                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
+                                    </div>
+                                    <div class="col-6 text-center" style="padding-right: 5px;">
+                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="item movie-item">
+                        <div class="row">
+                            <div class="movie-poster-box p-0 col-5">
+                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <div class="p-2 desc col-7 text-white">
+                                <h5>محاربون الشاولين مدبلج</h5>
+                                <p>
+                                    <i class="far fa-clock"></i> قبل 18 ساعة
+                                </p>
+                                <h6 class="season">الموسم 1</h6>
+                                <h6 class="episode">الحلقه 20</h6>
+                                <div class="mt-3 row">
+                                    <div class="col-6  text-center">
+                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
+                                    </div>
+                                    <div class="col-6 text-center" style="padding-right: 5px;">
+                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="item movie-item">
+                        <div class="row">
+                            <div class="movie-poster-box p-0 col-5">
+                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <div class="p-2 desc col-7 text-white">
+                                <h5>محاربون الشاولين مدبلج</h5>
+                                <p>
+                                    <i class="far fa-clock"></i> قبل 18 ساعة
+                                </p>
+                                <h6 class="season">الموسم 1</h6>
+                                <h6 class="episode">الحلقه 20</h6>
+                                <div class="mt-3 row">
+                                    <div class="col-6  text-center">
+                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
+                                    </div>
+                                    <div class="col-6 text-center" style="padding-right: 5px;">
+                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="item movie-item">
+                        <div class="row">
+                            <div class="movie-poster-box p-0 col-5">
+                                <img src="https://i.pinimg.com/474x/c1/b9/32/c1b932ed723486efb7f52fefc35f673f.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <div class="p-2 desc col-7 text-white">
+                                <h5>محاربون الشاولين مدبلج</h5>
+                                <p>
+                                    <i class="far fa-clock"></i> قبل 18 ساعة
+                                </p>
+                                <h6 class="season">الموسم 1</h6>
+                                <h6 class="episode">الحلقه 20</h6>
+                                <div class="mt-3 row">
+                                    <div class="col-6  text-center">
+                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
+                                    </div>
+                                    <div class="col-6 text-center" style="padding-right: 5px;">
+                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="item movie-item">
+                        <div class="row">
+                            <div class="movie-poster-box p-0 col-5">
+                                <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <div class="p-2 desc col-7 text-white">
+                                <h5>محاربون الشاولين مدبلج</h5>
+                                <p>
+                                    <i class="far fa-clock"></i> قبل 18 ساعة
+                                </p>
+                                <h6 class="season">الموسم 1</h6>
+                                <h6 class="episode">الحلقه 20</h6>
+                                <div class="mt-3 row">
+                                    <div class="col-6  text-center">
+                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
+                                    </div>
+                                    <div class="col-6 text-center" style="padding-right: 5px;">
+                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="new" class="section-padding">
+            <div class="container">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>أخر المسلسلات</h2>
+                    </div>
+
+                    <div class="right">
+                        <a href="test.html">
+                            <p>مشاهدة الكل</p>
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="owl-carousel new-slider owl-theme">
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Doctor Sleep</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Terminator: Dark Fate</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Zombieland: Double Tap</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Terminator: Dark Fate</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Zombieland: Double Tap</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Terminator: Dark Fate</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Zombieland: Double Tap</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/c1/b9/32/c1b932ed723486efb7f52fefc35f673f.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Pet Sematary</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/4f/de/02/4fde02bc4a420213d1ab083ada7c4f2c.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Us</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/50/dd/74/50dd748acabdd528df05caec926313a5.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Glass</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="top" class="section-padding">
+            <div class="container">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>اخر الافلام</h2>
+                    </div>
+
+                    <div class="right">
+                        <a href="test.html">
+                            <p>مشاهدة الكل</p>
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="owl-carousel top-slider owl-theme">
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Doctor Sleep</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Doctor Sleep</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Terminator: Dark Fate</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Zombieland: Double Tap</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Zombieland: Double Tap</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Zombieland: Double Tap</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Zombieland: Double Tap</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+
+
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/c1/b9/32/c1b932ed723486efb7f52fefc35f673f.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Pet Sematary</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/4f/de/02/4fde02bc4a420213d1ab083ada7c4f2c.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Us</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                    <div class="item movie-item">
+                        <a href="test.html">
+                            <div class="movie-poster-box">
+                                <img src="https://i.pinimg.com/474x/50/dd/74/50dd748acabdd528df05caec926313a5.jpg"
+                                    alt="" class="img-fluid">
+                                <div class="play-btn">
+                                    <i class="far fa-play-circle"></i>
+                                </div>
+                            </div>
+                            <h4>Glass</h4>
+                            <h6>2019</h6>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <Footer></Footer>
+    </div>
+</template>
+
+<script>
+import Footer from '../components/Footer.vue';
+export default{
+    components:{
+        Footer,
+    }
+}
+</script>

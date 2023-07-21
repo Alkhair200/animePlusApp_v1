@@ -1,0 +1,274 @@
+/* :root{
+    --red:#CA1919;
+    
+}
+
+.clear
+{
+    clear: both;
+}
+header
+{
+    position: relative;
+    padding: 10px;
+    font-size: 18px;
+    background-color: #212529
+}
+
+
+.logo
+{
+    float:left;
+    text-align: center;
+    line-height: 60px;
+    font-size: 36px;
+    padding: 0 20px;
+    font-weight: 700;
+    text-decoration: none;
+    
+    
+}
+
+.header .logo img{
+    width: 200px;
+}
+
+nav
+{
+    float:right;
+    color: white;
+   
+}
+
+nav ul
+{
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+nav ul li
+{
+    list-style: none;
+    padding: 10px 20px;
+}
+nav ul li a
+{
+    display: block;
+    margin: 10px 0;
+    text-decoration: none;
+    color: var(--main-color);
+    display: block;
+}
+nav ul li a:hover{
+    color: white;
+}
+
+nav.active {
+    display: block;
+    width: 100%;
+    background: #273b55e6;
+    padding: 25px;
+    border-radius: 30px;
+}
+@media (max-width: 1200px)
+{
+    header
+    {
+        margin: 20px;
+    }
+}
+@media (max-width: 768px)
+{
+    .mean-toggle
+    {
+        display: block;
+        width: auto;
+        height: auto;
+        margin: 10px;
+        float: right;
+        cursor: pointer;
+        text-align: center;
+        font-size: 45px;
+        color: white;
+    }
+    .mean-toggle:before
+    {
+        content: '\f0c9';
+        font-family: fontAwesome;
+        line-height: 40px;
+    }
+    .mean-toggle.active:before
+    {
+        content: '\f00d';
+    }
+    nav
+    {
+        display:none;
+    }
+    nav.active
+    {
+        display:block;
+        width :100%;
+    }
+    nav.active ul
+    {
+        display: block;
+    }
+    nav.active ul li 
+    {
+        margin: 0;
+        text-align: center;
+    }
+}
+*/
+
+.border-right span {
+    width: 0%;
+    height: 2px;
+    background-color: var(--red);
+    top: auto;
+    bottom: -3px;
+}
+
+.buttons-effect span:first-child {
+    position: relative;
+    right: 0;
+    bottom: -10px;
+    display: block;
+    z-index: 1;
+}
+
+
+
+
+:root {
+
+    --primary-color: #B41D1E;
+    --text-color-white: #FFF;
+    --text-color-dark: #000;
+    --text-color-grey: #a0afbb;
+    --background-color-grey: #f0f0f0;
+    --background-color-white: #FFF;
+    --background-color-dark: #333;
+    --background-color-black: #000;
+}
+
+
+/* Start navbar */
+
+.navbar {
+    height: 0;
+    padding: 0;
+    top: 15px;
+    z-index: 10;
+}
+
+.navbarDark {
+    background-color: #121212 !important;
+}
+
+.navbar-brand {
+    margin-right: 4rem;
+}
+
+.navbar-brand img {
+    width: 200px;
+}
+
+.navbar .collapse {
+    flex-grow: 0;
+}
+
+.nav-link-info,
+.logo-img {
+    /* width: 50%; */
+}
+
+.navbar-nav {
+    justify-content: left;
+    flex-direction: initial;
+}
+
+.navbar .navbar-nav .nav-link {
+    padding: 4px 10px;
+    color: var(--text-color-white);
+    font-size: 24px;
+    font-weight: bold;
+
+
+}
+
+.navbar .nav-item:hover i {
+    /* margin-left: 15px; */
+    text-align: center;
+    color: var(--primary-color);
+
+}
+
+.navbar .navbar-nav .nav-link:hover {
+    color: var(--text-color-white);
+    transition: .5s;
+}
+
+.dropdown-toggle::after {
+    position: relative;
+    color: var(--primary-color);
+    top: 26px;
+    left: 50px;
+    z-index: 10000;
+}
+
+.navbar .collapse li:hover {
+    color: var(--primary-color);
+    transition: 1s;
+}
+
+.navbar .collapse .dropdown-menu {
+    background-color: rgba(11, 8, 43, .6);
+}
+
+.navbar .collapse .dropdown-menu .dropdown-item:hover {
+    color: #333;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+/* End navbar */
+
+
+@media screen and (max-width: 991px) {
+    .navbar {
+        top: 15px;
+    }
+
+    .navbar-nav {
+        display: block ruby;
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 413px) {
+
+    .nav-link-info,
+    .logo-img,
+    .navbar-nav {
+        /* width: 100%; */
+        text-align: center;
+
+    }
+
+    .navbar-brand,
+    .navbar-nav {
+        margin-right: 0;
+        padding-right: 0;
+    }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+
+
+* {
+    font-family: 'Cairo', sans-serif ;
+}
