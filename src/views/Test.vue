@@ -313,7 +313,7 @@
 
         <div class="row">
           <div class="col-md-6 padding">
-            <div class="dropdown">
+            <div class="dropdown-series">
               <input type="text" placeholder="إختر الموسم" readonly />
               <ul class="options">
                 <li class="option">الموسم 1</li>
@@ -1107,8 +1107,6 @@
     </div>
     </section>
   </div>
-
-
     </div>
     </div>
 </template>

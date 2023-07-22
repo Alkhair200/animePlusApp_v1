@@ -21,9 +21,10 @@ $(document).ready(function() {
       ///////////// sidebar////////////////////
 
 
-      
-    // dropdown container
-    const dropdown = document.querySelector('.dropdown');
+
+      if (document.querySelector('.dropdown-series')) {
+            // dropdown container
+    const dropdown = document.querySelector('.dropdown-series');
 
     // input
     const input = document.querySelector('input');
@@ -69,6 +70,11 @@ $(document).ready(function() {
     dropdown.addEventListener('click', toggleDropdown);
     
     
+      }
+
+
+
+
     let defaults = {
       spaceBetween: 5,
       slidesPerView: 2

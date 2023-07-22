@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import IndexView from "../views/IndexView.vue";
 import Profile from "../views/Profile.vue"
 import Test from "../views/Test.vue"
+import Fav from "../views/Fav.vue"
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: "/test",
     name: "test",
     component: Test,
+  },
+  {
+    path: "/fav",
+    name: "fav",
+    component: Fav,
   }
 ];
 
