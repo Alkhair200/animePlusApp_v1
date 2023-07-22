@@ -22,7 +22,7 @@
                         </p>
                     </div>
 
-                    <a href="updateProfile.html" class="btn">تعديل الملف الشخصي</a>
+                    <router-link to="/profile" class="btn">تعديل الملف الشخصي</router-link>
                     <a href="https://animeeplus.net/subscriptions/" class="btn subsc-btn">إشتراك الاَن</a>
 
                     <div class="social-media">
