@@ -364,18 +364,6 @@ justify-content: space-between;
 /* end story */
 
 /* start content */
-/* .content ul{
-  list-style: none;
-  position: relative;
-}
-
-.content ul li{
-  margin-bottom: 15px;
-}
-.content ul li span{
-  font-size: 12px;
-}*/
-
 .accordion .accordion-button::before{
   position: absolute;
   content: "";
@@ -554,38 +542,6 @@ ul {
   transform: rotate(-225deg);
   top: 20px;
 }
-
-
-/* .movie-poster-box img{
-  width: 100%;
-}
-#popular .movie-item{
-  margin-bottom: 25px;
-  height: 150px;
-  width: 40%;
-}
-
-.movie-content{
-  position: relative;
-} */
-
-/* movie-content h5{
-  width: 60%;
-} */
-/* 
-.movie-poster-box{
-  height: 150px;
-}
-
-.movie-info{
-  position: absolute;
-  left: 0;
-}
-
-.movie-info i{
-  font-size: 18px;
-  cursor: pointer;
-} */
 
 .videos .card {
   overflow: hidden;
@@ -882,6 +838,8 @@ cursor: pointer;
 .swiper-slide a{
 position: absolute;
 color: var(--white);
+right: 26%;
+top: 50%;
 }
 
 .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet{
@@ -1087,10 +1045,6 @@ padding: 25px 0;
   transition: 0.5s;
 }
 
-.swiper-pagination{
-  /* display: none !important; */
-}
-
 .card-image{
 position: relative;
 height: 150px;
@@ -1145,7 +1099,3 @@ width: 100%;
 }
 
 /* =========== end slide characters ============ */
-
-
-
-/* =============== end Owl Carouse ================= */

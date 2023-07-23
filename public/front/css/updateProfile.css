@@ -140,7 +140,7 @@ form label {
     cursor: pointer;
 }
 
-.btn {
+.snippets .btn {
     background: rgb(250, 7, 37);
     background: linear-gradient(to right, rgba(250, 7, 37, 1), #6250e2);
     border: 0;
@@ -149,22 +149,22 @@ form label {
     border-radius: 50px;
 }
 
-.form-group .btn {
+.snippets .form-group .btn {
     padding: 2px 50px;
     font-size: 20px;
 }
 
-.btn:focus {
+.snippets.btn:focus {
     box-shadow: none;
 }
 
-.input-box {
+.snippets .input-box {
     position: relative;
     margin: 15px 12px;
     padding: 0;
 }
 
-.input-box .input {
+.snippets .input-box .input {
     width: 100%;
     height: 40px;
     background: transparent;
@@ -176,13 +176,13 @@ form label {
     caret-color: var(--primary-color);
 }
 
-.input-box input:focus-visible,
-.input-box input:focus{
+.snippets .input-box input:focus-visible,
+.snippets .input-box input:focus{
     border: 1px solid var(--primary-color); 
     outline: none;
 }
 
-.input-box label {
+.snippets .input-box label {
     position: absolute;
     right: 35px;
     top: 50%;
@@ -193,8 +193,8 @@ form label {
     color: var(--primary-color);
 }
 
-.input-box input:focus~label,
-.input-box input:valid~label {
+.snippets .input-box input:focus~label,
+.snippets .input-box input:valid~label {
     top: 0;
     right: 5px;
     padding: 0 6px;
@@ -204,7 +204,7 @@ form label {
 }
 
 
-.input-icon {
+.snippets .input-icon {
     position: absolute;
     top: 12px;
     right: 10px;

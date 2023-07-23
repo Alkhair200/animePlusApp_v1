@@ -50,10 +50,11 @@
               <div class="add">
                 <div class="row">
                   <div class="col-md-6 col-sm-6">
-                    <!-- <main class="dropdown-menu star" id="star">
-                      <button onclick="handleDropdownstarClicked(event)">
+                    <!-- <main class="dropdown-menu star " id="star">
+                      <button v-on:click="handleDropdownstarClicked">
                         <span class="material-symbols-outlined">
                           <i class="fa fa-star-o"></i>
+                          </span>
                           <br>
                           أضف تقييمك
                       </button>
@@ -63,7 +64,7 @@
                           اشاهدها حالياً
                           <span class="icon-left"> <i class="fa fa-plus"></i> </span>
                         </button>
-                        </button>
+                      
 
                       </section>
                     </main> -->
@@ -1110,3 +1111,11 @@
     </div>
     </div>
 </template>
+
+<script>
+export default{
+  methods: {
+
+  },
+}
+</script>
