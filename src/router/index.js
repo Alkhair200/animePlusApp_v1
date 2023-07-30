@@ -13,6 +13,7 @@ const routes = [
     path: "/",
     name: "index",
     component: IndexView,
+    meta:{title:"Home"},
   },
   {
     path: "/profile",
@@ -28,6 +29,7 @@ const routes = [
     path: "/test",
     name: "test",
     component: Test,
+    meta:{title:"Seassion"},
   },
   {
     path: "/fav",
@@ -50,5 +52,12 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+router.beforeEach((to,from,next)=>{
+  console.log(from)
+  document.title = to.meta.title;
+
+  next();
+})
 
 export default router;

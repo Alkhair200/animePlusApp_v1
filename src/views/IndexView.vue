@@ -1,5 +1,6 @@
 <template>
     <div>
+        <title>Hoem</title>
 
     <section class="main-slider">
         <div class="header-content h-100">
@@ -902,6 +903,7 @@ import Footer from '../components/Footer.vue';
 export default{
     components:{
         Footer,
-    }
+    },
+
 }
 </script>
