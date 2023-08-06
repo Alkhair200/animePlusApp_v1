@@ -1,6 +1,5 @@
 <template>
     <div>
-        <title>Hoem</title>
 
     <section class="main-slider">
         <div class="header-content h-100">
@@ -268,14 +267,14 @@
                     <img src="https://animeeplus.online/api/image/custombanner" alt="">
                 </a>
             </div>
-        </section>
+        </section>     
 
         <section id="popular" class="section-padding">
             <div class="container">
 
                 <div class="section-header">
                     <div class="left">
-                        <h2>الافلام الشائعه</h2>
+                        <h2>اَخر الحلقات</h2>
                     </div>
 
                     <div class="right">
@@ -288,22 +287,22 @@
 
                 <div class="mx-2 owl-carousel popular-slider owl-theme">
 
-                    <div class="item movie-item">
+                    <div class="item movie-item" v-for="Latestseri in allEpisodes.data">
                         <div class="row">
                             <div class="movie-poster-box p-0 col-5">
-                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
+                                <img :src="Latestseri.poster_path"
                                     alt="" class="img-fluid">
                                 <div class="play-btn">
                                     <i class="far fa-play-circle"></i>
                                 </div>
                             </div>
                             <div class="p-2 desc col-7 text-white">
-                                <h5>محاربون الشاولين مدبلج</h5>
+                                <h5>{{Latestseri.name}}</h5>
                                 <p>
                                     <i class="far fa-clock"></i> قبل 18 ساعة
                                 </p>
-                                <h6 class="season">الموسم 1</h6>
-                                <h6 class="episode">الحلقه 20</h6>
+                                <h6 class="season">{{Latestseri.seasons_name}}</h6>
+                                <h6 class="episode">{{Latestseri.episode_name}}</h6>
                                 <div class="mt-3 row">
                                     <div class="col-6  text-center">
                                         <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
@@ -315,268 +314,7 @@
                             </div>
 
                         </div>
-                    </div>
-
-                    <div class="item movie-item">
-                        <div class="row">
-                            <div class="movie-poster-box p-0 col-5">
-                                <img src="https://i.pinimg.com/474x/4f/de/02/4fde02bc4a420213d1ab083ada7c4f2c.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <div class="p-2 desc col-7 text-white">
-                                <h5>محاربون الشاولين مدبلج</h5>
-                                <p>
-                                    <i class="far fa-clock"></i> قبل 18 ساعة
-                                </p>
-                                <h6 class="season">الموسم 1</h6>
-                                <h6 class="episode">الحلقه 20</h6>
-                                <div class="mt-3 row">
-                                    <div class="col-6  text-center">
-                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
-                                    </div>
-                                    <div class="col-6 text-center" style="padding-right: 5px;">
-                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="item movie-item">
-                        <div class="row">
-                            <div class="movie-poster-box p-0 col-5">
-                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <div class="p-2 desc col-7 text-white">
-                                <h5>محاربون الشاولين مدبلج</h5>
-                                <p>
-                                    <i class="far fa-clock"></i> قبل 18 ساعة
-                                </p>
-                                <h6 class="season">الموسم 1</h6>
-                                <h6 class="episode">الحلقه 20</h6>
-                                <div class="mt-3 row">
-                                    <div class="col-6  text-center">
-                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
-                                    </div>
-                                    <div class="col-6 text-center" style="padding-right: 5px;">
-                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="item movie-item">
-                        <div class="row">
-                            <div class="movie-poster-box p-0 col-5">
-                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <div class="p-2 desc col-7 text-white">
-                                <h5>محاربون الشاولين مدبلج</h5>
-                                <p>
-                                    <i class="far fa-clock"></i> قبل 18 ساعة
-                                </p>
-                                <h6 class="season">الموسم 1</h6>
-                                <h6 class="episode">الحلقه 20</h6>
-                                <div class="mt-3 row">
-                                    <div class="col-6  text-center">
-                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
-                                    </div>
-                                    <div class="col-6 text-center" style="padding-right: 5px;">
-                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="item movie-item">
-                        <div class="row">
-                            <div class="movie-poster-box p-0 col-5">
-                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <div class="p-2 desc col-7 text-white">
-                                <h5>محاربون الشاولين مدبلج</h5>
-                                <p>
-                                    <i class="far fa-clock"></i> قبل 18 ساعة
-                                </p>
-                                <h6 class="season">الموسم 1</h6>
-                                <h6 class="episode">الحلقه 20</h6>
-                                <div class="mt-3 row">
-                                    <div class="col-6  text-center">
-                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
-                                    </div>
-                                    <div class="col-6 text-center" style="padding-right: 5px;">
-                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="item movie-item">
-                        <div class="row">
-                            <div class="movie-poster-box p-0 col-5">
-                                <img src="https://i.pinimg.com/474x/4f/de/02/4fde02bc4a420213d1ab083ada7c4f2c.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <div class="p-2 desc col-7 text-white">
-                                <h5>محاربون الشاولين مدبلج</h5>
-                                <p>
-                                    <i class="far fa-clock"></i> قبل 18 ساعة
-                                </p>
-                                <h6 class="season">الموسم 1</h6>
-                                <h6 class="episode">الحلقه 20</h6>
-                                <div class="mt-3 row">
-                                    <div class="col-6  text-center">
-                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
-                                    </div>
-                                    <div class="col-6 text-center" style="padding-right: 5px;">
-                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="item movie-item">
-                        <div class="row">
-                            <div class="movie-poster-box p-0 col-5">
-                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <div class="p-2 desc col-7 text-white">
-                                <h5>محاربون الشاولين مدبلج</h5>
-                                <p>
-                                    <i class="far fa-clock"></i> قبل 18 ساعة
-                                </p>
-                                <h6 class="season">الموسم 1</h6>
-                                <h6 class="episode">الحلقه 20</h6>
-                                <div class="mt-3 row">
-                                    <div class="col-6  text-center">
-                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
-                                    </div>
-                                    <div class="col-6 text-center" style="padding-right: 5px;">
-                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="item movie-item">
-                        <div class="row">
-                            <div class="movie-poster-box p-0 col-5">
-                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <div class="p-2 desc col-7 text-white">
-                                <h5>محاربون الشاولين مدبلج</h5>
-                                <p>
-                                    <i class="far fa-clock"></i> قبل 18 ساعة
-                                </p>
-                                <h6 class="season">الموسم 1</h6>
-                                <h6 class="episode">الحلقه 20</h6>
-                                <div class="mt-3 row">
-                                    <div class="col-6  text-center">
-                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
-                                    </div>
-                                    <div class="col-6 text-center" style="padding-right: 5px;">
-                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="item movie-item">
-                        <div class="row">
-                            <div class="movie-poster-box p-0 col-5">
-                                <img src="https://i.pinimg.com/474x/c1/b9/32/c1b932ed723486efb7f52fefc35f673f.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <div class="p-2 desc col-7 text-white">
-                                <h5>محاربون الشاولين مدبلج</h5>
-                                <p>
-                                    <i class="far fa-clock"></i> قبل 18 ساعة
-                                </p>
-                                <h6 class="season">الموسم 1</h6>
-                                <h6 class="episode">الحلقه 20</h6>
-                                <div class="mt-3 row">
-                                    <div class="col-6  text-center">
-                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
-                                    </div>
-                                    <div class="col-6 text-center" style="padding-right: 5px;">
-                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="item movie-item">
-                        <div class="row">
-                            <div class="movie-poster-box p-0 col-5">
-                                <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <div class="p-2 desc col-7 text-white">
-                                <h5>محاربون الشاولين مدبلج</h5>
-                                <p>
-                                    <i class="far fa-clock"></i> قبل 18 ساعة
-                                </p>
-                                <h6 class="season">الموسم 1</h6>
-                                <h6 class="episode">الحلقه 20</h6>
-                                <div class="mt-3 row">
-                                    <div class="col-6  text-center">
-                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
-                                    </div>
-                                    <div class="col-6 text-center" style="padding-right: 5px;">
-                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                    </div>                    
 
                 </div>
 
@@ -903,6 +641,31 @@ import Footer from '../components/Footer.vue';
 export default{
     components:{
         Footer,
+    },
+
+    data(){
+        return{
+            allEpisodes:[],
+        }
+    },
+
+    created(){
+        this.getAllEpisodes();
+    },
+
+    methods:{
+        getAllEpisodes(){
+
+            this.axios.get("https://animeeplus.online/api/media/seriesEpisodesAll/code"
+            ).then(res=>{
+
+                this.allEpisodes = res.data;
+                console.log(this.allEpisodes.data);
+
+            }).catch(err=>{
+                console.log(err);
+            })
+        }
     },
 
 }

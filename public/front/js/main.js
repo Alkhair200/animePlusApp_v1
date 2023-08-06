@@ -28,7 +28,7 @@ $(document).ready(function () {
                 nav: false
             },
             1025: {
-                items: 3,
+                items: 4,
                 nav: false
             }   
         }

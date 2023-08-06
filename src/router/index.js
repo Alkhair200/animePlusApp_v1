@@ -54,9 +54,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to,from,next)=>{
-  console.log(from)
   document.title = to.meta.title;
-
   next();
 })
 
