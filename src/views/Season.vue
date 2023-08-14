@@ -1,41 +1,40 @@
 <template>
-    <div>
-        <section class="slider">
+  <section class="slider">
 
-<div class="shadow"></div>
-<div class="image-slide" style="background-image: url('front/img/51107.jpg');">
-  <!-- <img src=""> -->
-</div>
-<div class="text-image">
-  <img src="front/img/51107.jpg">
-  <h4>
-    قاتل الشياطين مدبلج
-  </h4>
-  <p>
-    <span class="views"><i class="fa fa-eye"></i> 10,277 ألف </span>
-  </p>
+    <div class="shadow"></div>
+    <div class="image-slide" style="background-image: url('/front/img/51107.jpg');">
+      <!-- <img src=""> -->
+    </div>
+    <div class="text-image">
+      <img :src="episode.poster_path">
+<!--       <h4>
+        {{episode.serieName}}
+      </h4> -->
+      <p>
+        <span class="views"><i class="fa fa-eye"></i> {{episode.views}} ألف </span>
+      </p>
 
-  <ul class="list-style d-flex justify-content-center align-items-center  p-0">
-    <li class="px-1 list-text-1">
-      <i class="fa fa-star"></i> 8.8
-    </li>
-    <span class="pb-3" style=" font-size: 30px; color: #B41D1E;"> . </span>
-    <li class="px-1 list-text-2">
-      2023-07-04
-    </li>
-    <span class="pb-3" style="font-size: 30px; color: #B41D1E;"> . </span>
-    <li class=" px-1 list-text-3">
-      عدد الموسم: 3
-    </li>
-    <span class="pb-3" style="font-size: 30px; color: #B41D1E;"> . </span>
-    <li class="px-1 list-text-4">
-      مستمر
-    </li>
-  </ul>
-</div>
-</section>
+      <ul class="list-style d-flex justify-content-center align-items-center  p-0">
+        <li class="px-1 list-text-1">
+          <i class="fa fa-star"></i> {{episode.vote_average}}
+        </li>
+        <span class="pb-3" style=" font-size: 30px; color: #B41D1E;"> . </span>
+        <li class="px-1 list-text-2">
+          {{episode.first_air_date}}
+        </li>
+        <span class="pb-3" style="font-size: 30px; color: #B41D1E;"> . </span>
+        <li class=" px-1 list-text-3">
+          <div v-if="episode.seasons">عدد الموسم: {{episode.seasons.length}}</div>
+        </li>
+        <span class="pb-3" style="font-size: 30px; color: #B41D1E;"> . </span>
+        <li class="px-1 list-text-4">
+          مستمر
+        </li>
+      </ul>
+    </div>
+  </section>
 
-<div class="container">
+  <div class="container">
     <div class="row">
       <section>
         <div class="main-comment">
@@ -50,11 +49,10 @@
               <div class="add">
                 <div class="row">
                   <div class="col-md-6 col-sm-6">
-                    <!-- <main class="dropdown-menu star " id="star">
-                      <button v-on:click="handleDropdownstarClicked">
+              <!--       <main class="dropdown-menu star" id="star">
+                      <button onclick="handleDropdownstarClicked(event)">
                         <span class="material-symbols-outlined">
                           <i class="fa fa-star-o"></i>
-                          </span>
                           <br>
                           أضف تقييمك
                       </button>
@@ -64,7 +62,7 @@
                           اشاهدها حالياً
                           <span class="icon-left"> <i class="fa fa-plus"></i> </span>
                         </button>
-                      
+                        </button>
 
                       </section>
                     </main> -->
@@ -72,9 +70,11 @@
                   <div class="col-md-6  col-sm-6">
                     <i class="fa fa-star"></i>
                     <br>
-                    9,34/10
-                    <br>
-                    (344 &nbsp;صوت)
+                    <div v-if="episode.story">{{episode.story.aveg}}/10
+                      <br>
+                      ({{episode.story.count}} &nbsp;صوت)
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -96,7 +96,7 @@
                   </li>
 
                   <li>
-                    <!-- <main class="dropdown-menu" id="dropdown-menu">
+                   <!--  <main class="dropdown-menu" id="dropdown-menu">
                       <button onclick="handleDropdownClicked(event)">
                         <span class="material-symbols-outlined">
                           <i class="fa fa-bars"></i>
@@ -141,20 +141,14 @@
       <section class="story">
         <h4>القصة</h4>
         <p>
-          هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد
-          النص العربى، حيث يمكنك أن تولد مثل هذا
-          النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
+          {{episode.overview}}
         </p>
         <br>
-        <div class="slug">
-          <span>اكشن</span>
-          <span>تاريخي</span>
-          <span>طبيعه</span>
-          <span>شولين</span>
-          <span>مدبلج</span>
-        </div>
-      </section>
-
+        <p class="slug">
+          <span style="margin-left:10px" v-for="(list ,index) in episode.genreslist" :key="index">{{list}}</span>
+        </p>
+      </section> 
+      
       <section class="content">
         <h4>تصنيف المحتوى</h4>
 
@@ -314,33 +308,39 @@
 
         <div class="row">
           <div class="col-md-6 padding">
-            <div class="dropdown-series">
-              <input type="text" placeholder="إختر الموسم" readonly />
-              <ul class="options">
-                <li class="option">الموسم 1</li>
-                <li class="option">الموسم 2</li>
-                <li class="option">الموسم 3</li>
-                <li class="option">الموسم 4</li>
-              </ul>
-            </div>
+            <select class="form-select dropdown" aria-label="Default select example" 
+            @change="getSeasonsWithEpisode($event)">
+            <option selected disabled="">إختر الموسم</option>}
+            option
+  <option :class="[episode.seasons.length == 1?'selected':'']" :value="season.id" v-for="(season ,index) in episode.seasons" :key="index"
+  >{{season.name}}</option>
+</select>
+
+<!-- <Bootstrap5Pagination :data="episodes" @pagination-change-page="getSeasonsWithEpisode"/> -->
           </div>
 
-          <div class="col-md-6 nav-search padding">
+          <div class="col-md-6 nav-searchs">
             <input class="form-control video-search bordred" type="search" placeholder="إبحث برقم الحلقه....">
           </div>
+
         </div>
         <br>
-        <div class="row">
-          <div class="card mb-3" style="max-width: 540px;">
+        <div class="row" v-for="(episode, index) in episodes.data" :key="index">
+          <div class="card mb-3" style="max-width: 540px;" >
             <div class="row g-0">
-              <div class="col-md-4 col-sm-6 position-relative card-video">
-                <img src="front/img/image_2.jpg" class="img-fluid rounded-start" alt="...">
-                <i class="fa fa-play-circle-o play-icon" aria-hidden="true"></i>
+              <div class="col-md-4 col-sm-4 position-relative card-video">
+
+                  <a class="btn whatch-episode" type="button" data-bs-toggle="modal" :href="'#whatch-episode-'+index" >
+                    <!-- <i class="fa fa-play-circle-o play-icon" aria-hidden="true"></i> -->
+                  </a>
+
+                <img :src="episode.still_path" class="img-fluid rounded-start" alt="...">
+                <!--  -->
               </div>
-              <div class="col-md-8 col-sm-6">
+              <div class="col-md-8 col-sm-8">
                 <div class="card-body">
                   <h5 class="card-title">
-                    الحلقه &nbsp; 1
+                     {{episode.name}}
                     <span>
                       <a class="btn exclamation" data-bs-toggle="modal" href="#exampleModal" role="button">
                         <i class="fa fa-exclamation-circle"></i>
@@ -348,21 +348,47 @@
                     </span>
                   </h5>
 
-                  <a href="#" class="btn downloads">
+                  <div class=" comm-down">
+                  <a href="#" class="btn downloads" target="_blank">
                     <i class="fa fa-download"></i>
                     تحميل
                   </a>
 
                   <a class="btn comment" data-bs-toggle="modal" href="#comments" role="button">
                     <i class="fa fa-commenting">&nbsp; التعليقات</i>
-                  </a>
-
-                  <a class="whatch-down" data-bs-toggle="modal" href="#whatch-down" role="button">
-                    <i class="fa fa-arrow-down arrow-down"></i>
-                  </a>
+                  </a>                    
+                  </div>
                 </div>
               </div>
             </div>
+
+            <!-- start whatch episode -->
+            <!-- Modal -->
+            <div class="modal fade" :id="'whatch-episode-'+index" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">إختر السيرفر</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row warning">
+                      <div class="container">
+                        <div v-for="video in episode.videos" :key="index">
+                        <a :href="video.link" target="_blank">{{video.server}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  End whatch episode -->                  
 
             <!-- start noty -->
             <!-- Modal -->
@@ -454,7 +480,7 @@
                   </div>
                   <div class="modal-body">
                     <div class="row warning video-img">
-                      <img src="front/img/image_2.jpg" alt="" srcset="">
+                      <img src="/front/img/image_2.jpg" alt="" srcset="">
                       <div class="video-text">
                         <h2>
                           اونا 1
@@ -508,7 +534,7 @@
                         <div class="row">
                           <div class="col-md-1 col-sm-1">
                             <div class="img-user">
-                              <img src="front/img/user_profile.png" alt="">
+                              <img src="/front/img/user_profile.png" alt="">
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-12">
@@ -525,23 +551,23 @@
 
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                     <li><a class="" href="#">
-                                        <img src="front/img/like-100.png" alt="" srcset="">
+                                        <img src="/front/img/like-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li>
                                       <a class="" href="#">
-                                        <img src="front/img/heart-100.png" alt="" srcset="">
+                                        <img src="/front/img/heart-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/joy-100.png" alt="" srcset="">
+                                        <img src="/front/img/joy-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/unlike-100.png" alt="" srcset="">
+                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
                                       </a>
                                     </li>
                                   </ul>
@@ -561,7 +587,7 @@
                         <div class="row">
                           <div class="col-md-1 col-sm-1">
                             <div class="img-user">
-                              <img src="front/img/user_profile.png" alt="">
+                              <img src="/front/img/user_profile.png" alt="">
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-12">
@@ -578,23 +604,23 @@
 
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                     <li><a class="" href="#">
-                                        <img src="front/img/like-100.png" alt="" srcset="">
+                                        <img src="/front/img/like-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li>
                                       <a class="" href="#">
-                                        <img src="front/img/heart-100.png" alt="" srcset="">
+                                        <img src="/front/img/heart-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/joy-100.png" alt="" srcset="">
+                                        <img src="/front/img/joy-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/unlike-100.png" alt="" srcset="">
+                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
                                       </a>
                                     </li>
                                   </ul>
@@ -614,7 +640,7 @@
                         <div class="row">
                           <div class="col-md-1 col-sm-1">
                             <div class="img-user">
-                              <img src="front/img/user_profile.png" alt="">
+                              <img src="/front/img/user_profile.png" alt="">
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-12">
@@ -631,23 +657,23 @@
 
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                     <li><a class="" href="#">
-                                        <img src="front/img/like-100.png" alt="" srcset="">
+                                        <img src="/front/img/like-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li>
                                       <a class="" href="#">
-                                        <img src="front/img/heart-100.png" alt="" srcset="">
+                                        <img src="/front/img/heart-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/joy-100.png" alt="" srcset="">
+                                        <img src="/front/img/joy-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/unlike-100.png" alt="" srcset="">
+                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
                                       </a>
                                     </li>
                                   </ul>
@@ -667,7 +693,7 @@
                         <div class="row">
                           <div class="col-md-1 col-sm-1">
                             <div class="img-user">
-                              <img src="front/img/user_profile.png" alt="">
+                              <img src="/front/img/user_profile.png" alt="">
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-12">
@@ -684,23 +710,23 @@
 
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                     <li><a class="" href="#">
-                                        <img src="front/img/like-100.png" alt="" srcset="">
+                                        <img src="/front/img/like-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li>
                                       <a class="" href="#">
-                                        <img src="front/img/heart-100.png" alt="" srcset="">
+                                        <img src="/front/img/heart-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/joy-100.png" alt="" srcset="">
+                                        <img src="/front/img/joy-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/unlike-100.png" alt="" srcset="">
+                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
                                       </a>
                                     </li>
                                   </ul>
@@ -720,7 +746,7 @@
                         <div class="row">
                           <div class="col-md-1 col-sm-1">
                             <div class="img-user">
-                              <img src="front/img/user_profile.png" alt="">
+                              <img src="/front/img/user_profile.png" alt="">
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-12">
@@ -737,23 +763,23 @@
 
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                     <li><a class="" href="#">
-                                        <img src="front/img/like-100.png" alt="" srcset="">
+                                        <img src="/front/img/like-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li>
                                       <a class="" href="#">
-                                        <img src="front/img/heart-100.png" alt="" srcset="">
+                                        <img src="/front/img/heart-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/joy-100.png" alt="" srcset="">
+                                        <img src="/front/img/joy-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/unlike-100.png" alt="" srcset="">
+                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
                                       </a>
                                     </li>
                                   </ul>
@@ -773,7 +799,7 @@
                         <div class="row">
                           <div class="col-md-1 col-sm-1">
                             <div class="img-user">
-                              <img src="front/img/user_profile.png" alt="">
+                              <img src="/front/img/user_profile.png" alt="">
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-12">
@@ -790,23 +816,23 @@
 
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                     <li><a class="" href="#">
-                                        <img src="front/img/like-100.png" alt="" srcset="">
+                                        <img src="/front/img/like-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li>
                                       <a class="" href="#">
-                                        <img src="front/img/heart-100.png" alt="" srcset="">
+                                        <img src="/front/img/heart-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/joy-100.png" alt="" srcset="">
+                                        <img src="/front/img/joy-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/unlike-100.png" alt="" srcset="">
+                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
                                       </a>
                                     </li>
                                   </ul>
@@ -826,7 +852,7 @@
                         <div class="row">
                           <div class="col-md-1 col-sm-1">
                             <div class="img-user">
-                              <img src="front/img/user_profile.png" alt="">
+                              <img src="/front/img/user_profile.png" alt="">
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-12">
@@ -843,23 +869,23 @@
 
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                     <li><a class="" href="#">
-                                        <img src="front/img/like-100.png" alt="" srcset="">
+                                        <img src="/front/img/like-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li>
                                       <a class="" href="#">
-                                        <img src="front/img/heart-100.png" alt="" srcset="">
+                                        <img src="/front/img/heart-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/joy-100.png" alt="" srcset="">
+                                        <img src="/front/img/joy-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li><a class="" href="#">
-                                        <img src="front/img/unlike-100.png" alt="" srcset="">
+                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
                                       </a>
                                     </li>
                                   </ul>
@@ -900,222 +926,79 @@
 
           </div>
         </div>
-      </section>
+      </section> 
 
       <section class="characters">
-        <h4>الشخصيات</h4>
+   <!--    <h4>الشخصيات</h4>
         <br>
-        <div class="swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="front/img/images.jpg" alt="" srcset="">
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                characters
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <img src="front/img/images.jpg" alt="" srcset="">
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                characters
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <img src="front/img/images.jpg" alt="" srcset="">
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                characters
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <img src="front/img/images.jpg" alt="" srcset="">
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                characters
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <img src="front/img/images.jpg" alt="" srcset="">
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                characters
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <img src="front/img/images.jpg" alt="" srcset="">
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                characters
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <img src="front/img/images.jpg" alt="" srcset="">
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                characters
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <img src="front/img/images.jpg" alt="" srcset="">
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                characters
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <img src="front/img/images.jpg" alt="" srcset="">
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                characters
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <img src="front/img/images.jpg" alt="" srcset="">
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                characters
-              </a>0</div>
-          </div>
-          <!-- <div class="swiper-pagination"></div> -->
-        </div>
-    </section>
+ -->    </section>           
 
     <section class="others">
-      <h4>اخري</h4>
-      <br>
-      <div class="owl-carousel new-slider owl-theme">
-        <div class="item movie-item">
-            <a href="test.html">
-                <div class="movie-poster-box">
-                    <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
-                        alt="" class="img-fluid">
-                    <div class="play-btn">
-                        <i class="far fa-play-circle"></i>
-                    </div>
-                </div>
-                <h4>Doctor Sleep</h4>
-                <h6>2019</h6>
-            </a>
-        </div>
-        <div class="item movie-item">
-            <a href="test.html">
-                <div class="movie-poster-box">
-                    <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
-                        alt="" class="img-fluid">
-                    <div class="play-btn">
-                        <i class="far fa-play-circle"></i>
-                    </div>
-                </div>
-                <h4>Terminator: Dark Fate</h4>
-                <h6>2019</h6>
-            </a>
-        </div>
-        <div class="item movie-item">
-            <a href="test.html">
-                <div class="movie-poster-box">
-                    <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
-                        alt="" class="img-fluid">
-                    <div class="play-btn">
-                        <i class="far fa-play-circle"></i>
-                    </div>
-                </div>
-                <h4>Zombieland: Double Tap</h4>
-                <h6>2019</h6>
-            </a>
-        </div>
-        <div class="item movie-item">
-            <a href="test.html">
-                <div class="movie-poster-box">
-                    <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
-                        alt="" class="img-fluid">
-                    <div class="play-btn">
-                        <i class="far fa-play-circle"></i>
-                    </div>
-                </div>
-                <h4>Terminator: Dark Fate</h4>
-                <h6>2019</h6>
-            </a>
-        </div>
-        <div class="item movie-item">
-            <a href="test.html">
-                <div class="movie-poster-box">
-                    <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
-                        alt="" class="img-fluid">
-                    <div class="play-btn">
-                        <i class="far fa-play-circle"></i>
-                    </div>
-                </div>
-                <h4>Zombieland: Double Tap</h4>
-                <h6>2019</h6>
-            </a>
-        </div>
-        <div class="item movie-item">
-            <a href="test.html">
-                <div class="movie-poster-box">
-                    <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
-                        alt="" class="img-fluid">
-                    <div class="play-btn">
-                        <i class="far fa-play-circle"></i>
-                    </div>
-                </div>
-                <h4>Terminator: Dark Fate</h4>
-                <h6>2019</h6>
-            </a>
-        </div>
-        <div class="item movie-item">
-            <a href="test.html">
-                <div class="movie-poster-box">
-                    <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
-                        alt="" class="img-fluid">
-                    <div class="play-btn">
-                        <i class="far fa-play-circle"></i>
-                    </div>
-                </div>
-                <h4>Zombieland: Double Tap</h4>
-                <h6>2019</h6>
-            </a>
-        </div>
-        <div class="item movie-item">
-            <a href="test.html">
-                <div class="movie-poster-box">
-                    <img src="https://i.pinimg.com/474x/c1/b9/32/c1b932ed723486efb7f52fefc35f673f.jpg"
-                        alt="" class="img-fluid">
-                    <div class="play-btn">
-                        <i class="far fa-play-circle"></i>
-                    </div>
-                </div>
-                <h4>Pet Sematary</h4>
-                <h6>2019</h6>
-            </a>
-        </div>
-        <div class="item movie-item">
-            <a href="test.html">
-                <div class="movie-poster-box">
-                    <img src="https://i.pinimg.com/474x/4f/de/02/4fde02bc4a420213d1ab083ada7c4f2c.jpg"
-                        alt="" class="img-fluid">
-                    <div class="play-btn">
-                        <i class="far fa-play-circle"></i>
-                    </div>
-                </div>
-                <h4>Us</h4>
-                <h6>2019</h6>
-            </a>
-        </div>
-        <div class="item movie-item">
-            <a href="test.html">
-                <div class="movie-poster-box">
-                    <img src="https://i.pinimg.com/474x/50/dd/74/50dd748acabdd528df05caec926313a5.jpg"
-                        alt="" class="img-fluid">
-                    <div class="play-btn">
-                        <i class="far fa-play-circle"></i>
-                    </div>
-                </div>
-                <h4>Glass</h4>
-                <h6>2019</h6>
-            </a>
-        </div>
+     <!-- <h4>اخري</h4> -->
+
+  </section>    
+
     </div>
-    </section>
   </div>
-    </div>
-    </div>
 </template>
 
-<script>
-export default{
-  methods: {
+  <script>
 
-  },
+import Footer from '../components/Footer.vue';
+
+
+export default{
+    components:{
+        Footer,   
+    },
+
+    data(){
+        return{
+            episode:[],
+            episodes:{},
+
+        }
+    },
+
+    created(){
+        this.getSeasonEpisode();
+    },
+
+    mounted(){
+      this.getSeasonsWithEpisode();
+    },
+
+    methods:{
+
+        getSeasonEpisode(page= 1){
+          let id = this.$route.params.id;
+
+            this.axios.post('https://animeeplus.online/api/series/show/'+id+'/code?page='+page
+            ).then(res=>{
+
+                this.episode = res.data;
+
+
+
+            }).catch(err=>{
+                console.log(err);
+            })
+        },
+    
+        getSeasonsWithEpisode(){
+
+           let seasonId = event.target.value
+            this.axios.get('https://animeeplus.online/api/series/seasons/'+seasonId+'/code'
+            ).then(res=>{
+
+                this.episodes = res.data;
+                console.log(this.episodes);
+
+            }).catch(err=>{
+                console.log(err);
+            })
+        }
+      }
+
 }
 </script>

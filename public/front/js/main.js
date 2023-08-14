@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     $(".popular-slider").owlCarousel({
         loop: false,
+        slidesPerView: 12,
         margin: 10,
         nav: true,
         dots: true,

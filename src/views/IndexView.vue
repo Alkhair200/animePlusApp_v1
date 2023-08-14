@@ -286,23 +286,30 @@
                 </div>
 
                 <div class="mx-2 owl-carousel popular-slider owl-theme">
-
-                    <div class="item movie-item" v-for="Latestseri in allEpisodes.data">
+                    <div class="item movie-item">
                         <div class="row">
+                           
                             <div class="movie-poster-box p-0 col-5">
-                                <img :src="Latestseri.poster_path"
+                                
+
+                                 <!-- <router-link :to="{ name: 'season', params: { episodeId:Latestseri.id } } " > -->
+                                <img src=""
                                     alt="" class="img-fluid">
+                                   
+                                   
                                 <div class="play-btn">
                                     <i class="far fa-play-circle"></i>
                                 </div>
+                            <!-- </router-link > -->
                             </div>
+                        
                             <div class="p-2 desc col-7 text-white">
-                                <h5>{{Latestseri.name}}</h5>
+                                <h5>Latestseri.name</h5>
                                 <p>
                                     <i class="far fa-clock"></i> قبل 18 ساعة
                                 </p>
-                                <h6 class="season">{{Latestseri.seasons_name}}</h6>
-                                <h6 class="episode">{{Latestseri.episode_name}}</h6>
+                                <h6 class="season">Latestseri.seasons_name</h6>
+                                <h6 class="episode">Latestseri.episode_name</h6>
                                 <div class="mt-3 row">
                                     <div class="col-6  text-center">
                                         <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
@@ -338,135 +345,18 @@
                 </div>
 
                 <div class="owl-carousel new-slider owl-theme">
-                    <div class="item movie-item">
-                        <a href="test.html">
+                    <div class="item movie-item" v-for="(latestSeri ,index) in latestSeries.data" :key="index">
+
+                        <router-link :to="{ name: 'season', params: { id:latestSeri.id } } " >
                             <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
+                                <img :src="latestSeri.poster_path"
                                     alt="" class="img-fluid">
                                 <div class="play-btn">
                                     <i class="far fa-play-circle"></i>
                                 </div>
                             </div>
-                            <h4>Doctor Sleep</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Terminator: Dark Fate</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Zombieland: Double Tap</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Terminator: Dark Fate</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Zombieland: Double Tap</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Terminator: Dark Fate</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Zombieland: Double Tap</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/c1/b9/32/c1b932ed723486efb7f52fefc35f673f.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Pet Sematary</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/4f/de/02/4fde02bc4a420213d1ab083ada7c4f2c.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Us</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/50/dd/74/50dd748acabdd528df05caec926313a5.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Glass</h4>
-                            <h6>2019</h6>
-                        </a>
+                            <h4>{{latestSeri.name}}</h4>
+                        </router-link>
                     </div>
                 </div>
 
@@ -645,27 +535,27 @@ export default{
 
     data(){
         return{
-            allEpisodes:[],
+            latestSeries:[],
         }
     },
 
     created(){
-        this.getAllEpisodes();
+        this.getLatestSeries();
     },
 
     methods:{
-        getAllEpisodes(){
+        getLatestSeries(){
 
-            this.axios.get("https://animeeplus.online/api/media/seriesEpisodesAll/code"
+            this.axios.get("https://animeeplus.online/api/series/latestadded/code"
             ).then(res=>{
 
-                this.allEpisodes = res.data;
-                console.log(this.allEpisodes.data);
+                this.latestSeries = res.data;
+                // console.log(this.latestSeries.data);
 
             }).catch(err=>{
                 console.log(err);
             })
-        }
+        },
     },
 
 }
