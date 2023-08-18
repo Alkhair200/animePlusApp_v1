@@ -41,7 +41,7 @@
           <div class="row">
             <div class="col-md-12 col-sm-12">
               <div class="comment">
-                <button type="button" data-bs-toggle="modal" href="#comments" role="button"
+                <button type="button" data-bs-toggle="modal" href="#series-comments" role="button"
                   class="btn btn">التعليقات</button>
               </div>
             </div>
@@ -307,7 +307,7 @@
       <section class="videos section-padding" id="popular">
 
         <div class="row">
-          <div class="col-md-6 padding">
+          <div class="col-md-5 col-sm-5">
             <select class="form-select dropdown" aria-label="Default select example" 
             @change="getSeasonsWithEpisode($event)">
             <option selected disabled="">إختر الموسم</option>}
@@ -316,11 +316,12 @@
   >{{season.name}}</option>
 </select>
 
-<!-- <Bootstrap5Pagination :data="episodes" @pagination-change-page="getSeasonsWithEpisode"/> -->
           </div>
+          &nbsp;
+          &nbsp;
 
-          <div class="col-md-6 nav-searchs">
-            <input class="form-control video-search bordred" type="search" placeholder="إبحث برقم الحلقه....">
+          <div class="col-md-5 col-sm-5 nav-searchs">
+            <input v-model="searchEpisodeNmber" class="form-control video-search bordred" type="search" placeholder="إبحث برقم الحلقه....">
           </div>
 
         </div>
@@ -329,8 +330,9 @@
           <div class="card mb-3" style="max-width: 540px;" >
             <div class="row g-0">
               <div class="col-md-4 col-sm-4 position-relative card-video">
-
-                  <a class="btn whatch-episode" type="button" data-bs-toggle="modal" :href="'#whatch-episode-'+index" >
+                <div>
+                </div>
+                <a class="btn whatch-episode" type="button" data-bs-toggle="modal" :href="'#whatch-episode-'+index" >
                     <!-- <i class="fa fa-play-circle-o play-icon" aria-hidden="true"></i> -->
                   </a>
 
@@ -354,7 +356,7 @@
                     تحميل
                   </a>
 
-                  <a class="btn comment" data-bs-toggle="modal" href="#comments" role="button">
+                  <a class="btn comment" data-bs-toggle="modal" :href="'#comments-'+index" role="button">
                     <i class="fa fa-commenting">&nbsp; التعليقات</i>
                   </a>                    
                   </div>
@@ -519,9 +521,9 @@
             </div>
             <!--  End whatch and download -->
 
-            <!-- start comments -->
+            <!-- start episode comment -->
             <!-- Modal -->
-            <div class="modal fade" id="comments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" :id="'comments-'+index" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -922,10 +924,99 @@
                 </div>
               </div>
             </div>
-            <!--  End commets -->
+            <!--  End episode commet -->
 
           </div>
         </div>
+
+            <!-- start series comment -->
+            <!-- Modal -->
+            <div class="modal fade" id="series-comments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">التعليقات</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body comments">
+                    <div class="comm-info">
+
+                      <div class="users-comments" v-for="(comments ,index) in seriesComments.comments">
+                        <div class="row">
+                          <div class="col-md-1 col-sm-1">
+                            <div class="img-user">
+                              <img :src="comments.user_image" alt="">
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-sm-12">
+                            <div class="info">
+                              <h6>{{comments.user_name}}</h6>
+                              <p class="comment">{{comments.comment}}</p>
+                            </div>
+                            <div class="active">
+                              <span><a href="http://">1 ش</a></span>
+                              <span>
+                                <span>
+                                  <a href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+                                    aria-expanded="false">أعجبنى</a>
+
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                    <li><a class="" href="#">
+                                        <img src="#" alt="" srcset="">
+                                      </a>
+                                    </li>
+
+                                    <li>
+                                      <a class="" href="#">
+                                        <img src="/front/img/heart-100.png" alt="" srcset="">
+                                      </a>
+                                    </li>
+
+                                    <li><a class="" href="#">
+                                        <img src="/front/img/joy-100.png" alt="" srcset="">
+                                      </a>
+                                    </li>
+
+                                    <li><a class="" href="#">
+                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </span>
+                              </span>
+                              <span><a href="http://">رد</a></span>
+                              <span>
+                                <i class="fa fa-heart"></i>
+                                3
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button> -->
+
+                    <div class="row" style="width: 100%;">
+                      <div class="col-md-12">
+                        <div class="type-comment">
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="أكتب تعليق...."
+                              aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button class="btn btn-secondary">
+                              <i class="fa fa-send"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  End series commets -->        
       </section> 
 
       <section class="characters">
@@ -955,28 +1046,43 @@ export default{
     data(){
         return{
             episode:[],
-            episodes:{},
+            episodes:[],
+            seariesId:'',
+            seriesComments:[],
+            searchEpisodeNmber:'',
 
         }
     },
 
     created(){
         this.getSeasonEpisode();
+        this.getCommentsSeries();
     },
 
     mounted(){
       this.getSeasonsWithEpisode();
     },
 
+    computed:{
+      findEpisodeName(){
+
+        return this.episodes.data.filter(episo =>{
+          return episo.episode_number.match(this.searchEpisodeNmber)
+        })
+      }
+    },
+
     methods:{
 
         getSeasonEpisode(page= 1){
           let id = this.$route.params.id;
+          this.seariesId = id
 
             this.axios.post('https://animeeplus.online/api/series/show/'+id+'/code?page='+page
             ).then(res=>{
 
                 this.episode = res.data;
+                // console.log(this.episode);
 
 
 
@@ -992,12 +1098,38 @@ export default{
             ).then(res=>{
 
                 this.episodes = res.data;
-                console.log(this.episodes);
 
             }).catch(err=>{
                 console.log(err);
             })
-        }
+        },
+
+        getCommentsSeries(){
+
+            this.axios.get('https://animeeplus.online/api/media/series/detail/comments/'+this.seariesId+'/code'
+            ).then(res=>{
+
+                this.seriesComments = res.data;
+                console.log(this.seriesComments);
+
+            }).catch(err=>{
+                console.log(err);
+            })
+        },
+
+        getEpisodeComment(){
+
+            this.axios.get('https://animeeplus.online/api/media/episodes/comments/'+this.seariesId+'/code'
+            ).then(res=>{
+
+                this.seriesComments = res.data;
+                
+
+            }).catch(err=>{
+                console.log(err);
+            })
+        }        
+
       }
 
 }

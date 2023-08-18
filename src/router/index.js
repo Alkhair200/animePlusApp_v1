@@ -19,11 +19,13 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: Profile,
+    meta:{title:"profile"},
   },,
   {
     path: "/update-profile",
     name: "update-profile",
     component: UpdateProfile,
+    meta:{title:"update profile"},
   },
   {
     path: "/season/:id",
@@ -40,11 +42,13 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
+    meta:{title:"login"},
   },
   {
     path: "/register",
     name: "register",
     component: Register,
+    meta:{title:"register"},
   }
 ];
 

@@ -199,6 +199,67 @@ body.light {
     color: #FFF;
 }
 
+/* Start Moves */
+    #moves .carousel__item{
+        border-radius:10px;
+overflow:hidden;
+margin-left: 10px;
+
+    }
+
+    #moves .move-content{
+text-align: right;
+padding-top: 10px;   
+padding-right: 10px;   
+color:#fff;     
+background-color:#0E0E0D;
+
+    }
+
+    #moves .move-image img{
+width: 100%;
+object-fit: cover;        
+    }
+
+#moves .carousel__pagination-button::after{
+    background-color: #fff;
+width: 20px;
+}
+
+#moves .carousel__pagination-button:hover::after, .carousel__pagination-button--active::after{
+    background-color: #8b0d0e;
+}
+
+#moves .dics-dtn{
+background-color: #232323;
+border-radius: 5px;
+padding: 3px 0;   
+color: #fff;
+display: block;
+margin-left: 5px; 
+}
+
+#moves .carousel__item h5{
+margin-bottom: 10px;
+}
+
+#moves .carousel__item .season{
+    color: #1d5b93;
+margin-bottom: 10px;
+
+}
+#moves .carousel__item .episode{
+    background-color: var(--primary-color);
+font-weight: 500;
+display: inline-block;
+padding: 1px 4px;
+border-radius: 4px;
+color: #FFF;
+top: 10px;
+margin-bottom: 10px;
+}
+/* End moves */
+
 /*Owl Dots*/
 .owl-carousel .owl-dots {
     margin-top: 30px !important;
@@ -313,38 +374,38 @@ body.light {
 }
 
 /*New*/
-#new {
-    background-color: var(--background-color-black);
-}
 
-.new-slider .movie-item img {
-    height: 250px;
-}
-
-.new-slider .movie-item h4 {
-    font-size: 1.2em;
-}
-
-#new .carousel-nav {
-    background-color: var(--background-color-black);
-}
 
 /*Top*/
-#top {
-    background-color: var(--background-color-black);
+#top .carousel__item{
+    color: #fff;
 }
 
-.top-slider .movie-item img {
-    height: 250px;
+#top h6{
+    margin-top: 10px;
+    text-align: right;
 }
 
-.top-slider .movie-item h4 {
-    font-size: 1.2em;
+#top a{
+    color: #fff;
 }
 
-.movie-item .movie-poster-box img {
-    height: 250px;
+#top .serie-image{
+    width: 100%;
+padding: 0 20px;
+    overflow: hidden;
 }
+
+#top .serie-image img{
+width: 100%;
+/*height: 150px;*/
+object-fit: cover;
+}
+
+#top .serie-image img:hover{
+    cursor: pointer;
+}
+
 
 /*Footer*/
 footer {
