@@ -356,7 +356,7 @@
                     تحميل
                   </a>
 
-                  <a class="btn comment" data-bs-toggle="modal" :href="'#comments-'+index" role="button">
+                  <a class="btn comment" @click="getEpisodeComment(episode.id)" data-bs-toggle="modal" :href="'#comments-'+index" role="button">
                     <i class="fa fa-commenting">&nbsp; التعليقات</i>
                   </a>                    
                   </div>
@@ -532,17 +532,18 @@
                   </div>
                   <div class="modal-body comments">
                     <div class="comm-info">
-                      <div class="users-comments">
+
+                      <div class="users-comments" v-for="(episodeComm , index) in episodeComments" :key="index">
                         <div class="row">
                           <div class="col-md-1 col-sm-1">
                             <div class="img-user">
-                              <img src="/front/img/user_profile.png" alt="">
+                              <img :src="episodeComm.user_image" alt="">
                             </div>
                           </div>
                           <div class="col-md-6 col-sm-12">
                             <div class="info">
-                              <h6>Alkhair Abdelmoneim</h6>
-                              <p class="comment">في مركز لانترين نقدم عدد من الكورسات </p>
+                              <h6>{{episodeComm.user_name}}</h6>
+                              <p class="comment">{{episodeComm.comment}}</p>
                             </div>
                             <div class="active">
                               <span><a href="http://">1 ع</a></span>
@@ -585,323 +586,6 @@
                         </div>
                       </div>
 
-                      <div class="users-comments">
-                        <div class="row">
-                          <div class="col-md-1 col-sm-1">
-                            <div class="img-user">
-                              <img src="/front/img/user_profile.png" alt="">
-                            </div>
-                          </div>
-                          <div class="col-md-6 col-sm-12">
-                            <div class="info">
-                              <h6>Alkhair Abdelmoneim</h6>
-                              <p class="comment">في مركز لانترين نقدم عدد من الكورسات </p>
-                            </div>
-                            <div class="active">
-                              <span><a href="http://">1 ع</a></span>
-                              <span>
-                                <span>
-                                  <a href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                    aria-expanded="false">أعجبنى</a>
-
-                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/like-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li>
-                                      <a class="" href="#">
-                                        <img src="/front/img/heart-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/joy-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </span>
-                              </span>
-                              <span><a href="http://">رد</a></span>
-                              <span>
-                                <i class="fa fa-heart"></i>
-                                3
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="users-comments">
-                        <div class="row">
-                          <div class="col-md-1 col-sm-1">
-                            <div class="img-user">
-                              <img src="/front/img/user_profile.png" alt="">
-                            </div>
-                          </div>
-                          <div class="col-md-6 col-sm-12">
-                            <div class="info">
-                              <h6>Alkhair Abdelmoneim</h6>
-                              <p class="comment">في مركز لانترين نقدم عدد من الكورسات </p>
-                            </div>
-                            <div class="active">
-                              <span><a href="http://">1 ع</a></span>
-                              <span>
-                                <span>
-                                  <a href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                    aria-expanded="false">أعجبنى</a>
-
-                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/like-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li>
-                                      <a class="" href="#">
-                                        <img src="/front/img/heart-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/joy-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </span>
-                              </span>
-                              <span><a href="http://">رد</a></span>
-                              <span>
-                                <i class="fa fa-heart"></i>
-                                3
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="users-comments">
-                        <div class="row">
-                          <div class="col-md-1 col-sm-1">
-                            <div class="img-user">
-                              <img src="/front/img/user_profile.png" alt="">
-                            </div>
-                          </div>
-                          <div class="col-md-6 col-sm-12">
-                            <div class="info">
-                              <h6>Alkhair Abdelmoneim</h6>
-                              <p class="comment">في مركز لانترين نقدم عدد من الكورسات </p>
-                            </div>
-                            <div class="active">
-                              <span><a href="http://">1 ع</a></span>
-                              <span>
-                                <span>
-                                  <a href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                    aria-expanded="false">أعجبنى</a>
-
-                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/like-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li>
-                                      <a class="" href="#">
-                                        <img src="/front/img/heart-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/joy-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </span>
-                              </span>
-                              <span><a href="http://">رد</a></span>
-                              <span>
-                                <i class="fa fa-heart"></i>
-                                3
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="users-comments">
-                        <div class="row">
-                          <div class="col-md-1 col-sm-1">
-                            <div class="img-user">
-                              <img src="/front/img/user_profile.png" alt="">
-                            </div>
-                          </div>
-                          <div class="col-md-6 col-sm-12">
-                            <div class="info">
-                              <h6>Alkhair Abdelmoneim</h6>
-                              <p class="comment">في مركز لانترين نقدم عدد من الكورسات </p>
-                            </div>
-                            <div class="active">
-                              <span><a href="http://">1 ع</a></span>
-                              <span>
-                                <span>
-                                  <a href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                    aria-expanded="false">أعجبنى</a>
-
-                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/like-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li>
-                                      <a class="" href="#">
-                                        <img src="/front/img/heart-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/joy-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </span>
-                              </span>
-                              <span><a href="http://">رد</a></span>
-                              <span>
-                                <i class="fa fa-heart"></i>
-                                3
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="users-comments">
-                        <div class="row">
-                          <div class="col-md-1 col-sm-1">
-                            <div class="img-user">
-                              <img src="/front/img/user_profile.png" alt="">
-                            </div>
-                          </div>
-                          <div class="col-md-6 col-sm-12">
-                            <div class="info">
-                              <h6>Alkhair Abdelmoneim</h6>
-                              <p class="comment">في مركز لانترين نقدم عدد من الكورسات </p>
-                            </div>
-                            <div class="active">
-                              <span><a href="http://">1 ع</a></span>
-                              <span>
-                                <span>
-                                  <a href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                    aria-expanded="false">أعجبنى</a>
-
-                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/like-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li>
-                                      <a class="" href="#">
-                                        <img src="/front/img/heart-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/joy-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </span>
-                              </span>
-                              <span><a href="http://">رد</a></span>
-                              <span>
-                                <i class="fa fa-heart"></i>
-                                3
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="users-comments">
-                        <div class="row">
-                          <div class="col-md-1 col-sm-1">
-                            <div class="img-user">
-                              <img src="/front/img/user_profile.png" alt="">
-                            </div>
-                          </div>
-                          <div class="col-md-6 col-sm-12">
-                            <div class="info">
-                              <h6>Alkhair Abdelmoneim</h6>
-                              <p class="comment">في مركز لانترين نقدم عدد من الكورسات </p>
-                            </div>
-                            <div class="active">
-                              <span><a href="http://">1 ع</a></span>
-                              <span>
-                                <span>
-                                  <a href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                    aria-expanded="false">أعجبنى</a>
-
-                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/like-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li>
-                                      <a class="" href="#">
-                                        <img src="/front/img/heart-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/joy-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </span>
-                              </span>
-                              <span><a href="http://">رد</a></span>
-                              <span>
-                                <i class="fa fa-heart"></i>
-                                3
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -1049,6 +733,7 @@ export default{
             episodes:[],
             seariesId:'',
             seriesComments:[],
+            episodeComments:[],
             searchEpisodeNmber:'',
 
         }
@@ -1082,8 +767,6 @@ export default{
             ).then(res=>{
 
                 this.episode = res.data;
-                // console.log(this.episode);
-
 
 
             }).catch(err=>{
@@ -1110,20 +793,18 @@ export default{
             ).then(res=>{
 
                 this.seriesComments = res.data;
-                console.log(this.seriesComments);
+                
 
             }).catch(err=>{
                 console.log(err);
             })
         },
 
-        getEpisodeComment(){
-
-            this.axios.get('https://animeeplus.online/api/media/episodes/comments/'+this.seariesId+'/code'
+        getEpisodeComment(id){
+            this.axios.get('https://animeeplus.online/api/media/episodes/comments/'+id+'/code'
             ).then(res=>{
 
-                this.seriesComments = res.data;
-                
+                this.episodeComments = res.data.comments;                
 
             }).catch(err=>{
                 console.log(err);
