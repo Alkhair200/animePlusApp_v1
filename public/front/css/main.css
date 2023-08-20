@@ -125,47 +125,7 @@ body.light {
     color: var(--primary-color);
 }
 
-/*Owl Navs*/
-.main-slider .shadow {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-image: linear-gradient(to bottom, rgba(248, 243, 243, 0), rgb(0, 0, 0));
-    z-index: 0;
-}
-.carousel-nav {
-    height: 120px;
-    width: 60px;
-    /* background-color: var(--background-color-dark); */
-    color: var(--primary-color);
-    text-align: center;
-    transition: all 0.3s ease;
-}
 
-.carousel-nav i {
-    font-size: 2rem;
-    line-height: 120px;
-}
-
-.carousel-nav:hover {
-    /* background-color: var(--text-color-white) !important; */
-    color: var(--text-color-white);
-    /* border: 1px solid var(--primary-color); */
-}
-
-.left-nav {
-    position: absolute;
-    top: 30%;
-    left: -30px;
-    transform: translate(-50%, -50%);
-}
-
-.right-nav {
-    position: absolute;
-    top: 30%;
-    right: -90px;
-    transform: translate(-50%, -50%);
-}
 
 #popular .right-nav, #popular .left-nav {
     top: 50%;
@@ -199,6 +159,57 @@ body.light {
     color: #FFF;
 }
 
+/*Start carousel home */
+.home-carousel .shadow {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(to bottom, rgba(248, 243, 243, 0), rgb(0, 0, 0));
+    z-index: 1;
+}
+
+.home-carousel .carousel__pagination-button::after{
+    background-color: #808080;
+    width: 20px;
+    border-radius: 5px;
+}
+.home-carousel .carousel__pagination-button:hover::after, .carousel__pagination-button--active::after{
+    background-color: #8b0d0e;
+}
+
+.home-carousel .miniposter{
+    width: 50%;
+    height: 200px;
+/*    left: 0;*/
+    position: absolute;
+    z-index: 2;
+}
+
+.home-carousel .miniposter .sm-list{
+display: inline-flex;
+direction: rtl;
+padding-left: 0;
+}
+
+.home-carousel .miniposter img{
+    width: 50%;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.home-carousel .miniposter .home-btn{
+    justify-content: space-evenly;
+}
+.home-carousel .miniposter .home-btn .btn{
+    width: 100%;
+    border-radius: 10px;
+}
+
+.carousel__prev, .carousel__next{
+    border: none !important;
+}
+/*End carousel home */
+
 /* Start Moves */
     #moves .carousel__item{
         border-radius:10px;
@@ -222,21 +233,13 @@ object-fit: cover;
     }
 
 #moves .carousel__pagination-button::after{
-    background-color: #fff;
+    background-color: #808080;
 width: 20px;
+border-radius: 5px;
 }
 
 #moves .carousel__pagination-button:hover::after, .carousel__pagination-button--active::after{
     background-color: #8b0d0e;
-}
-
-#moves .dics-dtn{
-background-color: #232323;
-border-radius: 5px;
-padding: 3px 0;   
-color: #fff;
-display: block;
-margin-left: 5px; 
 }
 
 #moves .carousel__item h5{
@@ -259,30 +262,6 @@ top: 10px;
 margin-bottom: 10px;
 }
 /* End moves */
-
-/*Owl Dots*/
-.owl-carousel .owl-dots {
-    margin-top: 30px !important;
-}
-
-.owl-carousel .owl-dots .owl-dot {
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.owl-carousel .owl-dots .owl-dot span {
-    height: 5px !important;
-    width: 15px !important;
-    background-color: var(--background-color-white) !important;
-    border-radius: 10px !important;
-    transition: all 0.3s ease !important;
-}
-
-.owl-carousel .owl-dots .owl-dot.active span {
-    background-color: var(--primary-color) !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-}
 
 /*Primary Style*/
 
@@ -571,32 +550,6 @@ footer p i {
 }
 
 /*Header*/
-.main-slider {
-    height: 80vh;
-    width: 100%;
-    /* background-image: url(https://i.imgur.com/ZTYsGPG.jpg); */
-    background-color: #000;
-    background-size: cover;
-    background-attachment: fixed;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.main-slider::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    width: 100%;
-    height: 100%;
-}
-
-.main-slider .carousel-indicators .active{
-	background-color: #B61C1C;
-}
 .header-content {
     width: 100%;
     text-align: center;

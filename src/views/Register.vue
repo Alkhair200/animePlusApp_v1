@@ -42,20 +42,11 @@
 						</button>
 					</div>
 
-					<div class="text-center p-t-12">
-						<span class="txt1">
-							التسجيل بواسطه
-						</span>
-						<a class="txt2" href="#">
-							<i class="fa fa-google"></i>
-						</a>
-					</div>
-
 					<div class="text-center p-t-136">
-						<a class="txt2" href="#">
-							إنشاء حساب
+						<router-link class="txt2" to="login">
+							هل لديك حساب ؟
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-						</a>
+						</router-link>
 					</div>
 				</form>
 			</div>

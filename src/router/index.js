@@ -10,10 +10,17 @@ import UpdateProfile from "../views/UpdateProfile.vue"
 
 const routes = [
   {
+    path: "/login",
+    name: "login",
+    component: Login,
+    meta:{title:"login"},
+  },
+
+  {
     path: "/",
     name: "index",
     component: IndexView,
-    meta:{title:"home"},
+    meta:{title:"index"},
   },
   {
     path: "/profile",
@@ -37,12 +44,6 @@ const routes = [
     path: "/fav",
     name: "fav",
     component: Fav,
-  },
-  {
-    path: "/login",
-    name: "login",
-    component: Login,
-    meta:{title:"login"},
   },
   {
     path: "/register",

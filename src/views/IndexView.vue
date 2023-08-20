@@ -1,263 +1,44 @@
 <template>
     <div>
 
-    <section class="main-slider">
-        <div class="header-content h-100">
-            <div class=" h-100">
-                <div id="carouselExampleCaptions" class="carousel h-100 slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
-                            class="active " aria-current="true" aria-label="Slide 1">
-                        </button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                            aria-label="Slide 2">
-                        </button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                            aria-label="Slide 3">
-                        </button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
-                            aria-label="Slide 4">
-                        </button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4"
-                            aria-label="Slide 5">
-                        </button>
-                    </div>
-                    <div class="carousel-inner h-100">
-                        <div class="carousel-item  h-100 active">
-                            <div class="shadow"></div>
-                            <div class="w-100 h-100 position-absolute" style="z-index: -1;
-                                background: url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg') center center;
-                                        filter: blur(15px);
-                                        -webkit-filter: blur(8px);">
-                            </div>
-                            <div class="w-100 h-100 row d-flex justify-content-center">
-                                <div class="d-block  h-100 px-5 pb-4 col-5">
-                                    <div class="w-100 h-100" style="box-shadow: 0 0 8px 8px rgb(10, 9, 9) inset;
-                                        box-shadow: 0 0 8px 8px rgb(10, 9, 9) ;
-                                                background: center center url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg');
-                                                background-size: cover;" alt="...">
-                                    </div>
-                                </div>
-                                <div class="col-4 h-100 position-relative d-flex align-items-end">
-                                    <div class="w-100 mb-5">
-                                        <div class="w-100">
-                                            <img src="https://image.tmdb.org/t/p/w780/eJJ4ZKQli414XVmCEyvntI3E9Rr.png"
-                                                class="w-100" alt="...">
-                                        </div>
-                                        <div class="w-100 text-white">
-                                            <h4>Bleach: Sennen Kessen-hen - Ketsubetsu-tan</h4>
-                                            <h6>خارق للطبيعه <span class="text-danger">.</span> 2023 <span
-                                                    class="text-danger">.</span> IMDB 7.5</h6>
-                                            <div>
-                                                <button style="padding: 2px 15px; 
-                                                border-radius: 6px;
-                                                border: 0;
-                                                color: white;
-                                                background-color: #B41D1E;">شاهد الأن</button>
-                                                <button style="padding: 2px 15px; 
-                                                border-radius: 6px;
-                                                border: 0;">اضافه لقائمتي</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
-                            </div> -->
-                        </div>
-                        <div class="carousel-item h-100">
-                            <div class="shadow"></div>
-                            <div class="w-100 h-100 position-absolute" style="z-index: -1;
-                                background: url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg') center center;
-                                        filter: blur(15px);
-                                        -webkit-filter: blur(8px);">
-                            </div>
-                            <div class="w-100 h-100 row d-flex justify-content-center">
-                                <div class="d-block  h-100 px-5 pb-4 col-5">
-                                    <div class="w-100 h-100" style="box-shadow: 0 0 8px 8px rgb(10, 9, 9) inset;
-                                        box-shadow: 0 0 8px 8px rgb(10, 9, 9) ;
-                                                background: center center url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg');
-                                                background-size: cover;" alt="...">
-                                    </div>
-                                </div>
-                                <div class="col-4 h-100 position-relative d-flex align-items-end">
-                                    <div class="w-100 mb-5">
-                                        <div class="w-100">
-                                            <img src="https://image.tmdb.org/t/p/w780/eJJ4ZKQli414XVmCEyvntI3E9Rr.png"
-                                                class="w-100" alt="...">
-                                        </div>
-                                        <div class="w-100 text-white">
-                                            <h4>Bleach: Sennen Kessen-hen - Ketsubetsu-tan</h4>
-                                            <h6>خارق للطبيعه <span class="text-danger">.</span> 2023 <span
-                                                    class="text-danger">.</span> IMDB 7.5</h6>
-                                            <div>
-                                                <button style="padding: 2px 15px; 
-                                                border-radius: 6px;
-                                                border: 0;
-                                                color: white;
-                                                background-color: #B41D1E;">شاهد الأن</button>
-                                                <button style="padding: 2px 15px; 
-                                                border-radius: 6px;
-                                                border: 0;">اضافه لقائمتي</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
-                            </div> -->
-                        </div>
-                        <div class="carousel-item h-100">
-                            <div class="shadow"></div>
-                            <div class="w-100 h-100 position-absolute" style="z-index: -1;
-                                background: url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg') center center;
-                                        filter: blur(15px);
-                                        -webkit-filter: blur(8px);">
-                            </div>
-                            <div class="w-100 h-100 row d-flex justify-content-center">
-                                <div class="d-block  h-100 px-5 pb-4 col-5">
-                                    <div class="w-100 h-100" style="box-shadow: 0 0 8px 8px rgb(10, 9, 9) inset;
-                                        box-shadow: 0 0 8px 8px rgb(10, 9, 9) ;
-                                                background: center center url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg');
-                                                background-size: cover;" alt="...">
-                                    </div>
-                                </div>
-                                <div class="col-4 h-100 position-relative d-flex align-items-end">
-                                    <div class="w-100 mb-5">
-                                        <div class="w-100">
-                                            <img src="https://image.tmdb.org/t/p/w780/eJJ4ZKQli414XVmCEyvntI3E9Rr.png"
-                                                class="w-100" alt="...">
-                                        </div>
-                                        <div class="w-100 text-white">
-                                            <h4>Bleach: Sennen Kessen-hen - Ketsubetsu-tan</h4>
-                                            <h6>خارق للطبيعه <span class="text-danger">.</span> 2023 <span
-                                                    class="text-danger">.</span> IMDB 7.5</h6>
-                                            <div>
-                                                <button style="padding: 2px 15px; 
-                                                border-radius: 6px;
-                                                border: 0;
-                                                color: white;
-                                                background-color: #B41D1E;">شاهد الأن</button>
-                                                <button style="padding: 2px 15px; 
-                                                border-radius: 6px;
-                                                border: 0;">اضافه لقائمتي</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
-                            </div> -->
-                        </div>
-                        <div class="carousel-item h-100">
-                            <div class="shadow"></div>
-                            <div class="w-100 h-100 position-absolute" style="z-index: -1;
-                                background: url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg') center center;
-                                        filter: blur(15px);
-                                        -webkit-filter: blur(8px);">
-                            </div>
-                            <div class="w-100 h-100 row d-flex justify-content-center">
-                                <div class="d-block  h-100 px-5 pb-4 col-5">
-                                    <div class="w-100 h-100" style="box-shadow: 0 0 8px 8px rgb(10, 9, 9) inset;
-                                        box-shadow: 0 0 8px 8px rgb(10, 9, 9) ;
-                                                background: center center url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg');
-                                                background-size: cover;" alt="...">
-                                    </div>
-                                </div>
-                                <div class="col-4 h-100 position-relative d-flex align-items-end">
-                                    <div class="w-100 mb-5">
-                                        <div class="w-100">
-                                            <img src="https://image.tmdb.org/t/p/w780/eJJ4ZKQli414XVmCEyvntI3E9Rr.png"
-                                                class="w-100" alt="...">
-                                        </div>
-                                        <div class="w-100 text-white">
-                                            <h4>Bleach: Sennen Kessen-hen - Ketsubetsu-tan</h4>
-                                            <h6>خارق للطبيعه <span class="text-danger">.</span> 2023 <span
-                                                    class="text-danger">.</span> IMDB 7.5</h6>
-                                            <div>
-                                                <button style="padding: 2px 15px; 
-                                                border-radius: 6px;
-                                                border: 0;
-                                                color: white;
-                                                background-color: #B41D1E;">شاهد الأن</button>
-                                                <button style="padding: 2px 15px; 
-                                                border-radius: 6px;
-                                                border: 0;">اضافه لقائمتي</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
-                            </div> -->
-                        </div>
-                        <div class="carousel-item h-100">
-                            <div class="shadow"></div>
-                            <div class="w-100 h-100 position-absolute" style="z-index: -1;
-                                background: url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg') center center;
-                                        filter: blur(15px);
-                                        -webkit-filter: blur(8px);">
-                            </div>
-                            <div class="w-100 h-100 row d-flex justify-content-center">
-                                <div class="d-block  h-100 px-5 pb-4 col-5">
-                                    <div class="w-100 h-100" style="box-shadow: 0 0 8px 8px rgb(10, 9, 9) inset;
-                                        box-shadow: 0 0 8px 8px rgb(10, 9, 9) ;
-                                                background: center center url('https://animeeplus.online/api/featured/image/Q1AGnruGJlijq8ZIJF6oPV3OuiS8PrnUCWq53TXu.jpg');
-                                                background-size: cover;" alt="...">
-                                    </div>
-                                </div>
-                                <div class="col-4 h-100 position-relative d-flex align-items-end">
-                                    <div class="w-100 mb-5">
-                                        <div class="w-100">
-                                            <img src="https://image.tmdb.org/t/p/w780/eJJ4ZKQli414XVmCEyvntI3E9Rr.png"
-                                                class="w-100" alt="...">
-                                        </div>
-                                        <div class="w-100 text-white">
-                                            <h4>Bleach: Sennen Kessen-hen - Ketsubetsu-tan</h4>
-                                            <h6>خارق للطبيعه <span class="text-danger">.</span> 2023 <span
-                                                    class="text-danger">.</span> IMDB 7.5</h6>
-                                            <div>
-                                                <button style="padding: 2px 15px; 
-                                                border-radius: 6px;
-                                                border: 0;
-                                                color: white;
-                                                background-color: #B41D1E;">شاهد الأن</button>
-                                                <button style="padding: 2px 15px; 
-                                                border-radius: 6px;
-                                                border: 0;">اضافه لقائمتي</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
-                            </div> -->
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev text-dark" style="width: 5%;" type="button"
-                        data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon text-dark" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" style="width: 5%;" type="button"
-                        data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+    <section class="home-carousel">
+
+  <Carousel  :wrap-around="true" :autoplay="10000">
+    <Slide v-for="(item,index) in homeContents.featured" :key="item.id">
+      <div class="carousel__item">
+        <div class="shadow"></div>
+        <img :src="item.poster_path" width="100%" alt="">
+        <div class="miniposter">
+            <img :src="item.miniposter" alt="">
+            <h4>{{item.title}}</h4>
+            <ol class="sm-list">
+                <li>{{item.genre}}</li>
+                <li>{{moment(item.created_at).format("YYYY") }}</li>
+                <li>{{item.vote_average}}
+                    <i class="fa fa-star"></i>
+                </li>
+            </ol>
+            <div class="row home-btn">
+                <div class="col-md-4 col-sm-12">
+                    <button class="btn btn-danger">شاهد الاَن</button>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                     <button class="btn btn-light">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                        إضافة لقائمتي
+                     </button>
                 </div>
             </div>
         </div>
-    </section>
+      </div>
+    </Slide>
+
+    <template #addons>
+      <Navigation />
+      <Pagination />
+    </template>
+  </Carousel>
+</section>
 
     <main>
 
@@ -507,8 +288,9 @@
 
 <script>
 import Footer from '../components/Footer.vue';
-import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css';
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
+import moment from "moment";
 
 export default{
     components:{
@@ -521,28 +303,34 @@ export default{
 
     data(){
         return{
+            homeContents:[],
             latestSeries:[],
             latestEpisodes:[],
+            moment: moment,
         }
     },
 
     created(){
+        this.getHomeContents();
         this.getLatestSeries();
         this.getLatestEpisodes();
     },
 
     methods:{
-        getLatestSeries(){
 
+        getHomeContents(){
 
-            this.axios.get("https://animeeplus.online/api/mediahome/featured/code"
+            this.axios.get("https://animeeplus.online/api/media/homecontent/code"
             ).then(res=>{
 
-                console.log(res.data);
-
+                this.homeContents = res.data;
+                console.log(this.homeContents.featured);
             }).catch(err=>{
                 console.log(err);
             })
+        },
+
+        getLatestSeries(){
 
             this.axios.get("https://animeeplus.online/api/series/latestadded/code"
             ).then(res=>{
@@ -570,5 +358,40 @@ export default{
 </script>
 
 <style>
+.example-slide {
+  align-items: center;
+  background-color: #666;
+  color: #999;
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+  min-height: 10rem;
+}
 
+
+
+.carousel__item {
+  min-height: 200px;
+  width: 100%;
+  color: var(--vc-clr-white);
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel__item img{
+    width:100%;
+    object-fit: cover;
+}
+
+.carousel__slide {
+height: 80vh;
+}
+
+.carousel__prev,
+.carousel__next {
+  box-sizing: content-box;
+  border: 5px solid white;
+}
 </style>

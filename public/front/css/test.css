@@ -133,19 +133,19 @@ width: 100%;
 justify-content: space-between;
 }
 
-.main-comment .dropdown-menu {
+/*.main-comment .dropdown-menu {
   position: relative;
   display: block;
   background: none;
   padding: 0;
   border: none;
   min-width: 0rem;
-}
+}*/
 
-.main-comment .star{
+/*.main-comment .star{
   display: flex;
   justify-content: center;
-}
+}*/
 
 
 /* ============== end main-comment ============== */

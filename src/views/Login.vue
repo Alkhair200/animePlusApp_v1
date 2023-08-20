@@ -30,8 +30,24 @@
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							دخول
+							تسجيل الدخول
 						</button>
+					</div>
+					<br>
+
+					<div class="text-center p-t-12">
+						<button class="login100-form-btn" style="background:#fff; color:#333">
+							<i class="fa fa-google"></i>
+							&nbsp;
+							المتابعة بواسطه جوجل 
+						</button>
+					</div>	
+
+					<div class="text-center p-t-136">
+						<router-link class="txt2" to="register">
+							 التسجيل للحصول علي حساب
+							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+						</router-link>
 					</div>
 
 					<div class="text-center p-t-12">
@@ -41,14 +57,7 @@
 						<a class="txt2" href="#">
 							 كلمة المرور ؟
 						</a>
-					</div>
-
-					<div class="text-center p-t-136">
-						<a class="txt2" href=" register.html">
-							إنشاء حساب
-							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-						</a>
-					</div>
+					</div>					
 				</form>
 			</div>
 		</div>

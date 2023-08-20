@@ -1,107 +1,107 @@
 $(document).ready(function () {
 
-    $(".popular-slider").owlCarousel({
-        loop: false,
-        slidesPerView: 12,
-        margin: 10,
-        nav: true,
-        dots: true,
-        rtl: true,
-        navText: [
-            `<div class="carousel-nav left-nav">
-          <i class="fas fa-chevron-left"></i>
-        </div>`,
-            `<div class="carousel-nav right-nav">
-          <i class="fas fa-chevron-right"></i>
-        </div>`
-        ],
-        responsive: {
-            0: {
-                items: 1,
-                nav: false
-            },
-            600: {
-                items: 2,
-                nav: false
-            },
-            1000: {
-                items: 3,
-                nav: false
-            },
-            1025: {
-                items: 4,
-                nav: false
-            }   
-        }
-    });
+    // $(".popular-slider").owlCarousel({
+    //     loop: false,
+    //     slidesPerView: 12,
+    //     margin: 10,
+    //     nav: true,
+    //     dots: true,
+    //     rtl: true,
+    //     navText: [
+    //         `<div class="carousel-nav left-nav">
+    //       <i class="fas fa-chevron-left"></i>
+    //     </div>`,
+    //         `<div class="carousel-nav right-nav">
+    //       <i class="fas fa-chevron-right"></i>
+    //     </div>`
+    //     ],
+    //     responsive: {
+    //         0: {
+    //             items: 1,
+    //             nav: false
+    //         },
+    //         600: {
+    //             items: 2,
+    //             nav: false
+    //         },
+    //         1000: {
+    //             items: 3,
+    //             nav: false
+    //         },
+    //         1025: {
+    //             items: 4,
+    //             nav: false
+    //         }   
+    //     }
+    // });
 
-    $(".new-slider").owlCarousel({
-        loop: false,
-        margin: 10,
-        rtl: true,
-        nav: true,
-        dots: true,
-        navText: [
-            `<div class="carousel-nav left-nav">
-          <i class="fas fa-chevron-left"></i>
-        </div>`,
-            `<div class="carousel-nav right-nav">
-          <i class="fas fa-chevron-right"></i>
-        </div>`
-        ],
-        responsive: {
-            0: {
-                items: 2,
-                nav: false
-            },
-            600: {
-                items: 3,
-                nav: false
-            },
-            1000: {
-                items: 5,
-                nav: false
-            },
-            1025: {
-                items: 6,
-                nav: false
-            }
-        }
-    });
+    // $(".new-slider").owlCarousel({
+    //     loop: false,
+    //     margin: 10,
+    //     rtl: true,
+    //     nav: true,
+    //     dots: true,
+    //     navText: [
+    //         `<div class="carousel-nav left-nav">
+    //       <i class="fas fa-chevron-left"></i>
+    //     </div>`,
+    //         `<div class="carousel-nav right-nav">
+    //       <i class="fas fa-chevron-right"></i>
+    //     </div>`
+    //     ],
+    //     responsive: {
+    //         0: {
+    //             items: 2,
+    //             nav: false
+    //         },
+    //         600: {
+    //             items: 3,
+    //             nav: false
+    //         },
+    //         1000: {
+    //             items: 5,
+    //             nav: false
+    //         },
+    //         1025: {
+    //             items: 6,
+    //             nav: false
+    //         }
+    //     }
+    // });
 
-    $(".top-slider").owlCarousel({
-        loop: false,
-        margin: 10,
-        rtl: true,
-        nav: true,
-        dots: true,
-        navText: [
-            `<div class="carousel-nav left-nav">
-                <i class="fas fa-chevron-left"></i>
-            </div>`,
-            `<div class="carousel-nav right-nav">
-                <i class="fas fa-chevron-right"></i>
-            </div>`
-        ],
-        responsive: {
-            0: {
-                items: 2,
-                nav: false
-            },
-            600: {
-                items: 3,
-                nav: false
-            },
-            1000: {
-                items: 5,
-                nav: false
-            },
-            1025: {
-                items: 6,
-                nav: false
-            }
-        }
-    });
+    // $(".top-slider").owlCarousel({
+    //     loop: false,
+    //     margin: 10,
+    //     rtl: true,
+    //     nav: true,
+    //     dots: true,
+    //     navText: [
+    //         `<div class="carousel-nav left-nav">
+    //             <i class="fas fa-chevron-left"></i>
+    //         </div>`,
+    //         `<div class="carousel-nav right-nav">
+    //             <i class="fas fa-chevron-right"></i>
+    //         </div>`
+    //     ],
+    //     responsive: {
+    //         0: {
+    //             items: 2,
+    //             nav: false
+    //         },
+    //         600: {
+    //             items: 3,
+    //             nav: false
+    //         },
+    //         1000: {
+    //             items: 5,
+    //             nav: false
+    //         },
+    //         1025: {
+    //             items: 6,
+    //             nav: false
+    //         }
+    //     }
+    // });
 
     const countries = [
         { name: "USA", imageURL: "https://i.pinimg.com/474x/13/86/11/1386111b12db25a96ab4e8f2c1121057.jpg", year: 2019 },

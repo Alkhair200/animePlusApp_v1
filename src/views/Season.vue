@@ -49,6 +49,21 @@
               <div class="add">
                 <div class="row">
                   <div class="col-md-6 col-sm-6">
+<div class="dropdown">
+  <button class="dropbtn">
+    <i class="fa fa-star-o"></i>
+    <br>    
+    أضف تقييمك
+  </button>
+  <div class="dropdown-content">
+    <a href="#">
+      <span> <i class="fa fa-plus"></i> </span>
+      اشاهدها حالياً
+      <span class="icon-left"> <i class="fa fa-plus"></i> </span>      
+    </a>
+  </div>
+</div>
+
               <!--       <main class="dropdown-menu star" id="star">
                       <button onclick="handleDropdownstarClicked(event)">
                         <span class="material-symbols-outlined">
@@ -815,3 +830,51 @@ export default{
 
 }
 </script>
+
+<style>
+/* Style The Dropdown Button */
+.dropbtn {
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+  transition: 1s;
+}
+
+.dropdown .dropdown-content:hover a{
+  background:#CA1919;
+  color:#fff;
+  transition: 0.3s;
+}
+</style>
