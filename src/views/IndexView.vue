@@ -24,8 +24,9 @@
                 </div>
                 <div class="col-md-4 col-sm-12">
                      <button class="btn btn-light">
-                        <i class="fa fa-bars" aria-hidden="true"></i>
+                        
                         إضافة لقائمتي
+                        <i class="fa fa-bars" aria-hidden="true"></i>
                      </button>
                 </div>
             </div>
