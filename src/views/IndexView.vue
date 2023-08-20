@@ -2,14 +2,16 @@
     <div>
 
     <section class="home-carousel">
-
-  <Carousel  :wrap-around="true" :autoplay="10000">
+<!-- :autoplay="10000" -->
+  <Carousel  :wrap-around="true" >
     <Slide v-for="(item,index) in homeContents.featured" :key="item.id">
       <div class="carousel__item">
         <div class="shadow"></div>
         <img :src="item.poster_path" width="100%" alt="">
         <div class="miniposter">
-            <img :src="item.miniposter" alt="">
+            <div class="image">
+               <img :src="item.miniposter" alt=""> 
+            </div>
             <h4>{{item.title}}</h4>
             <ol class="sm-list">
                 <li>{{item.genre}}</li>
@@ -70,7 +72,7 @@
                 <carousel :items-to-show="3">
                 <slide v-for="(latestSeri, index) in latestEpisodes.data" :key="index">
                     <div class="carousel__item">
-                        <div class="row">
+                        <div class="row" style="height: 230px;">
                             <div class="col-md-8 col-sm-6 move-content">
                                 <h5>{{latestSeri.name}}</h5>
                                 <span>
