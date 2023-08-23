@@ -384,14 +384,14 @@ export default{
             },
 
             settingsLatestSeri: {
-                itemsToShow: 3.5,
+                itemsToShow: 2,
                 snapAlign: 'center',
             },
 
             breakpointsLatestSeri:{
               // 700px and up
               700: {
-                itemsToShow: 5,
+                itemsToShow: 4,
                 snapAlign: 'center',
               },
               // 1024 and up

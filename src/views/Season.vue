@@ -2,7 +2,7 @@
   <section class="slider">
 
     <div class="shadow"></div>
-    <div class="image-slide" style="background-image: url('/front/img/51107.jpg');">
+    <div class="image-slide" v-bind:style="{backgroundImage: 'url(' +episode.poster_path+ ')'}">
       <!-- <img src=""> -->
     </div>
     <div class="text-image">
@@ -213,7 +213,7 @@
                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 عنف و دمويه
                 &nbsp;
-                <span class="descrip">شديد [40]</span>
+                <span class="descrip" v-if="episode">شديد [{{episode.bloody.count}}]</span>
               </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -223,7 +223,7 @@
                   <div class="col-md-12">
                     <div class="head">
                       <p class="head-text">لا يوجد</p>
-                      <span class="head-text">عدد المصوتين (0)</span>
+                      <span class="head-text" v-if="episode">عدد المصوتين ({{episode.bloody.count}})</span>
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -249,7 +249,7 @@
                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 مشاهد مخيفه او صادمه
                 &nbsp;
-                <span class="descrip">متوسط [40]</span>
+                <span class="descrip" v-if="episode">متوسط [{{episode.scary.count}}]</span>
               </button>
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -259,7 +259,7 @@
                   <div class="col-md-12">
                     <div class="head">
                       <p class="head-text">لا يوجد</p>
-                      <span class="head-text">عدد المصوتين (0)</span>
+                      <span class="head-text" v-if="episode">عدد المصوتين ({{episode.scary.count}})</span>
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -779,6 +779,7 @@ export default{
             ).then(res=>{
 
                 this.episode = res.data;
+                console.log(this.episode);
 
 
             }).catch(err=>{
@@ -793,7 +794,6 @@ export default{
             ).then(res=>{
 
                 this.episodes = res.data;
-
             }).catch(err=>{
                 console.log(err);
             })
