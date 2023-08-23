@@ -175,7 +175,8 @@
                 style="margin-right: auto">
                 الفاظ نابيه
                 &nbsp;
-                <span class="descrip">لا يوجد [0]</span>
+                <span class="descrip" v-if="episode != ''">شديد [{{episode.nasty.count}}]</span>
+                <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -185,8 +186,9 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <p class="head-text">لا يوجد</p>
-                      <span class="head-text">عدد المصوتين (0)</span>
+                      <span class="head-text" v-if="episode != ''">عدد المصوتين ({{episode.nasty.count}})</span>
+                      <p class="head-text" v-else>لا يوجد</p>
+
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -213,7 +215,8 @@
                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 عنف و دمويه
                 &nbsp;
-                <span class="descrip" v-if="episode">شديد [{{episode.bloody.count}}]</span>
+                <span class="descrip" v-if="episode != ''">شديد [{{episode.bloody.count}}]</span>
+                <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -222,8 +225,8 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <p class="head-text">لا يوجد</p>
-                      <span class="head-text" v-if="episode">عدد المصوتين ({{episode.bloody.count}})</span>
+                      <span class="head-text" v-if="episode != ''">عدد المصوتين ({{episode.bloody.count}})</span>
+                      <p class="head-text" v-else>لا يوجد</p>
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -249,7 +252,8 @@
                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 مشاهد مخيفه او صادمه
                 &nbsp;
-                <span class="descrip" v-if="episode">متوسط [{{episode.scary.count}}]</span>
+                <span class="descrip" v-if="episode != ''">متوسط [{{episode.scary.count}}]</span>
+                <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -258,8 +262,8 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <p class="head-text">لا يوجد</p>
-                      <span class="head-text" v-if="episode">عدد المصوتين ({{episode.scary.count}})</span>
+                      <span class="head-text" v-if="episode != ''">عدد المصوتين ({{episode.scary.count}})</span>
+                      <p class="head-text" v-else>لا يوجد</p>
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -286,7 +290,8 @@
                 data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
                 مخدرات و كحول و تدخين
                 &nbsp;
-                <span class="descrip">لا يوجد [0]</span>
+                <span class="descrip" v-if="episode != ''">متوسط [{{episode.drugs.count}}]</span>
+                <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
             <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
@@ -295,8 +300,8 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <p class="head-text">لا يوجد</p>
-                      <span class="head-text">عدد المصوتين (0)</span>
+                      <span class="head-text" v-if="episode != ''">عدد المصوتين ({{episode.drugs.count}})</span>
+                      <p class="head-text" v-else>لا يوجد</p>
                     </div>
                   </div>
                   <div class="col-md-12">
