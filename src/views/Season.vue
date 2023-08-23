@@ -347,9 +347,6 @@
               <div class="col-md-4 col-sm-4 position-relative card-video">
                 <div>
                 </div>
-                <a class="btn whatch-episode" type="button" data-bs-toggle="modal" :href="'#whatch-episode-'+index" >
-                    <!-- <i class="fa fa-play-circle-o play-icon" aria-hidden="true"></i> -->
-                  </a>
 
                 <img :src="episode.still_path" class="img-fluid rounded-start" alt="...">
                 <!--  -->
@@ -485,7 +482,7 @@
             </div>
             <!--  End noty -->
 
-            <!-- start End whatch and download -->
+            <!-- start whatch and download -->
             <!-- Modal -->
             <div class="modal fade" id="whatch-down" tabindex="-1" aria-labelledby="exampleModalLabel"
               aria-hidden="true">

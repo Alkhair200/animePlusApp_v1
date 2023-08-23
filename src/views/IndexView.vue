@@ -7,7 +7,7 @@
     <Slide v-for="(item,index) in homeContents.featured" :key="item.id">
       <div class="carousel__item">
         <div class="shadow"></div>
-        <img :src="item.poster_path" width="100%" alt="">
+        <img :src="item.poster_path" alt="" class="img-poster">
         <div class="miniposter">
             <div class="image">
                <img :src="item.miniposter" alt=""> 
@@ -16,13 +16,15 @@
             <ol class="sm-list">
                 <li>{{item.genre}}</li>
                 <li>{{moment(item.created_at).format("YYYY") }}</li>
-                <li>{{item.vote_average}}
+                <li>
                     <i class="fa fa-star"></i>
+                    {{item.vote_average}}
+                    
                 </li>
             </ol>
             <div class="row home-btn">
                 <div class="col-md-4 col-sm-12">
-                    <button class="btn btn-danger">شاهد الاَن</button>
+                    <button type="button" data-bs-toggle="modal" href="#whatch-episode" role="button" class="btn btn-danger">شاهد الاَن</button>
                 </div>
                 <div class="col-md-4 col-sm-12">
                      <button class="btn btn-light">
@@ -69,13 +71,26 @@
                     </div>
                 </div>
 
-                <carousel :items-to-show="3">
-                <slide v-for="(latestSeri, index) in latestEpisodes.data" :key="index">
+                <carousel v-bind="settings" :breakpoints="breakpoints">
+                <slide v-for="(latestSeri, index) in latestEpisodes.latest_episodes" :key="index">
                     <div class="carousel__item">
                         <div class="row" style="height: 230px;">
-                            <div class="col-md-8 col-sm-6 move-content">
+                            <div class="move-content">
+                                <div class="image-right">
+                                    <button
+                                    class="btn whatch-latest-episode" 
+                                    type="button" 
+                                    data-bs-toggle="modal" 
+                                    href="#whatch-latest-episode"
+                                    @click="getLatestEpisodeWithServer(latestSeri.episode_id)"
+                                    >
+                                        <i class="fa fa-play-circle-o play-icon" aria-hidden="true"></i>
+                                    </button>
+                                    <img :src="latestSeri.poster_path" alt="">
+                                </div>
+                                
                                 <h5>{{latestSeri.name}}</h5>
-                                <span>
+                                <span class="date">
 
                                      قبل 18 ساعة  &nbsp;<i class="far fa-clock"></i>
                                 </span>
@@ -84,19 +99,25 @@
 
                                 <div class="row">
                                     <div class="col-6  text-center">
-                                        <a class="dics-dtn"><i class="fa fa-commenting-o"></i> التعليقات</a>
+                                        <a 
+                                        class="dics-dtn" 
+                                        type="button" 
+                                        data-bs-toggle="modal" 
+                                        href="#comments" role="button"
+                                        @click="getEpisodeComment(latestSeri.episode_id)">
+                                            <i class="fa fa-commenting-o"></i> التعليقات
+                                        </a>
                                     </div>
-                                    <div class="col-6 text-center" style="padding-right: 5px;">
+                                    <div class="col-6 text-center">
                                         <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
                                     </div>
                                 </div>
 
                             </div> 
-                            <div class="col-md-4 col-sm-6 move-image">
-                                <img :src="latestSeri.poster_path" alt="" style="width:100%">
-                            </div>                               
+                       <!--      <div class="col-md-4 col-sm-6 move-image">
+                            </div>      -->                          
                         </div>
-                    </div>
+                    </div>                   
                 </slide>
 
                 <template #addons>
@@ -121,171 +142,200 @@
                         </a>
                     </div>
                 </div>
-                <carousel :items-to-show="6">
-                <slide v-for="(latestSeri, index) in latestSeries.data" :key="index">
+            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
+                <slide v-for="(latestSeri, index) in latestSeries.recents" :key="index">
                     <div class="carousel__item">
                         <div class="row">
                             <router-link :to="{ name: 'season', params: { id:latestSeri.id } } " >
                             <div class="col-md-3 col-sm-6 serie-image">
-                                
-                                    <img :src="latestSeri.poster_path" alt="">
-                                
-                                 <h6>{{latestSeri.name}}</h6>
-                            </div>    
+                                <img :src="latestSeri.poster_path" alt="">
+                            </div>  
+                            <h6>{{latestSeri.name}}</h6>  
                             </router-link>                           
                         </div>
                     </div>
                 </slide>
 
                 <template #addons>
-                  <!-- <navigation /> -->
-                  <pagination />
+                  <navigation />
+                  <!-- <pagination /> -->
                 </template>
-                </carousel>   
-<!--                 <div class="owl-carousel top-slider owl-theme">
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Doctor Sleep</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/e8/ed/3a/e8ed3a18eb5f35e05882fd4b2c531619.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Doctor Sleep</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/39/72/4d/39724d949a63c777247ce84cfc96e969.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Terminator: Dark Fate</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Zombieland: Double Tap</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Zombieland: Double Tap</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Zombieland: Double Tap</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/02/93/0f/02930feaf86e13a87ffcde4f7b1dc7d8.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Zombieland: Double Tap</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-
-
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/c1/b9/32/c1b932ed723486efb7f52fefc35f673f.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Pet Sematary</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/4f/de/02/4fde02bc4a420213d1ab083ada7c4f2c.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Us</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                    <div class="item movie-item">
-                        <a href="test.html">
-                            <div class="movie-poster-box">
-                                <img src="https://i.pinimg.com/474x/50/dd/74/50dd748acabdd528df05caec926313a5.jpg"
-                                    alt="" class="img-fluid">
-                                <div class="play-btn">
-                                    <i class="far fa-play-circle"></i>
-                                </div>
-                            </div>
-                            <h4>Glass</h4>
-                            <h6>2019</h6>
-                        </a>
-                    </div>
-                </div> -->
-
+            </carousel>  
+             
             </div>
         </section>
 
     </main>
 
     <Footer></Footer>
+
+            <!-- start whatch episode main slider -->
+            <!-- Modal -->
+            <div class="modal fade" id="whatch-episode" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">الموسم: 0 -  الحلقة: 1</h1> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row warning video-img">
+                      <img src="/front/img/image_2.jpg" alt="" srcset="">
+                      <div class="video-text">
+                        <h2>
+                          اونا 1
+                        </h2>
+                        <p class="text-1">
+                          <span>7.8</span>
+                          &nbsp;
+                          &nbsp;
+                          2023-16-23
+                        </p>
+                        <p class="text-2">اونا اضافية وتعتبر الحلقة رقم 12 للانمى.</p>
+                        <p class="text-3">whatch whatchwhatch whatchwhatch whatch.</p>
+                      </div>
+                    </div>
+
+                    <div class='whatch-option'>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <button type="button" class="btn whatch-now">شاهد الآن</button>
+                        </div>
+
+                        <div class="col-md-6">
+                          <button type="button" class="btn download-now">تحميل</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <!-- <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+                </div>
+              </div>
+            </div>
+            <!--  End whatch episode main slider -->     
+
+            <!-- start whatch latest episode -->
+            <!-- Modal -->
+            <div class="modal fade" id="whatch-latest-episode" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">إختر السيرفر</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row warning">
+                      <div class="container">
+                        <div v-for="video in latestEpisodeWithServer.videos" :key="index">
+                        <a :href="video.link" target="_blank">{{video.server}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  End whatch latest episode -->  
+
+           <!-- start episode comment -->
+            <!-- Modal -->
+            <div class="modal fade latest-episode-comment " id="comments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">التعليقات</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body comments">
+                    <div class="comm-info">
+
+                      <div class="users-comments" v-for="(episodeComm , index) in episodeComments" :key="index">
+                        <div class="row">
+                          <div class="col-md-1 col-sm-1">
+                            <div class="img-user">
+                              <img :src="episodeComm.user_image" alt="">
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-sm-12">
+                            <div class="info">
+                              <h6>{{episodeComm.user_name}}</h6>
+                              <p class="comment">{{episodeComm.comment}}</p>
+                            </div>
+                            <div class="active">
+                              <span><a href="http://">1 ع</a></span>
+                              <span>
+                                <span>
+                                  <a href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+                                    aria-expanded="false">أعجبنى</a>
+
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                    <li><a class="" href="#">
+                                        <img src="/front/img/like-100.png" alt="" srcset="">
+                                      </a>
+                                    </li>
+
+                                    <li>
+                                      <a class="" href="#">
+                                        <img src="/front/img/heart-100.png" alt="" srcset="">
+                                      </a>
+                                    </li>
+
+                                    <li><a class="" href="#">
+                                        <img src="/front/img/joy-100.png" alt="" srcset="">
+                                      </a>
+                                    </li>
+
+                                    <li><a class="" href="#">
+                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </span>
+                              </span>
+                              <span><a href="http://">رد</a></span>
+                              <span>
+                                <i class="fa fa-heart"></i>
+                                3
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button> -->
+
+                    <div class="row" style="width: 100%;">
+                      <div class="col-md-12">
+                        <div class="type-comment">
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="أكتب تعليق...."
+                              aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button class="btn btn-secondary">
+                              <i class="fa fa-send"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  End episode commet -->                          
     </div>
 </template>
 
@@ -309,14 +359,58 @@ export default{
             homeContents:[],
             latestSeries:[],
             latestEpisodes:[],
+            latestEpisodeWithServer:[],
+            episodeComments:[],
             moment: moment,
+            itemShow:3,
+            screenWidth: window.innerWidth,
+
+            settings: {
+              itemsToShow: 1,
+              snapAlign: 'center',
+            },
+
+            breakpoints:{
+              // 700px and up
+              700: {
+                itemsToShow: 2,
+                snapAlign: 'center',
+              },
+              // 1024 and up
+              1024: {
+                itemsToShow: 3,
+                snapAlign: 'start',
+              },
+            },
+
+            settingsLatestSeri: {
+                itemsToShow: 3.5,
+                snapAlign: 'center',
+            },
+
+            breakpointsLatestSeri:{
+              // 700px and up
+              700: {
+                itemsToShow: 5,
+                snapAlign: 'center',
+              },
+              // 1024 and up
+              1024: {
+                itemsToShow: 6,
+                snapAlign: 'start',
+              },
+            }
+
         }
     },
 
+
+  mounted() {
+
+  },   
+
     created(){
         this.getHomeContents();
-        this.getLatestSeries();
-        this.getLatestEpisodes();
     },
 
     methods:{
@@ -327,74 +421,69 @@ export default{
             ).then(res=>{
 
                 this.homeContents = res.data;
-                console.log(this.homeContents.featured);
-            }).catch(err=>{
-                console.log(err);
-            })
-        },
-
-        getLatestSeries(){
-
-            this.axios.get("https://animeeplus.online/api/series/latestadded/code"
-            ).then(res=>{
-
-                this.latestSeries = res.data;
-            }).catch(err=>{
-                console.log(err);
-            })
-        },
-
-        getLatestEpisodes(){
-
-            this.axios.get("https://animeeplus.online/api/media/seriesEpisodesAll/code"
-            ).then(res=>{
-
                 this.latestEpisodes = res.data;
+                this.latestSeries = res.data;
+                // console.log(res.data);
 
             }).catch(err=>{
                 console.log(err);
             })
-        }           
+        },   
+
+        getLatestEpisodeWithServer(id){
+
+            this.axios.get('https://animeeplus.online/api/series/episodeshow/'+id+'/code'
+            ).then(res=>{
+
+                this.latestEpisodeWithServer = res.data.episode;
+
+            }).catch(err=>{
+                console.log(err);
+            })
+        },  
+
+        getEpisodeComment(id){
+                console.log(id);
+            this.axios.get('https://animeeplus.online/api/media/episodes/comments/'+id+'/code'
+            ).then(res=>{
+
+                this.episodeComments = res.data.comments;    
+                console.log(res.data.comments);            
+
+            }).catch(err=>{
+                console.log(err);
+            })
+        }                      
     }
 
 }
 </script>
 
 <style>
-.example-slide {
-  align-items: center;
-  background-color: #666;
-  color: #999;
-  display: flex;
-  font-size: 1.5rem;
-  justify-content: center;
-  min-height: 10rem;
-}
-
-
-
-.carousel__item {
-  min-height: 200px;
-  width: 100%;
-  color: var(--vc-clr-white);
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.carousel__item img{
-    width:100%;
-    object-fit: cover;
-}
-
-.carousel__slide {
-height: 80vh;
-}
-
 .carousel__prev,
 .carousel__next {
   box-sizing: content-box;
   border: 5px solid white;
+}
+#moves .image-right{
+    position: relative;
+
+}
+
+#moves .image-right .btn{
+    width: 100%;
+    display: block;
+    height: 100%;
+    padding: 0;
+    margin-left: 10px;
+    position: absolute;
+}
+
+#moves .image-right .btn:hover{
+box-shadow: none;
+}
+
+.modal-header .btn-close{
+    margin:0;
 }
 </style>
