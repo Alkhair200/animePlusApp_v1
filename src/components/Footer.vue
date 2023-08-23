@@ -5,22 +5,22 @@
             <ul class="sm-list">
                 <li>
                     <a href="#">
-                        <i class="fab fa-facebook-f"></i>
+                        <i class="fa fa-facebook-f"></i>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fab fa-instagram"></i>
+                        <i class="fa fa-instagram"></i>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fab fa-twitter"></i>
+                        <i class="fa fa-twitter"></i>
                     </a>
                 </li>
             </ul>
         </div>
-        <p><i class="fas fa-heart"></i> Made by Mu with</p>
+        <p><i class="fa fa-heart"></i> Made by Mu with</p>
     </footer>
 
     </div>

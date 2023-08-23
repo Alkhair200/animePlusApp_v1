@@ -66,7 +66,7 @@
                     <div class="right">
                         <a href="test.html">
                             <p>مشاهدة الكل</p>
-                            <i class="fas fa-arrow-left"></i>
+                            <i class="fa fa-arrow-left"></i>
                         </a>
                     </div>
                 </div>
@@ -138,7 +138,7 @@
                     <div class="right">
                         <a href="test.html">
                             <p>مشاهدة الكل</p>
-                            <i class="fas fa-arrow-left"></i>
+                            <i class="fa fa-arrow-left"></i>
                         </a>
                     </div>
                 </div>
