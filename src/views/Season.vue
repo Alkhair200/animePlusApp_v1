@@ -784,7 +784,6 @@ export default{
             ).then(res=>{
 
                 this.episode = res.data;
-                console.log(this.episode);
 
 
             }).catch(err=>{
@@ -799,6 +798,7 @@ export default{
             ).then(res=>{
 
                 this.episodes = res.data;
+                console.log(this.episodes);
             }).catch(err=>{
                 console.log(err);
             })

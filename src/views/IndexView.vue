@@ -64,7 +64,10 @@
                     </div>
 
                     <div class="right">
-                        <a href="test.html">
+                        <a
+                       type="button" 
+                       data-bs-toggle="modal" 
+                       href="#all-latest-episode" role="button">
                             <p>مشاهدة الكل</p>
                             <i class="fa fa-arrow-left"></i>
                         </a>
@@ -335,7 +338,79 @@
                 </div>
               </div>
             </div>
-            <!--  End episode commet -->                          
+            <!--  End episode commet -->      
+
+
+
+           <!-- start all latest episode -->
+            <!-- Modal -->
+            <div class="modal fade latest-episode-comment " id="all-latest-episode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">اَخر الحلقات</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                        <div class="row" style="justify-content: center;">
+                            <div class="card m-2 col-md-5 col-sm-12" style="max-width: 540px;"
+                            v-for="(latestSeri, index) in latestEpisodes.latest_episodes" :key="index">
+                              <div class="row g-0 ">
+                                <div class="col-md-4">
+                                  <img src="front/img/51107.jpg" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                  <div class="card-body">
+                                    <h5 class="card-title">{{latestSeri.name}}</h5>
+                                    <span class="date">
+
+                                         قبل 18 ساعة  &nbsp;<i class="far fa-clock"></i>
+                                    </span>
+                                    <h6 class="season">{{latestSeri.seasons_name}}</h6>
+                                    <h6 class="episode">{{latestSeri.episode_name}}</h6>
+
+                                    <div class="row">
+                                        <div class="col-6  text-center">
+                                            <a 
+                                            class="dics-dtn" 
+                                            type="button" 
+                                            data-bs-toggle="modal" 
+                                            href="#comments" role="button"
+                                            @click="getEpisodeComment(latestSeri.episode_id)">
+                                                <i class="fa fa-commenting-o"></i> التعليقات
+                                            </a>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                  </div>
+                  <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button> -->
+
+                    <div class="row" style="width: 100%;">
+                      <div class="col-md-12">
+                        <div class="type-comment">
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="أكتب تعليق...."
+                              aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button class="btn btn-secondary">
+                              <i class="fa fa-send"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  End all latest episode -->                                  
     </div>
 </template>
 
@@ -485,5 +560,21 @@ box-shadow: none;
 
 .modal-header .btn-close{
     margin:0;
+}
+
+#all-latest-episode .card-body{
+background-color: #0E0E0D;  
+height: 100%;  
+}
+
+#all-latest-episode .card{
+    background: none ;
+    border-radius: 10px;
+overflow: hidden;
+box-shadow: 0px 0px 3px #868484;
+}
+#all-latest-episode .card img{
+    height: 100%;
+object-fit: cover;
 }
 </style>
