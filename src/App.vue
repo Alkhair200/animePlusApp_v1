@@ -2,6 +2,7 @@
   <Navbar></Navbar>
   <Sidebar></Sidebar>
   <router-view />
+  <notifications />
 </template>
 
 <script>

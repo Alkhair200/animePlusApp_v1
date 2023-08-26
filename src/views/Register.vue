@@ -13,7 +13,7 @@
 					</span>
 
 					<div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="name" placeholder="إسم المستخدم">
+						<input class="input100" type="text" v-model="user.name" placeholder="إسم المستخدم">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -21,7 +21,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email" placeholder="إيميل">
+						<input class="input100" type="text" v-model="user.email" placeholder="إيميل">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -29,7 +29,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="pass" placeholder="كلمة المرور">
+						<input class="input100" type="password" v-model="user.password" placeholder="كلمة المرور">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -37,7 +37,7 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button @click.prevent="register" class="login100-form-btn">
 							تسجيل
 						</button>
 					</div>
@@ -53,5 +53,60 @@
 		</div>
 	</div>
 
+	<div v-show="isLoading">
+<loader object="#ffb600" color1="#ffffff" color2="#ca1919" size="5" speed="2" bg="#000000" objectbg="#999793" opacity="80" disableScrolling="false" name="circular"></loader>	
+	</div>
     </div>
+
+
 </template>
+
+<script>
+	export default{
+		data(){
+			return{
+				isLoading: false,
+
+				user:{
+					name:null,
+					email:null,
+					password:null,
+				}
+			}
+		},
+
+		methods:{
+			register(){
+				this.isLoading = true
+				this.$store.dispatch('performRegisterAction',{
+					name: this.user.name,
+					email: this.user.email,
+					password: this.user.password,
+				}).then((res)=>{
+					if (res.data.access_token) {
+						this.isLoading = false
+			            this.$notify({
+			              title: "عمليه ناجه 🎉",
+			              text: res.data.msg,
+			              // type: "success",
+			            });	
+
+			            // this.user.name= '';
+			            // this.user.email= '';
+			            // this.user.password = '';		            					
+					}
+
+					this.isLoading = false
+
+				})
+			}
+		}
+	}
+</script>
+
+<style>
+.loader-circular{
+	position: absolute !important;
+}
+	
+</style>
