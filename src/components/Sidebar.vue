@@ -11,14 +11,17 @@
                 <div class="user">
                     <div class="user-info">
                         <a href="profile.html">
-                            <img class="" src="front/img/user_profile.png" alt="">
+                            <img class="" :src="getUser.avatar" alt="">
                         </a>
                         <a href="profile.html" style="all: unset; cursor: pointer;">
-                            <h6 class="name">Alkahir Abdelmoneim</h6>
+                            <h6 class="name">{{getUser.name}}</h6>
                         </a>
-                        <p class="email">test@gmail.com &nbsp;- <span>تم التحقق</span></p>
+                        <p class="email">{{getUser.email}} &nbsp;- <span>تم التحقق</span></p>
                         <p class="sign-out">
-                            <i class="fa fa-sign-out"></i>
+                            <button @click.prevent="logout">
+                                <i class="fa fa-sign-out"></i>
+                            </button>
+                            
                         </p>
                     </div>
 
@@ -93,3 +96,28 @@
         <!-- End sidebar -->
     </div>
 </template>
+
+<script>
+    export default{
+        computed:{
+            getUser(){
+                return this.$store.getters.get_user;
+            },
+            getToken(){
+                return this.$store.getters.get_token;
+            }            
+        },
+
+        methods:{
+
+            logout(){
+                this.$store.dispatch('performLogoutAction').then((res)=>{
+
+                    console.log(res)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            }
+        }
+    }
+</script>

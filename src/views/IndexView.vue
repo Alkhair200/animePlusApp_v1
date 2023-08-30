@@ -115,10 +115,7 @@
                                         <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
                                     </div>
                                 </div>
-
-                            </div> 
-                       <!--      <div class="col-md-4 col-sm-6 move-image">
-                            </div>      -->                          
+                            </div>                         
                         </div>
                     </div>                   
                 </slide>
@@ -135,7 +132,7 @@
 
                 <div class="section-header">
                     <div class="left">
-                        <h2>اخر المسلسلات</h2>
+                        <h2>اَخر المسلسلات</h2>
                     </div>
 
                     <div class="right">
@@ -319,15 +316,14 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button> -->
 
                     <div class="row" style="width: 100%;">
                       <div class="col-md-12">
                         <div class="type-comment">
                           <div class="input-group">
-                            <input type="text" class="form-control" placeholder="أكتب تعليق...."
+                            <input type="text" v-model="commentsEpisode.comments_message" class="form-control" placeholder="أكتب تعليق...."
                               aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <button class="btn btn-secondary">
+                            <button @click.prevent="addComentsEpisode" class="btn btn-secondary">
                               <i class="fa fa-send"></i>
                             </button>
                           </div>
@@ -410,8 +406,12 @@
                 </div>
               </div>
             </div>
-            <!--  End all latest episode -->                                  
+            <!--  End all latest episode -->                                           
     </div>
+
+<!--     <div v-show="isLoading">
+<loader object="#ffb600" color1="#ffffff" color2="#ca1919" size="5" speed="2" bg="#000000" objectbg="#999793" opacity="80" disableScrolling="false" name="circular"></loader>   
+    </div> -->       
 </template>
 
 <script>
@@ -439,6 +439,11 @@ export default{
             moment: moment,
             itemShow:3,
             screenWidth: window.innerWidth,
+            isLoading:false,
+            commentsEpisode:{
+              comments_message:null,
+              episode_id:null,
+            },
 
             settings: {
               itemsToShow: 1,
@@ -480,9 +485,11 @@ export default{
     },
 
 
-  mounted() {
-
-  },   
+        computed:{
+            getToken(){
+                return this.$store.getters.get_token;
+            }            
+        },   
 
     created(){
         this.getHomeContents();
@@ -492,6 +499,7 @@ export default{
 
         getHomeContents(){
 
+            this.isLoading = true
             this.axios.get("https://animeeplus.online/api/media/homecontent/code"
             ).then(res=>{
 
@@ -499,9 +507,17 @@ export default{
                 this.latestEpisodes = res.data;
                 this.latestSeries = res.data;
                 // console.log(res.data);
+                this.isLoading = false
+
+                 console.log(res.data);
 
             }).catch(err=>{
+                this.isLoading = false
                 console.log(err);
+                if (err.message == "Network Error") {
+                    window.alert(
+                      "لا يوجد إتصال</n>تحقق من الاتصال بالانترنت ثم اعد المحاوله")
+                }
             })
         },   
 
@@ -513,22 +529,43 @@ export default{
                 this.latestEpisodeWithServer = res.data.episode;
 
             }).catch(err=>{
-                console.log(err);
+                console.log(err.message);
             })
         },  
 
         getEpisodeComment(id){
-                console.log(id);
+
+          this.commentsEpisode.episode_id = id
             this.axios.get('https://animeeplus.online/api/media/episodes/comments/'+id+'/code'
             ).then(res=>{
 
                 this.episodeComments = res.data.comments;    
-                console.log(res.data.comments);            
 
             }).catch(err=>{
                 console.log(err);
             })
-        }                      
+        },
+
+        addComentsEpisode(){
+          let episodeId = this.commentsEpisode.episode_id;
+          const headers ={
+                  'Authorization': 'Bearer '+ this.getToken,
+                }          
+
+            this.axios.post('https://animeeplus.online/api/media/episode/addcomment',{
+              movie_id: episodeId,
+              comments_message: this.commentsEpisode.comments_message,
+            },{headers}
+            ).then(res=>{
+
+              if (res.data != '') {
+                this.getEpisodeComment(episodeId);
+              }            
+
+            }).catch(err=>{
+                console.log(err);
+            })                
+        } ,           
     }
 
 }

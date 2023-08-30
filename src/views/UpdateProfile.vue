@@ -8,66 +8,111 @@
                     <div class="panel panel-default " style="margin-bottom: 120px;">
                         <div class="panel-body text-center position-relative" style="height: 250px;">
                             <label class="w-100 h-100 " for="background-input">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                                <img :src="getAuthUser.background"
                                     class="w-100 h-100 profile-background" alt="User background">
                             </label>
                             <input class="d-none" id="background-input" type="file" />
                             <label for="avatar-input">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                                <img :src="getAuthUser.avatar"
                                     class="rounded-circle profile-avatar" alt="User avatar">
                             </label>
                             <input class="d-none" id="avatar-input" type="file" />
                         </div>
                     </div>
-                    <div class="panel panel-default">
 
-                        <div class="panel-body row w-100">
-                            <div class="input-box col-12">
-                                <input type="text" placeholder="" class="input">
-                                <label for="username">الأسم</label>
-                                <i class="input-icon fa fa-user"></i>
-                            </div>
+<div class="mb-3 input-info">
+<div class="row">
+    <div class="col-md-6 col-sm-12 padding-left">
+      <label class="form-label">الإسم</label>
+      <input type="text" class="form-control input-sm"  placeholder="الإسم"> 
+    </div>
+<div class="col-md-6 padding-left">
+  <label class="form-label">العنوان</label>
+  <input type="text" class="form-control input-sm"  placeholder="العنوان">  
+</div> 
 
-                            <div class="input-box col-12">
-                                <input type="text" placeholder="" class="input">
-                                <label for="username">فيسبوك</label>
-                                <i class="input-icon fa fa-facebook"></i>
-                            </div>
+<div class="col-md-6 col-sm-12 padding-left">
+  <label class="form-label">تاريخ الميلاد</label>
+  <input type="text" class="form-control input-sm"  placeholder="تاريخ الميلاد">  
+</div>
 
-                            <div class="input-box col-12">
-                                <input type="text" placeholder="" class="input" >
-                                <label for="username">العنوان</label>
-                                <i class="input-icon fa fa-map-marker"></i>
-                            </div>
+  <div class="col-md-6 col-sm-12 padding-left">
+  <label class="form-label">حساب فيس بوك</label>
+  <input type="text" class="form-control input-sm"  placeholder="حساب فيس بوك">  
+</div>  
 
-                            <div class="input-box col-12">
-                                <input type="text" placeholder="" class="input">
-                                <label for="username">تاريخ الميلاد</label>
-                                <i class="input-icon fa fa-calendar"></i>
-                            </div>
+  <div class="col-md-6 col-sm-12 padding-left">
+  <label class="form-label">حساب تيوتر</label>
+  <input type="text" class="form-control input-sm"  placeholder="حساب تيوتر">  
+</div> 
 
-                            <div class="input-box col-12">
-                                <input type="text" placeholder="" class="input" >
-                                <label for="username">السيره الذاتيه</label>
-                                <i class="input-icon fa fa-copy"></i>
-                            </div>
+  <div class="col-md-6 col-sm-12 padding-left">
+  <label class="form-label">حساب إنستغرام</label>
+  <input type="text" class="form-control input-sm"  placeholder="حساب إنستغرام">  
+</div> 
 
-                            <div class="input-box col-12">
-                                <input type="text" placeholder="" class="input">
-                                <label for="username">كلمه السر</label>
-                                <i class="input-icon fa fa-lock"></i>
-                            </div>
+<div class="col-md-12 col-sm-12 padding-left">
+  <label class="form-label">كلمة المرور</label>
+  <input type="password" class="form-control input-sm"  placeholder="كلةه المرور">  
+  </div>   
 
-                            <div class="form-group row  mb-1">
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary">تحــديــث</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="col-md-12 col-sm-12 padding-left">
+  <label class="form-label">السيره الزاتية</label>
+  <input type="text" class="form-control input-sm"  placeholder="السيره الزاتية">
+  </div> 
+
+</div> 
+
+</div>       
+
+<div class="form-group row send">
+    <div class="text-center">
+        <button @click.prevent="updateProfile" class="btn btn-primary">تحــديــث</button>
+    </div>
+</div>          
                 </form>
             </div>
         </div>
     </div>
     </div>
 </template>
+
+<script>
+    export default{
+        data(){
+
+            return{
+                user:{
+                    name: null,
+                    name: null,
+                    name: null,
+                    name: null,
+                    name: null,
+                }
+            }
+
+        },
+
+        computed:{
+            getAuthUser(){
+                return this.$store.getters.get_user;
+            },
+            getToken(){
+                return this.$store.getters.get_token;
+            },            
+        },
+
+        methods:{
+            updateProfile(){
+                const headers = {
+                    'Authorization': 'Bearer '+ this.getToken,
+                };                
+                this.axios.post('https://animeeplus.online/api/users/addprofile',{headers}).then((res) =>{
+                    console.log(res)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            },
+        }
+    }
+</script>

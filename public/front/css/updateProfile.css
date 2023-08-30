@@ -39,26 +39,9 @@ body {
     z-index: -1000100;
 }
 
-/**
- * Panels
- */
-/*** General styles ***/
-/* .panel { */
-/* box-shadow: none;
-    margin-bottom: 20px; */
-/* background-color: rgb(255, 255, 255, 0.2); */
-/* border: 1px solid transparent; */
-/* border-radius: 4px;
-    border-color: var(--primary-color); */
-/* 
-} */
-
-/* .panel:hover {
-    transform: scale(1.05);
-    transition: all 0.3s ease;
-    box-shadow: rgba(255, 254, 254, 0.925) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-
-} */
+.padding-left{
+    padding-left: 10px;
+}
 
 .panel-heading {
     border-bottom: 0;
@@ -215,6 +198,20 @@ form label {
     -webkit-transition: all 200ms linear;
     transition: all 200ms linear;
 }
+
+    .bootdeys .input-info input ,
+    .bootdeys .input-info input:focus{
+background: none;
+color: #fff;        
+    }  
+
+    .bootdeys .input-info .form-label{
+        color: #fff;
+    } 
+    .bootdeys .send{
+        margin-bottom: 5%;
+    }
+
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap');
 
 

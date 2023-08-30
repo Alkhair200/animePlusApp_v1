@@ -49,6 +49,11 @@ body.light {
     --background-color-black: #f0f0f0;
 }
 
+
+.loader-circular{
+    position: absolute !important;
+}
+
 /*General Style*/
 .container {
     max-width: 1140px;

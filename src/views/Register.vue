@@ -98,15 +98,12 @@
 
 					this.isLoading = false
 
+				}).then((err)=>{
+					console.log(err)
+					this.$route.push("/register")
+					this.isLoading = false
 				})
 			}
 		}
 	}
 </script>
-
-<style>
-.loader-circular{
-	position: absolute !important;
-}
-	
-</style>
