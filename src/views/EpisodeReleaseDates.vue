@@ -5,7 +5,7 @@
       style="justify-content: center;" 
       v-for="(coming_episode, index) in allReleaseDates" :key="index">
 
-          <h6>{{index}}</h6>
+          <h4>{{index}}</h4>
           <div class="card mb-3 col-md-3 col-sm-12" style="width: 20rem;"
           v-for="(item, key) in allReleaseDates[index]" :key="key">
             <img :src="item.poster_path" class="" alt="...">
@@ -101,10 +101,19 @@
 <style>
   .all-coming-episodes .card{
     margin-left:10px;
+    height: 300px;
+    border-radius:10px;
+    overflow: hidden;
+    background-color: #0E0E0D;  
   }
 
   .all-coming-episodes .card img{
-height: 40%;
-object-fit: cover;    
+    height: 60%;
+    object-fit: cover;    
+  }
+
+  .all-coming-episodes .card h5{
+    margin: 10px;
+    color:#fff;
   }
 </style>
