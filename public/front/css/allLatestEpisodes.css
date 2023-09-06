@@ -1,0 +1,80 @@
+	.all-latest-episodes{
+		padding: 20px;
+		margin-top: 7%;		
+	}
+	.all-latest-episodes .card{
+		color: #fff;
+		background-color: #0E0E0D;		
+		border-radius: 10px;
+		height: 200px;
+		overflow: hidden;
+	}
+
+	.all-latest-episodes .card .episode-img{
+    position: relative;		
+	}
+
+	.all-latest-episodes .card .episode-img i{
+		position: absolute;
+	  transform: translate(50%,50%);
+	  right: 50%;	
+	  top: 30%;
+	  font-size: 40px;
+	}
+
+	.all-latest-episodes .card .whatch-latest-episode:hover{
+		box-shadow: none;
+	}
+
+	.all-latest-episodes .card .whatch-latest-episode:hover img{
+		height: 110%;
+	}
+
+	.all-latest-episodes .card .whatch-latest-episode{
+    width: 100%;
+    display: block;
+    height: 100%;
+    padding: 0;
+    margin-left: 10px;
+    position: absolute;	
+    overflow: hidden;	
+	}
+	.all-latest-episodes .card img{
+		height:100%;
+		width: 100%;
+		object-fit: cover;
+	}
+  .all-latest-episodes .card-body h5{
+    margin-bottom: 10px;
+  }
+
+  .all-latest-episodes .card-body .season{
+      color: #1d5b93;
+      margin-bottom: 10px;
+  }
+
+  .all-latest-episodes .card-body .episode{
+    background-color: var(--primary-color);
+    font-weight: 500;
+    display: inline-block;
+    padding: 1px 4px;
+    border-radius: 4px;
+    color: #FFF;
+    top: 10px;
+    margin-bottom: 10px;    
+  }
+
+.all-latest-episodes .card-body .dics-dtn{
+	display: block;
+	cursor: pointer;
+	background-color: #232323;
+	border-radius: 5px;
+	padding: 3px 0;
+	margin-left: 4px;
+	font-size: 16px;	
+	color: var(----white);
+}
+
+.all-latest-episodes .card-body .dics-dtn:hover{
+	color: var(--primary-color);
+}

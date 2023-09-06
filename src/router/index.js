@@ -6,6 +6,10 @@ import Fav from "../views/Fav.vue"
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 import UpdateProfile from "../views/UpdateProfile.vue"
+import LatestEpisode from "../views/LatestEpisode.vue"
+import latestEpisodesAnimes from "../views/latestEpisodesAnimes.vue"
+import EpisodeReleaseDates from "../views/EpisodeReleaseDates.vue"
+
 
 
 const routes = [
@@ -42,15 +46,41 @@ const routes = [
   },
   {
     path: "/fav",
-    name: "fav",
+    name: "favorite",
     component: Fav,
+    meta:{title:"favorite"},    
   },
   {
     path: "/register",
     name: "register",
     component: Register,
     meta:{title:"register"},
-  }
+  },
+    
+  {
+    path: "/latest-episode",
+    name: "episode-release",
+    component: LatestEpisode,
+    meta:{title:"latest episode"},
+  },
+    {
+    path: "/latest-episodes-animes",
+    name: "latest-episodes-animes",
+    component: latestEpisodesAnimes,
+    meta:{title:"latest_episodes_animes"},
+  },
+    {
+    path: "/episode-release-dates",
+    name: "episode-release-dates",
+    component: EpisodeReleaseDates,
+    meta:{title:"episode release dates"},
+  },
+
+
+
+
+
+  
 ];
 
 const router = createRouter({

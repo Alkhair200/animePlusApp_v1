@@ -5,9 +5,9 @@
       <div class="container   ">
         <div class="row" style="width: 100%;">
           <div class="col-11 text-center  logo-img">
-            <a class="navbar-brand" href="index.html">
+            <router-link class="navbar-brand" to="/">
               <img src="front/img/logo.png" alt="" srcset="">
-            </a>
+            </router-link>
           </div>
           <div class="col-1 nav-link-info">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">

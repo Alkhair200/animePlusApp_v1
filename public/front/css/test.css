@@ -185,6 +185,7 @@ margin-bottom: 10px;
 
 .comm-info .img-user img{
   width: 70px !important;
+  border-radius: 50px;
 }
 
 .comm-info .active{
@@ -194,13 +195,16 @@ margin-bottom: 10px;
   position: relative;
 }
 
-.comm-info .active .fa-heart{
-  color: var(--red);
-}
-
 .comm-info .active .dropdown-menu{
   background: none;
   inset: auto auto -10px -70px !important;
+  text-align: center;
+border: none;
+}
+
+.comm-info .active .dropdown-menu li{
+  display: inline-block;
+  margin-left: 10px;
 }
 
 
@@ -213,7 +217,7 @@ margin-bottom: 10px;
 }
 
 
-.comments img{
+.comments .image-episode{
     width: 50px;
     float: right;
     margin-left: 10px;

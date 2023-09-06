@@ -810,7 +810,7 @@ export default{
             ).then(res=>{
 
                 this.seriesComments = res.data;
-                
+                console.log( res.data);
 
             }).catch(err=>{
                 console.log(err);

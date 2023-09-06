@@ -2,7 +2,7 @@
   <Navbar></Navbar>
   <Sidebar></Sidebar>
   <router-view />
-  <notifications />
+  <notifications position="top center"/>
 </template>
 
 <script>

@@ -22,8 +22,7 @@ export default createStore({
 
     get_loggedIn(state) {
       return state.loggedIn;
-    },     
-
+    },
   },
 
   mutations: {
@@ -38,7 +37,7 @@ export default createStore({
 
     SET_loggedIn(state, payload) {
       state.loggedIn = payload;
-    },    
+    },
   },
 
   actions: {
@@ -115,9 +114,9 @@ export default createStore({
 
     performGetUserAction({ commit ,state}) { 
 
-const headers = {
-    'Authorization': 'Bearer '+ state.token,
-};     
+      const headers = {
+          'Authorization': 'Bearer '+ state.token,
+      };     
 
       return new Promise((resolve, reject) => {
         axios
@@ -134,7 +133,53 @@ const headers = {
               console.log(err)
             })
       });
-    },          
+    }, 
+
+  getHomeContents({commit ,state} ,payload){
+
+      return new Promise((resolve, reject) => {
+        axios
+          .get('https://animeeplus.online/api/media/homecontent/code').then((res)=>{
+            let data = [];
+            if (payload == "latestEpisodes") {
+              data = res.data.latest_episodes
+            }else if(payload == "latestEpisodesAnimes"){
+              data = res.data.latest_episodes_animes
+            }
+              resolve(data);
+
+            }).catch((err)=>{
+
+              reject(err)
+              console.log(err)
+            })
+      });
+  }, 
+
+  addtofavAction({commit ,state} ,payload){
+
+      const headers = {
+          'Authorization': 'Bearer '+ state.token,
+      };  
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post('https://animeeplus.online/api/serie/addWatchType/'+payload.id,{
+            id: payload.id,
+            watch_type: payload.watch_type,
+          },
+            {headers}).then((res)=>{
+              resolve(res);
+
+            }).catch((err)=>{
+
+              reject(err)
+              console.log(err)
+            })
+      });
   },
+
+
+  }, 
   modules: {},
 });

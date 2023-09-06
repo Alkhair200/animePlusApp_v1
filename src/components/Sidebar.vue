@@ -47,30 +47,30 @@
                     <ul>
                         <li>
                             <i class="fa fa-clock-o"></i>
-                            <a href="index.html">
+                            <router-link to="episode-release-dates">
                                 مواعيد إصدار الحلقات
-                            </a>
+                            </router-link>
                         </li>
 
                         <li>
                             <i class="fa fa-fire"></i>
-                            <a href="index.html">
+                            <router-link to="latest-episode">
                                 اخر الحلقات
-                            </a>
+                            </router-link>
                         </li>
 
                         <li>
                             <i class="fa fa-fire"></i>
-                            <a href="index.html">
+                            <router-link to="latest-episodes-animes">
                                 اخر حلقات الكرتون
-                            </a>
+                            </router-link>
                         </li>
 
                         <li>
                             <i class="fa fa-heart"></i>
-                            <a href="fav.html">
+                            <router-link to="fav">
                                 قائمتي
-                            </a>
+                            </router-link>
                         </li>
 
                         <li>
@@ -90,8 +90,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="mt-3"></div>
-
+            <div class="mt-3"></div>  
         </section>
         <!-- End sidebar -->
     </div>

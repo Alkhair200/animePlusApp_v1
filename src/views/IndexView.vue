@@ -15,7 +15,7 @@
             <h4>{{item.title}}</h4>
             <ol class="sm-list">
                 <li>{{item.genre}}</li>
-                <li>{{moment(item.created_at).format("YYYY") }}</li>
+                <li>{{moment(item.release_date).format("YYYY") }}</li>
                 <li>
                     <i class="fa fa-star"></i>
                     {{item.vote_average}}
@@ -24,14 +24,49 @@
             </ol>
             <div class="row home-btn">
                 <div class="col-md-4 col-sm-12">
-                    <button type="button" data-bs-toggle="modal" href="#whatch-episode" role="button" class="btn btn-danger">شاهد الاَن</button>
+                    <button @click="getServerFeatured(item.featured_id)" type="button" data-bs-toggle="modal" href="#whatch-episode-header" role="button" class="btn btn-danger">شاهد الاَن</button>
                 </div>
                 <div class="col-md-4 col-sm-12">
-                     <button class="btn btn-light">
-                        
+
+                <dropdown-menu>
+                  <template #trigger>
+                    <button class="btn btn-light">
                         إضافة لقائمتي
                         <i class="fa fa-bars" aria-hidden="true"></i>
-                     </button>
+                    </button>
+                  </template>
+
+                  <template #body>
+                    <ul>
+                        <li>
+                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'now')">
+                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                              اشاهدها حالياً
+                            </button>        
+                        </li>
+                        <li>
+                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'want')">
+                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                              أرغب بمشاهدتها
+                            </button>       
+                        </li>
+                        <li>
+                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'done')">
+                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                              تمت مشاهدتها
+                            </button>                                      
+                        </li>
+                        <li>
+                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'want')">
+                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                             أكمله لاحقاً
+                            </button>                                       
+                        </li>                        
+                      
+                    </ul>
+                  </template>
+                </dropdown-menu>
+                   
                 </div>
             </div>
         </div>
@@ -89,7 +124,7 @@
                                     >
                                         <i class="fa fa-play-circle-o play-icon" aria-hidden="true"></i>
                                     </button>
-                                    <img :src="latestSeri.poster_path" alt="">
+                                    <img v-lazy="latestSeri.poster_path" alt="">
                                 </div>
                                 
                                 <h5>{{latestSeri.name}}</h5>
@@ -148,7 +183,7 @@
                         <div class="row">
                             <router-link :to="{ name: 'season', params: { id:latestSeri.id } } " >
                             <div class="col-md-3 col-sm-6 serie-image">
-                                <img :src="latestSeri.poster_path" alt="">
+                                <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
                             <h6>{{latestSeri.name}}</h6>  
                             </router-link>                           
@@ -168,6 +203,35 @@
     </main>
 
     <Footer></Footer>
+
+            <!-- start whatch episode from header-->
+            <!-- Modal -->
+            <div class="modal fade" id="whatch-episode-header" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">إختر السيرفر</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row warning">
+                      <div class="container">
+                 <!--        <div v-for="video in episode.videos" :key="index">
+                        <a :href="video.link" target="_blank">{{video.server}}</a>
+                        </div>
+ -->                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  End whatch episode from header--> 
+
 
             <!-- start whatch episode main slider -->
             <!-- Modal -->
@@ -211,10 +275,6 @@
 
                     </div>
                   </div>
-                  <!-- <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
                 </div>
               </div>
             </div>
@@ -254,7 +314,7 @@
               <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">التعليقات</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">التعليقات ({{episodeComments.length }}) </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body comments">
@@ -274,13 +334,53 @@
                             </div>
                             <div class="active">
                               <span><a href="http://">1 ع</a></span>
-                              <span>
                                 <span>
                                   <a href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                    aria-expanded="false">أعجبنى</a>
+                                    aria-expanded="false">
+                                    <span v-if="episodeComm.reacts.length != 0">
+
+                                        <span v-for="itemName in episodeComm.reacts">
+                              <!--           <span v-if="episodeComm.reacts[index].react_type == 'love'">
+                                          <span 
+                                            v-if="episodeComm.reacts[index].user_id == getUser.id"
+                                            style="color:#CA1919;">أحببته
+                                          </span>
+                                        </span>
+                                        <span v-else>
+                                          <span>أحببته
+                                          </span>                                            
+                                        </span> -->
+                                        
+                                        <span v-if="episodeComm.user_id == getUser.id">
+
+                                        <span 
+                                            v-if="itemName.react_type == 'like'"
+                                            style="color:rgb(81, 119, 233);">أعجبني
+                                          </span>
+                                  
+
+                                        </span>
+                                     
+                                        <!-- </span>  -->
+
+                       <!--                  <span 
+                                        v-if="itemName.react_type == 'dislike'"
+                                        style="color:#f03;">لم يعجبني</span>
+
+                                        <span 
+                                        v-if="itemName.react_type == 'haha'"
+                                        style="color:#ffb600;">أضحكني</span>    -->                                                                             
+                                                                           
+                                    </span>
+                                    </span>
+
+                                      <span v-else>أعجبنى</span>
+                                    
+                                    </a>
 
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="" href="#">
+
+                                    <li><a class="" @click.prevent="addlikeOrReplies('like',episodeComm.id ,episodeComm.commentable_id)" href="#">
                                         <img src="/front/img/like-100.png" alt="" srcset="">
                                       </a>
                                     </li>
@@ -302,12 +402,58 @@
                                     </li>
                                   </ul>
                                 </span>
-                              </span>
+
                               <span><a href="http://">رد</a></span>
-                              <span>
-                                <i class="fa fa-heart"></i>
-                                3
+
+                              <span v-if="episodeComm.reacts.length != 0">
+                                   <div v-for="(item ,key) in episodeComm.reacts"> 
+                                    <i 
+                                    v-if="item.react_type == 'like'"
+                                    class="fa fa-thumbs-up" 
+                                    style="color:#5177e9">
+                                     {{countReacts}} 
+                                    </i> 
+
+                                    <i 
+                                    v-if="item.react_type == 'love'"
+                                    class="fa fa-heart" 
+                                    style="color:#CA1919">
+                                     {{countHeart}} 
+                                    </i>                                                                         
+                                    <!-- </div> -->
+                                    
+                                    
+
+<!-- 
+                                    <i 
+                                    class="fa fa-heart" 
+                                    v-if="item.react_type == 'love'" 
+                                    style="color:#CA1919"></i>  
+
+                                    <i 
+                                    class="fa fa-thumbs-down" 
+                                    v-if="item.react_type == 'dislike'" 
+                                    style="color:#f03"></i>
+
+                                    <i 
+                                    class="fa" 
+                                    v-if="item.react_type == 'haha'">
+                                      <img src="/front/img/joy-100.png"
+                                      style="width:20px;" 
+                                       alt="" srcset="">
+                                    </i> -->
+
+                                   </div>
+                              
+                                
                               </span>
+
+                              <span v-else>
+                                  <i 
+                                  class="fa" >
+                                  <span style="color:#000">.</span>
+                                  </i>                                  
+                              </span>                             
                             </div>
                           </div>
                         </div>
@@ -440,10 +586,54 @@ export default{
             itemShow:3,
             screenWidth: window.innerWidth,
             isLoading:false,
+            countReacts:0,
+            countHeart:0,
+
             commentsEpisode:{
               comments_message:null,
               episode_id:null,
             },
+
+
+// control the state of the dropdown
+value: Boolean,
+// show the dropdown menu on the right side
+right: Boolean,
+// display the dropdown menu on hover
+hover: Boolean,
+hover_time: {
+  type: Number,
+  default: 100
+},
+hover_timeout: {
+  type: Number,
+  default: 500
+},
+// custom styles
+styles: {
+  type: Object,
+  default () {
+    return {}
+  }
+},
+// stay open until clicked outside
+interactive: { 
+  type: Boolean,
+  default: false,
+},
+// transition effect
+transition: {
+  type: String,
+  default: '',
+},
+// close on click outside
+closeOnClickOutside: {
+  type: Boolean,
+  default: true
+},
+
+
+
 
             settings: {
               itemsToShow: 1,
@@ -488,7 +678,10 @@ export default{
         computed:{
             getToken(){
                 return this.$store.getters.get_token;
-            }            
+            },
+            getUser(){
+                return this.$store.getters.get_user;
+            } 
         },   
 
     created(){
@@ -496,6 +689,40 @@ export default{
     },
 
     methods:{
+
+        getServerFeatured(id){
+            this.axios.get('https://animeeplus.online/api/series/episodeshow/'+id+'/code'
+            ).then(res=>{
+
+                console.log(res.data);
+
+            }).catch(err=>{
+                console.log(err.message);
+            })
+        },
+
+      addlikeOrReplies(react_type ,comment_id,commentable_id){
+        const headers ={
+          'Authorization': 'Bearer '+ this.getToken,
+        }  
+        let reactType = null;
+        if (react_type == 'like') {
+            this.countReacts ++;
+          reactType = react_type;
+           this.isActive =! this.isActive;
+        }
+
+            this.axios.post('https://animeeplus.online/api/media/addCommentReacts/'+comment_id,{
+              react_type: reactType
+            },{headers}
+            ).then(res=>{
+
+                this.getEpisodeComment(commentable_id);
+
+            }).catch(err=>{
+                console.log(err);
+            })        
+      },
 
         getHomeContents(){
 
@@ -506,10 +733,8 @@ export default{
                 this.homeContents = res.data;
                 this.latestEpisodes = res.data;
                 this.latestSeries = res.data;
-                // console.log(res.data);
+                console.log(this.homeContents);
                 this.isLoading = false
-
-                 console.log(res.data);
 
             }).catch(err=>{
                 this.isLoading = false
@@ -539,7 +764,19 @@ export default{
             this.axios.get('https://animeeplus.online/api/media/episodes/comments/'+id+'/code'
             ).then(res=>{
 
-                this.episodeComments = res.data.comments;    
+                this.episodeComments = res.data.comments; 
+                this.episodeComments.forEach((value, index) => {
+
+                    value.reacts.forEach((item)=>{
+                        if (item.react_type == "like") {
+                            this.countReacts ++;
+                        }else if(item.react_type == "love"){
+                            this.countHeart ++;
+                        }
+
+                        
+                    })
+                });
 
             }).catch(err=>{
                 console.log(err);
@@ -565,7 +802,37 @@ export default{
             }).catch(err=>{
                 console.log(err);
             })                
-        } ,           
+        } , 
+
+        addtofavAction(featured_id,title,watch_type){
+            this.$store.dispatch('addtofavAction',{
+                id: featured_id,
+                watch_type: watch_type
+            }).then((res)=>{
+
+                if (res.data != '') {
+                    // let getAllcheckIcon =document.querySelectorAll(".fa-check")
+
+                    // getAllcheckIcon.forEach((element) => {
+                    //     // Change the color of each element here
+                    //     element.style.display = 'none'
+
+                    // });                    
+
+                    // document.querySelectorAll(".checked-type-"+featured_id)[0].style.display ="inline-block";
+                    //console.log(document.querySelectorAll(".checked-type-"+featured_id)[0])
+
+
+                    this.$notify({
+                       
+                      title: "تم إضافة "+title+" الي قائمتي 🎉",
+                      type: "success",
+                    });                    
+                }
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }                
     }
 
 }
@@ -610,8 +877,35 @@ height: 100%;
 overflow: hidden;
 box-shadow: 0px 0px 3px #868484;
 }
+
 #all-latest-episode .card img{
     height: 100%;
 object-fit: cover;
+} 
+
+.home-carousel .v-dropdown-menu__body{
+    background: #fff;
+    border-radius: 10px;  
+    margin-top: 6px;
+    font-size: 14px;  
 }
+.home-carousel .v-dropdown-menu__body .btn{
+    
+}
+
+.home-carousel .v-dropdown-menu__body .btn:hover{
+    background:var(--primary-color);
+    color:#fff;
+    box-shadow:none;
+}
+
+.home-carousel .v-dropdown-menu__body ul{
+    padding:0 ;
+}
+
+.home-carousel .fa-check{
+    display:none;
+}
+
+
 </style>
