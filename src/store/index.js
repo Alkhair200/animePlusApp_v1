@@ -120,7 +120,7 @@ export default createStore({
     performGetUserAction({ commit ,state},payload) { 
 
       const headers = {
-          'Authorization': 'Bearer '+ payload.token,
+          'Authorization': 'Bearer '+ state.token,
       };     
 
       return new Promise((resolve, reject) => {
