@@ -87,24 +87,21 @@
 					email: this.user.email,
 					password: this.user.password,
 				}).then((res)=>{
-					// console.log(res.data)	
+
 					if (res.data.access_token) {
 			            this.$notify({
 			              title: "عمليه ناجه 🎉",
 			              text: res.data.msg,
 			              // type: "success",
 			            });		            
+ 						
+						this.$store.dispatch("performGetUserAction",{
+							token: res.data.access_token
+						});	
 
-			            // this.$store.dispatch("performLoginAction",{
-			            // 	email: this.user.email,
-			            // 	password: this.password
-			            // });
+						this.isLoading = false
 
-						// const headers = {
-						//     'Authorization': 'Bearer '+ res.access_token,
-						// };  						
-						// this.$store.dispatch("performGetUserAction",{headers});	
-
+						this.$router.push("/")						
 
 					}else if(res.errors){
 					this.errors = res.errors;
@@ -113,13 +110,9 @@
 
 				}).catch((err)=>{
 
-					this.errors = err.response.data.errors
+					console.log(err)
 					
 				})
-
-				this.isLoading = false
-
-				this.$router.push("/login")
 			}
 		}
 	}

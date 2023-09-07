@@ -74,7 +74,7 @@ export default createStore({
               commit("SET_token", '');
               commit("SET_token", res.data.access_token);
               commit("SET_loggedIn",true);
-              
+
             }).catch((err)=>{
 
               reject(err)
@@ -110,10 +110,10 @@ export default createStore({
       });
     }, 
 
-    performGetUserAction({ commit ,state}) { 
+    performGetUserAction({ commit ,state},payload) { 
 
       const headers = {
-          'Authorization': 'Bearer '+ state.token,
+          'Authorization': 'Bearer '+ payload.token,
       };     
 
       return new Promise((resolve, reject) => {
