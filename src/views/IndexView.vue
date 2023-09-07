@@ -28,13 +28,13 @@
                 </div>
                 <div class="col-md-4 col-sm-12">
 
-                <dropdown-menu>
+                <dropdown-menu v-if="getLoggedIn">
                   <template #trigger>
                     <button class="btn btn-light">
                         إضافة لقائمتي
                         <i class="fa fa-bars" aria-hidden="true"></i>
-                    </button>
-                  </template>
+                    </button>                  
+                  </template>                
 
                   <template #body>
                     <ul>
@@ -66,6 +66,11 @@
                     </ul>
                   </template>
                 </dropdown-menu>
+
+                    <button @click="message('يجب عليك تسجيل الدخول أولاً')" v-if="!getLoggedIn" class="btn btn-light">
+                        إضافة لقائمتي
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </button>              
                    
                 </div>
             </div>
@@ -137,7 +142,8 @@
 
                                 <div class="row">
                                     <div class="col-6  text-center">
-                                        <a 
+                                        <a
+                                        v-if="getLoggedIn" 
                                         class="dics-dtn" 
                                         type="button" 
                                         data-bs-toggle="modal" 
@@ -145,6 +151,14 @@
                                         @click="getEpisodeComment(latestSeri.episode_id)">
                                             <i class="fa fa-commenting-o"></i> التعليقات
                                         </a>
+
+                                        <a
+                                        v-if="!getLoggedIn" 
+                                        class="dics-dtn" 
+                                        type="button"
+                                        @click="message('تحتاج الي تسجيل الدخول لتتمكن من التعليق')">
+                                            <i class="fa fa-commenting-o"></i> التعليقات
+                                        </a>                                        
                                     </div>
                                     <div class="col-6 text-center">
                                         <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
@@ -640,7 +654,10 @@ export default{
             },
             getUser(){
                 return this.$store.getters.get_user;
-            } 
+            },
+            getLoggedIn(){
+                return this.$store.getters.get_loggedIn
+            },               
         },   
 
     created(){
@@ -791,7 +808,15 @@ export default{
             }).catch((err)=>{
                 console.log(err)
             })
-        }                
+        },
+
+        message(msg){
+            this.$notify({
+               
+              title: msg,
+              type: "warn",
+            });
+        },               
     }
 
 }

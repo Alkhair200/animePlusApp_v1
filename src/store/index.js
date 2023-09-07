@@ -117,7 +117,7 @@ export default createStore({
       });
     }, 
 
-    performGetUserAction({ commit ,state},payload) { 
+    performGetUserAction({ commit ,state}) { 
 
       const headers = {
           'Authorization': 'Bearer '+ state.token,
