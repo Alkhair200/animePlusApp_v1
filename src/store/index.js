@@ -52,14 +52,12 @@ export default createStore({
           })
           .then((res) => {
 
-            
-
             resolve(res);
           })
           .catch((err) => {
             
-            // reject(err);
-            console.log(err)
+            reject(err);
+            // console.log(err)
           });
       });
     },  
@@ -74,9 +72,9 @@ export default createStore({
 
               resolve(res);
               commit("SET_token", '');
-              console.log(res.data.access_token)
               commit("SET_token", res.data.access_token);
               commit("SET_loggedIn",true);
+              
             }).catch((err)=>{
 
               reject(err)

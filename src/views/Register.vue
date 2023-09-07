@@ -18,6 +18,7 @@
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
+						<span v-if="errors.name">{{errors.name[0]}}</span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
@@ -26,6 +27,7 @@
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
+						<span v-if="errors.email">{{errors.email[0]}}</span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
@@ -34,6 +36,7 @@
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
+						<span v-if="errors.password">{{errors.password[0]}}</span>
 					</div>
 
 					<div class="container-login100-form-btn">
@@ -71,7 +74,8 @@
 					name:null,
 					email:null,
 					password:null,
-				}
+				},
+				errors:[],
 			}
 		},
 
@@ -83,26 +87,39 @@
 					email: this.user.email,
 					password: this.user.password,
 				}).then((res)=>{
+					// console.log(res.data)	
 					if (res.data.access_token) {
-						this.isLoading = false
 			            this.$notify({
 			              title: "عمليه ناجه 🎉",
 			              text: res.data.msg,
 			              // type: "success",
-			            });	
+			            });		            
 
-			            // this.user.name= '';
-			            // this.user.email= '';
-			            // this.user.password = '';		            					
+			            // this.$store.dispatch("performLoginAction",{
+			            // 	email: this.user.email,
+			            // 	password: this.password
+			            // });
+
+						// const headers = {
+						//     'Authorization': 'Bearer '+ res.access_token,
+						// };  						
+						// this.$store.dispatch("performGetUserAction",{headers});	
+
+
+					}else if(res.errors){
+					this.errors = res.errors;
+					// console.log(res)						
 					}
 
-					this.isLoading = false
+				}).catch((err)=>{
 
-				}).then((err)=>{
-					console.log(err)
-					this.$route.push("/register")
-					this.isLoading = false
+					this.errors = err.response.data.errors
+					
 				})
+
+				this.isLoading = false
+
+				this.$router.push("/login")
 			}
 		}
 	}
