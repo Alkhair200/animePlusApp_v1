@@ -9,6 +9,7 @@ import UpdateProfile from "../views/UpdateProfile.vue"
 import LatestEpisode from "../views/LatestEpisode.vue"
 import latestEpisodesAnimes from "../views/latestEpisodesAnimes.vue"
 import EpisodeReleaseDates from "../views/EpisodeReleaseDates.vue"
+import store from "../store"
 
 
 
@@ -17,7 +18,8 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
-    meta:{title:"login"}
+    meta:{title:"login",
+    guest:true}
   },
 
   {
@@ -93,27 +95,28 @@ const router = createRouter({
 //   next();
 // })
 
-// router.beforeEach((to, from, next) => {
-//   document.title = to.meta.title;
-//   if (to.matched.some((record) => record.meta.secure)) {
-//     if (!this.$store.getters.get_loggedIn) {
-//       next({
-//         path: "/login",
-//       });
-//     } else {
-//       next();
-//     }
-//   } else if (to.matched.some((record) => record.meta.guest)) {
-//     if (!this.$store.getters.get_loggedIn) {
-//       next();
-//     } else {
-//       next({
-//         path: "/",
-//       });
-//     }
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title;
+  if (to.matched.some((record) => record.meta.secure)) {
+    if (!this.$store.getters.get_loggedIn) {
+      next({
+        path: "/login",
+      });
+    } else {
+      next();
+    }
+  } else if (to.matched.some((record) => record.meta.guest)) {
+    // console.log(store.state.loggedIn)
+    if (!store.state.loggedIn) {
+      next();
+    } else {
+      next({
+        path: "/",
+      });
+    }
+  } else {
+    next();
+  }
+});
 
 export default router;
