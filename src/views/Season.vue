@@ -41,8 +41,11 @@
           <div class="row">
             <div class="col-md-12 col-sm-12">
               <div class="comment">
-                <button type="button" data-bs-toggle="modal" href="#series-comments" role="button"
+                <button v-if="getLoggedIn" type="button" data-bs-toggle="modal" href="#series-comments" role="button"
                   class="btn btn">التعليقات</button>
+
+                <button v-if="!getLoggedIn" type="button" @click.prevent="message('يجب عليك تسجيل الخول اولاً')" role="button"
+                  class="btn btn">التعليقات</button>                  
               </div>
             </div>
             <div class="col-md-12 col-sm-12">
@@ -771,7 +774,11 @@ export default{
         return this.episodes.data.filter(episo =>{
           return episo.episode_number.match(this.searchEpisodeNmber)
         })
-      }
+      },
+
+      getLoggedIn(){
+          return this.$store.getters.get_loggedIn
+      },       
     },
 
     methods:{
@@ -826,7 +833,15 @@ export default{
             }).catch(err=>{
                 console.log(err);
             })
-        }        
+        },
+
+        message(msg){
+            this.$notify({
+               
+              title: msg,
+              type: "warn",
+            });
+        },                  
 
       }
 
