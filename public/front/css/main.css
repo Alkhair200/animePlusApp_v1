@@ -179,6 +179,16 @@ body.light {
     width: 100% !important;
 }
 
+.home-carousel .carousel__next{
+    color: var(--text-color-white);
+    background: linear-gradient(to right, rgba(116, 175, 238, 0), var(--primary-color));
+}
+
+.home-carousel .carousel__prev{
+    color: var(--text-color-white);
+    background: linear-gradient(to left, rgba(116, 175, 238, 0), var(--primary-color));
+}
+
 .home-carousel .carousel__item {
   min-height: 200px;
   width: 100%;
@@ -218,7 +228,7 @@ padding-left: 0;
 }
 
 .home-carousel .miniposter img{
-    width: 50%;
+    width: 30%;
     position: relative;
     margin-bottom: 20px;
 }

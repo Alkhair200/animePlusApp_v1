@@ -1,45 +1,17 @@
 <template>
 	<div>
 		<section class="all-coming-episodes">
-			<div class="row"
-      style="justify-content: center;" 
+			<div class="row row-content" 
       v-for="(coming_episode, index) in allReleaseDates" :key="index">
-
-          <h4>{{index}}</h4>
+          <div class="title">
+            <h4>{{index}}</h4>
+          </div>
+          
           <div class="card mb-3 col-md-3 col-sm-12" style="width: 20rem;"
           v-for="(item, key) in allReleaseDates[index]" :key="key">
             <img :src="item.poster_path" class="" alt="...">
             <h5 class="card-title">{{item.name}}</h5>
-          </div> 
-             
-		<!-- 		<div class="card mb-3 col-md-4 col-sm-12" style="max-width: 540px;"
-				v-for="(coming_episode, index) in allLatestEpisodes" :key="index">
-				  <div class="row g-0 content-all-ep">
-				    <div class="col-md-4 episode-img">
-              <button
-                  class="btn whatch-latest-episode" 
-                  type="button" 
-                  data-bs-toggle="modal" 
-                  href="#whatch-latest-episode"
-                  @click="getLatestEpisodeWithServer(latest_episode.episode_id)">
-
-                  <i class="fa fa-play-circle-o play-icon" aria-hidden="true"></i>                  
-				      <img v-lazy="latest_episode.poster_path" class="img-fluid rounded-start" alt="...">
-              </button>
-				    </div>
-				    <div class="col-md-8">
-              <div class="card" style="width: 18rem;">
-                <img src="" class="card-img-top" alt="...">
-                <h6>{{index}}</h6>
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-				    </div>
-				  </div>
-				</div>	 -->		
+          </div> 	
 			</div>		         				
 		</section>
 	</div>
@@ -99,6 +71,14 @@
 </script>
 
 <style>
+
+.all-coming-episodes{
+margin-top: 9%;
+}
+
+.all-coming-episodes .row-content{
+  justify-content: center;   
+}
   .all-coming-episodes .card{
     margin-left:10px;
     height: 300px;
@@ -115,5 +95,23 @@
   .all-coming-episodes .card h5{
     margin: 10px;
     color:#fff;
+  }
+
+  .all-coming-episodes .title{
+    position:relative;
+    margin-bottom: 20px;
+  }
+
+  .all-coming-episodes .title h4{
+    margin-right: 16px !important;   
+  }
+
+  .all-coming-episodes h4::after{
+right: 0;
+position: absolute;
+height: 32px;
+width: 5px;
+background: var(--primary-color);
+content: "";    
   }
 </style>
