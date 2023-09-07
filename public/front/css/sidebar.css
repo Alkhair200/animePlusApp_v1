@@ -132,7 +132,7 @@
   margin: 0;
 }
 
-.social-media span {
+.social-media span a {
   padding: 5px;
   color: white;
   margin-left: 4px;

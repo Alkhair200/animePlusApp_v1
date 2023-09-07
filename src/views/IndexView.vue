@@ -555,9 +555,9 @@
             <!--  End all latest episode -->                                           
     </div>
 
-<!--     <div v-show="isLoading">
+<!-- <div v-show="isLoading">
 <loader object="#ffb600" color1="#ffffff" color2="#ca1919" size="5" speed="2" bg="#000000" objectbg="#999793" opacity="80" disableScrolling="false" name="circular"></loader>   
-    </div> -->       
+    </div>    --> 
 </template>
 
 <script>
@@ -593,47 +593,6 @@ export default{
               comments_message:null,
               episode_id:null,
             },
-
-
-// control the state of the dropdown
-value: Boolean,
-// show the dropdown menu on the right side
-right: Boolean,
-// display the dropdown menu on hover
-hover: Boolean,
-hover_time: {
-  type: Number,
-  default: 100
-},
-hover_timeout: {
-  type: Number,
-  default: 500
-},
-// custom styles
-styles: {
-  type: Object,
-  default () {
-    return {}
-  }
-},
-// stay open until clicked outside
-interactive: { 
-  type: Boolean,
-  default: false,
-},
-// transition effect
-transition: {
-  type: String,
-  default: '',
-},
-// close on click outside
-closeOnClickOutside: {
-  type: Boolean,
-  default: true
-},
-
-
-
 
             settings: {
               itemsToShow: 1,
@@ -686,6 +645,7 @@ closeOnClickOutside: {
 
     created(){
         this.getHomeContents();
+        this.$store.dispatch("getParams")
     },
 
     methods:{
@@ -733,7 +693,6 @@ closeOnClickOutside: {
                 this.homeContents = res.data;
                 this.latestEpisodes = res.data;
                 this.latestSeries = res.data;
-                console.log(this.homeContents);
                 this.isLoading = false
 
             }).catch(err=>{

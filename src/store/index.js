@@ -7,6 +7,8 @@ export default createStore({
     token:null,
     user:null,
     loggedIn: false,
+
+    params:{},
   },
 
   plugins: [createPersistedState()],
@@ -23,6 +25,10 @@ export default createStore({
     get_loggedIn(state) {
       return state.loggedIn;
     },
+
+    get_params(state){
+      return state.params;
+    },
   },
 
   mutations: {
@@ -38,6 +44,10 @@ export default createStore({
     SET_loggedIn(state, payload) {
       state.loggedIn = payload;
     },
+
+    SET_params(state, payload) {
+      state.params = payload;
+    },    
   },
 
   actions: {
@@ -83,24 +93,21 @@ export default createStore({
       });
     },    
 
-    performLogoutAction({ commit ,state}) {
-
-  let config = {
-    headers: {
-      'Authorization': 'Bearer ' + state.token
-    }
-  }    
+    performLogoutAction({ commit ,state}) {   
+      const headers = {
+          'Authorization': 'Bearer '+ state.token,
+      }; 
 
       return new Promise((resolve, reject) => {
         axios
-          .post('https://animeeplus.online/api/logout',config            
+          .get('https://animeeplus.online/api/user/logout',{headers}            
             ).then((res)=>{
 
               resolve(res);
 
-              // commit("SET_token", '');
-              // commit("SET_user", '');
-              // commit("SET_loggedIn",false);
+              commit("SET_token", '');
+              commit("SET_user", '');
+              commit("SET_loggedIn",false);
 
             }).catch((err)=>{
 
@@ -176,6 +183,23 @@ export default createStore({
             })
       });
   },
+
+  getParams({commit ,state}){
+
+      return new Promise((resolve, reject) => {
+        axios
+          .get('https://animeeplus.online/api/params').then((res)=>{
+
+              resolve(res);
+              commit("SET_params", res.data);
+
+            }).catch((err)=>{
+
+              reject(err)
+              console.log(err)
+            })
+      });
+  },  
 
 
   }, 

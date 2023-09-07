@@ -90,15 +90,11 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach((to,from,next)=>{
-//   document.title = to.meta.title;
-//   next();
-// })
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title;
   if (to.matched.some((record) => record.meta.secure)) {
-    if (!this.$store.getters.get_loggedIn) {
+    if (!store.state.loggedIn) {
       next({
         path: "/login",
       });
@@ -106,7 +102,6 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } else if (to.matched.some((record) => record.meta.guest)) {
-    // console.log(store.state.loggedIn)
     if (!store.state.loggedIn) {
       next();
     } else {

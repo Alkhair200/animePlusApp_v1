@@ -9,14 +9,14 @@
                 </div>
 
                 <div class="user">
-                    <div class="user-info">
+                    <div v-if="getLoggedIn" class="user-info">
                         <a href="profile.html">
                             <img class="" :src="getUser.avatar" alt="">
                         </a>
                         <a href="profile.html" style="all: unset; cursor: pointer;">
                             <h6 class="name">{{getUser.name}}</h6>
                         </a>
-                        <p class="email">{{getUser.email}} &nbsp;- <span>تم التحقق</span></p>
+                        <p class="email">{{getUser.email}}</p>
                         <p class="sign-out">
                             <button @click.prevent="logout">
                                 <i class="fa fa-sign-out"></i>
@@ -25,21 +25,34 @@
                         </p>
                     </div>
 
-                    <router-link to="/update-profile" class="btn">تعديل الملف الشخصي</router-link>
-                    <a href="https://animeeplus.net/subscriptions/" class="btn subsc-btn">إشتراك الاَن</a>
+                    <router-link v-if="!getLoggedIn" to="/login" class="btn">تسجيل الدخول</router-link>
+
+                    <router-link v-if="getLoggedIn" to="/update-profile" class="btn">تعديل الملف الشخصي</router-link>
+                    <a v-if="getLoggedIn" href="https://animeeplus.net/subscriptions/" class="btn subsc-btn">إشتراك الاَن</a>
 
                     <div class="social-media">
                         <span>
-                            <i class="fa fa-telegram"></i>
+                            <a :href="getParams.telegram_url" target="_blank">
+                                <i class="fa fa-telegram"></i>
+                            </a>                            
                         </span>
                         <span>
-                            <i class="fa fa-instagram"></i>
+                            <a :href="getParams.instagram_url" target="_blank">
+                                <i class="fa fa-instagram"></i>
+                            </a>                              
                         </span>
                         <span>
-                            <i class="fa fa-twitter"></i>
+                            <a :href="getParams.twitter_url" target="_blank">
+                                <i class="fa fa-twitter"></i>
+                            </a>                            
                         </span>
                         <span>
-                            <i class="fa fa-facebook"></i>
+                            <a :href="getParams.facebook_url" target="_blank">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                            
+
+                            <!--  -->
                         </span>
                     </div>
                 </div>
@@ -98,13 +111,26 @@
 
 <script>
     export default{
+
+        data(){
+            return{
+
+            }
+        },
+
         computed:{
             getUser(){
                 return this.$store.getters.get_user;
             },
             getToken(){
                 return this.$store.getters.get_token;
-            }            
+            },
+            getLoggedIn(){
+                return this.$store.getters.get_loggedIn
+            },     
+            getParams(){
+                return this.$store.getters.get_params
+            },                   
         },
 
         methods:{
@@ -112,11 +138,17 @@
             logout(){
                 this.$store.dispatch('performLogoutAction').then((res)=>{
 
-                    console.log(res)
+                    if (res.status == 204) {
+                        this.$notify({
+                          title: "تم تسجيل الخروج بنجاح 🎉",
+                          text: res.data.msg,
+                          // type: "success",
+                        }); 
+                    }
                 }).catch((err)=>{
                     console.log(err)
                 })
-            }
+            },
         }
     }
 </script>
