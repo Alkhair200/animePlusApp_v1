@@ -25,7 +25,9 @@
                         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
                             <button class="nav-link active" id="nav-series-fav-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-series-fav" type="button" role="tab" aria-controls="nav-home"
+                                @click.prevent="getShowFavorite"
                                 aria-selected="true">المفضله</button>
+
                             <button class="nav-link" id="nav-series-now-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-series-now" type="button" role="tab" aria-controls="nav-profile"
                                 @click.prevent="SerieGetFav('now')"
@@ -51,76 +53,12 @@
                         <div class="tab-pane fade show active" id="nav-series-fav" role="tabpanel"
                             aria-labelledby="nav-series-fav-tab" tabindex="0">
                             <div class="row">
-                                <div class="card col-md-2 col-sm-3 col-6">
+                                <div v-for="(item,index) in showFavorite" :key="index" class="card col-md-2 col-sm-3 col-6">
                                     <div class="card-img">
-                                        <img src="front/img/image_3.avif" class="card-img-top" alt="...">
+                                        <img :src="item.poster_path" class="card-img-top" alt="...">
                                     </div>
                                     <div class="card-body  px-1">
-                                        <h6 class="card-text text-center">Some quick name</h6>
-                                    </div>
-                                </div>
-                                <div class="card col-md-2 col-sm-3 col-6">
-                                    <div class="card-img">
-                                        <img src="front/img/image_3.avif" class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="card-body  px-1">
-                                        <h6 class="card-text text-center">Some quick name</h6>
-                                    </div>
-                                </div>
-                                <div class="card col-md-2 col-sm-3 col-6">
-                                    <div class="card-img">
-                                        <img src="front/img/image_3.avif" class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="card-body  px-1">
-                                        <h6 class="card-text text-center">Some quick name</h6>
-                                    </div>
-                                </div>
-                                <div class="card col-md-2 col-sm-3 col-6">
-                                    <div class="card-img">
-                                        <img src="front/img/image_3.avif" class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="card-body  px-1">
-                                        <h6 class="card-text text-center">Some quick name</h6>
-                                    </div>
-                                </div>
-                                <div class="card col-md-2 col-sm-3 col-6">
-                                    <div class="card-img">
-                                        <img src="front/img/image_3.avif" class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="card-body  px-1">
-                                        <h6 class="card-text text-center">Some quick name</h6>
-                                    </div>
-                                </div>
-                                <div class="card col-md-2 col-sm-3 col-6">
-                                    <div class="card-img">
-                                        <img src="front/img/image_1.jpg" class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="card-body  px-1">
-                                        <h6 class="card-text text-center">Some quick name</h6>
-                                    </div>
-                                </div>
-                                <div class="card col-md-2 col-sm-3 col-6">
-                                    <div class="card-img">
-                                        <img src="front/img/image_2.jpg" class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="card-body  px-1">
-                                        <h6 class="card-text text-center">Some quick name</h6>
-                                    </div>
-                                </div>
-                                <div class="card col-md-2 col-sm-3 col-6">
-                                    <div class="card-img">
-                                        <img src="front/img/image_3.avif" class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="card-body  px-1">
-                                        <h6 class="card-text text-center">Some quick name</h6>
-                                    </div>
-                                </div>
-                                <div class="card col-md-2 col-sm-3 col-6">
-                                    <div class="card-img">
-                                        <img src="front/img/image_1.jpg" class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="card-body  px-1">
-                                        <h6 class="card-text text-center">Some quick name</h6>
+                                        <h6 class="card-text text-center">{{item.name}}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -385,6 +323,7 @@
         data(){
             return{
                 seariesWatchByType:{},
+                showFavorite:{},
             }
         },
 
@@ -392,6 +331,9 @@
             getToken(){
                 return this.$store.getters.get_token
             },
+            getUser(){
+                return this.$store.getters.get_user
+            },            
         },
 
         created(){
@@ -407,18 +349,27 @@
                 this.axios.post('https://animeeplus.online/api/serie/showByType',{
                     watch_type: watchType
                 },{headers}).then((res)=>{
-                    this.seariesWatchByType = res.data
-console.log(this.seariesWatchByType)
-                        // this.$notify({
-                           
-                        //   title: "تم إضافة "+title+" الي قائمتي 🎉",
-                        //   type: "success",
-                        // });                    
+                    this.seariesWatchByType = res.data                 
                     
                 }).catch((err)=>{
                     console.log(err)
                 })                
-            }
+            },
+
+            getShowFavorite(){
+
+            const headers ={
+              'Authorization': 'Bearer '+ this.getToken,
+            }                  
+                this.axios.post('https://animeeplus.online/api/serie/showFavo',{
+                    id: this.getUser.id
+                },{headers}).then((res)=>{
+                    this.showFavorite = res.data                 
+                    
+                }).catch((err)=>{
+                    console.log(err)
+                })                
+            }            
         }
     }
 </script>

@@ -152,59 +152,15 @@
                           </li>
                         </ul>                                                                                        
                       </div>                    
-                    </div>                    
-<!--                     <dropdown-menu v-if="getLoggedIn">
-                      <template #trigger>
-                        <button class="btn btn-add">
-                          <i class="fa fa-bars" aria-hidden="true"></i>
-                          <br>
-                            إضافة لقائمتي
-                            
-                            
-                        </button>                  
-                      </template>                
-
-                      <template #body>
-                        <ul class="dropdown-ul">
-                            <li>
-                                <button class="btn" @click="addtofavAction(episode.id ,episode.title,'now')">
-                                    <i :class="['fa fa-check', 'checked-type-'+episode.id]"></i>
-                                  اشاهدها حالياً
-                                </button>        
-                            </li>
-                            <li>
-                                <button class="btn" @click="addtofavAction(episode.id ,episode.title,'want')">
-                                    <i :class="['fa fa-check', 'checked-type-'+episode.id]"></i>
-                                  أرغب بمشاهدتها
-                                </button>       
-                            </li>
-                            <li>
-                                <button class="btn" @click="addtofavAction(episode.id ,episode.title,'done')">
-                                    <i :class="['fa fa-check', 'checked-type-'+episode.id]"></i>
-                                  تمت مشاهدتها
-                                </button>                                      
-                            </li>
-                            <li>
-                                <button class="btn" @click="addtofavAction(episode.id ,episode.title,'want')">
-                                    <i :class="['fa fa-check', 'checked-type-'+episode.id]"></i>
-                                 أكمله لاحقاً
-                                </button>                                       
-                            </li>                        
-                          
-                        </ul>
-                      </template>
-                    </dropdown-menu>
-
-                    <button v-if="!getLoggedIn" @click="message('يجب عليك تسجيل الدخول أولاً')" class="btn btn-light">
-                        إضافة لقائمتي
-                        <i class="fa fa-bars" aria-hidden="true"></i>
-                    </button>  -->                     
+                    </div>                                      
                   </li>
 
                   <li>
-                    <i class="fa fa-heart"></i>
-                    <br>
-                    المفضلة
+                    <a @click.prevent="addToFav(episode.id)" href="#">
+                      <i class="fa fa-heart"></i>
+                      <br>
+                      المفضلة                      
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -812,6 +768,7 @@ export default{
             seriesComments:[],
             episodeComments:[],
             searchEpisodeNmber:'',
+            favorite:[],
 
         }
     },
@@ -835,7 +792,11 @@ export default{
 
       getLoggedIn(){
           return this.$store.getters.get_loggedIn
-      },       
+      }, 
+
+      getToken(){
+          return this.$store.getters.get_token
+      },            
     },
 
     methods:{
@@ -910,6 +871,24 @@ export default{
                 }
             }).catch((err)=>{
                 console.log(err)
+            })
+        },
+
+        addToFav(id){
+            const headers ={
+              'Authorization': 'Bearer '+ this.getToken,
+            } 
+
+            this.axios.post('https://animeeplus.online/api/serie/addtofav/'+id,{
+              id :id
+            },{headers}
+            ).then(res=>{
+
+                this.favorite = res.data; 
+                 console.log(res);               
+
+            }).catch(err=>{
+                console.log(err);
             })
         },
 

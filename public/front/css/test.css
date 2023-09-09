@@ -133,19 +133,15 @@ width: 100%;
 justify-content: space-between;
 }
 
-/*.main-comment .dropdown-menu {
-  position: relative;
-  display: block;
-  background: none;
-  padding: 0;
-  border: none;
-  min-width: 0rem;
-}*/
+.main-comment .social .content li a{
+  color: var(--white);
+}
 
-/*.main-comment .star{
-  display: flex;
-  justify-content: center;
-}*/
+.main-comment .social .content li:hover a{
+  color: var(--red);
+}
+
+
 
 
 /* ============== end main-comment ============== */
