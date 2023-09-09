@@ -28,15 +28,22 @@
                                 aria-selected="true">المفضله</button>
                             <button class="nav-link" id="nav-series-now-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-series-now" type="button" role="tab" aria-controls="nav-profile"
+                                @click.prevent="SerieGetFav('now')"
                                 aria-selected="false">اشاهدها حالياً</button>
+
                             <button class="nav-link" id="nav-series-want-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-series-want" type="button" role="tab" aria-controls="nav-contact"
+                                @click.prevent="SerieGetFav('want')"
                                 aria-selected="false">ارغب بمشاهدتها</button>
+
                             <button class="nav-link" id="nav-series-done-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-series-done" type="button" role="tab" aria-controls="nav-contact"
+                                @click.prevent="SerieGetFav('done')"
                                 aria-selected="false">تمت مشاهدتها</button>
+
                             <button class="nav-link" id="nav-series-later-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-series-later" type="button" role="tab" aria-controls="nav-contact"
+                                @click.prevent="SerieGetFav('later')"
                                 aria-selected="false">أكمله لاحقاً</button>
                         </div>
                     </nav>
@@ -121,12 +128,12 @@
                         <div class="tab-pane fade" id="nav-series-now" role="tabpanel"
                             aria-labelledby="nav-series-bow-tab" tabindex="0">
                             <div class="row">
-                                <div class="card col-md-2 col-sm-3 col-6">
+                                <div v-for="(item ,index) in seariesWatchByType" :key="index" class="card col-md-2 col-sm-3 col-6">
                                     <div class="card-img">
-                                        <img src="front/img/image_2.jpg" class="card-img-top" alt="...">
+                                        <img :src="item.poster_path" class="card-img-top" alt="...">
                                     </div>
                                     <div class="card-body  px-1">
-                                        <h6 class="card-text text-center">Some quick name</h6>
+                                        <h6 class="card-text text-center">{{item.name}}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -134,16 +141,40 @@
                         <div class="tab-pane fade" id="nav-series-want" role="tabpanel"
                             aria-labelledby="nav-series-want-tab" tabindex="0">
                             <div class="row">
+                                <div v-for="(item ,index) in seariesWatchByType" :key="index" class="card col-md-2 col-sm-3 col-6">
+                                    <div class="card-img">
+                                        <img :src="item.poster_path" class="card-img-top" alt="...">
+                                    </div>
+                                    <div class="card-body  px-1">
+                                        <h6 class="card-text text-center">{{item.name}}</h6>
+                                    </div>
+                                </div>                                
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-series-done" role="tabpanel"
                             aria-labelledby="nav-series-done-tab" tabindex="0">
                             <div class="row">
+                                <div v-for="(item ,index) in seariesWatchByType" :key="index" class="card col-md-2 col-sm-3 col-6">
+                                    <div class="card-img">
+                                        <img :src="item.poster_path" class="card-img-top" alt="...">
+                                    </div>
+                                    <div class="card-body  px-1">
+                                        <h6 class="card-text text-center">{{item.name}}</h6>
+                                    </div>
+                                </div>                                
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-series-later" role="tabpanel"
                             aria-labelledby="nav-series-later-tab" tabindex="0">
                             <div class="row">
+                                <div v-for="(item ,index) in seariesWatchByType" :key="index" class="card col-md-2 col-sm-3 col-6">
+                                    <div class="card-img">
+                                        <img :src="item.poster_path" class="card-img-top" alt="...">
+                                    </div>
+                                    <div class="card-body  px-1">
+                                        <h6 class="card-text text-center">{{item.name}}</h6>
+                                    </div>
+                                </div>                                
                             </div>
                         </div>
                     </div>
@@ -348,3 +379,46 @@
     </footer>
     </div>
 </template>
+
+<script>
+    export default{
+        data(){
+            return{
+                seariesWatchByType:{},
+            }
+        },
+
+        computed:{
+            getToken(){
+                return this.$store.getters.get_token
+            },
+        },
+
+        created(){
+        },
+
+        methods:{ 
+            
+            SerieGetFav(watchType){
+
+            const headers ={
+              'Authorization': 'Bearer '+ this.getToken,
+            }                  
+                this.axios.post('https://animeeplus.online/api/serie/showByType',{
+                    watch_type: watchType
+                },{headers}).then((res)=>{
+                    this.seariesWatchByType = res.data
+console.log(this.seariesWatchByType)
+                        // this.$notify({
+                           
+                        //   title: "تم إضافة "+title+" الي قائمتي 🎉",
+                        //   type: "success",
+                        // });                    
+                    
+                }).catch((err)=>{
+                    console.log(err)
+                })                
+            }
+        }
+    }
+</script>

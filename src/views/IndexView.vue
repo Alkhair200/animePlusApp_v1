@@ -57,7 +57,7 @@
                             </button>                                      
                         </li>
                         <li>
-                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'want')">
+                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'later')">
                                 <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
                              أكمله لاحقاً
                             </button>                                       
@@ -67,10 +67,10 @@
                   </template>
                 </dropdown-menu>
 
-                    <button @click="message('يجب عليك تسجيل الدخول أولاً')" v-if="!getLoggedIn" class="btn btn-light">
-                        إضافة لقائمتي
-                        <i class="fa fa-bars" aria-hidden="true"></i>
-                    </button>              
+                <button v-if="!getLoggedIn" @click="message('يجب عليك تسجيل الدخول أولاً')" class="btn btn-light">
+                    إضافة لقائمتي
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </button>              
                    
                 </div>
             </div>
@@ -781,23 +781,13 @@ export default{
         } , 
 
         addtofavAction(featured_id,title,watch_type){
+
             this.$store.dispatch('addtofavAction',{
                 id: featured_id,
                 watch_type: watch_type
             }).then((res)=>{
 
                 if (res.data != '') {
-                    // let getAllcheckIcon =document.querySelectorAll(".fa-check")
-
-                    // getAllcheckIcon.forEach((element) => {
-                    //     // Change the color of each element here
-                    //     element.style.display = 'none'
-
-                    // });                    
-
-                    // document.querySelectorAll(".checked-type-"+featured_id)[0].style.display ="inline-block";
-                    //console.log(document.querySelectorAll(".checked-type-"+featured_id)[0])
-
 
                     this.$notify({
                        

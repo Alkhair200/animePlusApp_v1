@@ -14,7 +14,7 @@
         <span class="views"><i class="fa fa-eye"></i> {{episode.views}} ألف </span>
       </p>
 
-      <ul class="list-style d-flex justify-content-center align-items-center  p-0">
+      <ul class="list-style d-flex justify-content-center align-episodes-center  p-0">
         <li class="px-1 list-text-1">
           <i class="fa fa-star"></i> {{episode.vote_average}}
         </li>
@@ -100,7 +100,7 @@
 
             <div class="col-md-12 col-sm-12">
               <div class="social">
-                <ul>
+                <ul class="content">
                   <li>
                     <i class="fa fa-video-camera"></i>
                     <br>
@@ -114,34 +114,91 @@
                   </li>
 
                   <li>
-                   <!--  <main class="dropdown-menu" id="dropdown-menu">
-                      <button onclick="handleDropdownClicked(event)">
-                        <span class="material-symbols-outlined">
-                          <i class="fa fa-bars"></i>
-                          <br>
-                          قائمتى
+                    <div v-if="getLoggedIn" class="dropdown">
+                      <button class="dropbtn">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                        <br>    
+                        إضافة لقائمتي
                       </button>
-                      <section class="dropdown__menu-labels">
-                        <button>
-                          <span> <i class="fa fa-play-circle-o"></i> </span>
-                          اشاهدها حالياً
-                        </button>
-                        <button>
-                          <span class="material-symbols-outlined"> <i class="fa fa-plus-circle"></i> </span>
-                          أرغب بمشاهدتها
-                        </button>
-                        <button>
-                          <span class="material-symbols-outlined"><i class="fa fa-check-circle-o"></i> </span>
+                      <div class="dropdown-content">
+                        <ul>
+                          <li>
+                            <a @click="addtofavAction(episode.id ,episode.title,'now')" href="#">
+                              <span> <i class="fa fa-plus"></i> </span>
+                              اشاهدها حالياً
+                              <span class="icon-left"> <i class="fa fa-plus"></i> </span>      
+                            </a>                             
+                          </li>
+                          <li>
+                            <a @click="addtofavAction(episode.id ,episode.title,'want')" href="#">
+                              <span> <i class="fa fa-plus"></i> </span>
+                              أرغب بمشاهدتها
+                              <span class="icon-left"> <i class="fa fa-plus"></i> </span>      
+                            </a>                              
+                          </li>
+                          <li>
+                        <a @click="addtofavAction(episode.id ,episode.title,'done')" href="#">
+                          <span> <i class="fa fa-plus"></i> </span>
                           تمت مشاهدتها
-                        </button>
-                        <button>
-                          <span class="material-symbols-outlined"><i class="fa fa-pause-circle-o"></i> </span>
-                          أكمله لاحقا
-                          <span class="icon-left"> <i class="fa fa-check"></i> </span>
-                        </button>
+                          <span class="icon-left"> <i class="fa fa-plus"></i> </span>      
+                        </a>                              
+                          </li>
+                          <li>
+                        <a @click="addtofavAction(episode.id ,episode.title,'later')" href="#">
+                          <span> <i class="fa fa-plus"></i> </span>
+                          أكمله لاحقاً
+                          <span class="icon-left"> <i class="fa fa-plus"></i> </span>      
+                        </a>                              
+                          </li>
+                        </ul>                                                                                        
+                      </div>                    
+                    </div>                    
+<!--                     <dropdown-menu v-if="getLoggedIn">
+                      <template #trigger>
+                        <button class="btn btn-add">
+                          <i class="fa fa-bars" aria-hidden="true"></i>
+                          <br>
+                            إضافة لقائمتي
+                            
+                            
+                        </button>                  
+                      </template>                
 
-                      </section>
-                    </main> -->
+                      <template #body>
+                        <ul class="dropdown-ul">
+                            <li>
+                                <button class="btn" @click="addtofavAction(episode.id ,episode.title,'now')">
+                                    <i :class="['fa fa-check', 'checked-type-'+episode.id]"></i>
+                                  اشاهدها حالياً
+                                </button>        
+                            </li>
+                            <li>
+                                <button class="btn" @click="addtofavAction(episode.id ,episode.title,'want')">
+                                    <i :class="['fa fa-check', 'checked-type-'+episode.id]"></i>
+                                  أرغب بمشاهدتها
+                                </button>       
+                            </li>
+                            <li>
+                                <button class="btn" @click="addtofavAction(episode.id ,episode.title,'done')">
+                                    <i :class="['fa fa-check', 'checked-type-'+episode.id]"></i>
+                                  تمت مشاهدتها
+                                </button>                                      
+                            </li>
+                            <li>
+                                <button class="btn" @click="addtofavAction(episode.id ,episode.title,'want')">
+                                    <i :class="['fa fa-check', 'checked-type-'+episode.id]"></i>
+                                 أكمله لاحقاً
+                                </button>                                       
+                            </li>                        
+                          
+                        </ul>
+                      </template>
+                    </dropdown-menu>
+
+                    <button v-if="!getLoggedIn" @click="message('يجب عليك تسجيل الدخول أولاً')" class="btn btn-light">
+                        إضافة لقائمتي
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </button>  -->                     
                   </li>
 
                   <li>
@@ -171,7 +228,7 @@
         <h4>تصنيف المحتوى</h4>
 
         <div class="accordion" id="accordionExample">
-          <div class="accordion-item">
+          <div class="accordion-episode">
             <h2 class="accordion-header" id="headingOne">
               <button id="accordion" class="accordion-button" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
@@ -212,7 +269,7 @@
               </div>
             </div>
           </div>
-          <div class="accordion-item">
+          <div class="accordion-episode">
             <h2 class="accordion-header" id="headingTwo">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -249,7 +306,7 @@
               </div>
             </div>
           </div>
-          <div class="accordion-item">
+          <div class="accordion-episode">
             <h2 class="accordion-header" id="headingThree">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -287,7 +344,7 @@
             </div>
           </div>
 
-          <div class="accordion-item">
+          <div class="accordion-episode">
             <h2 class="accordion-header" id="headingFour">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
@@ -835,6 +892,27 @@ export default{
             })
         },
 
+        addtofavAction(id,title,watch_type){
+
+            this.$store.dispatch('addtofavAction',{
+                id: id,
+                watch_type: watch_type
+            }).then((res)=>{
+                        console.log(res);
+
+                if (res.data != '') {
+                    
+                    this.$notify({
+                       
+                      title: "تم إضافة "+title+" الي قائمتي 🎉",
+                      type: "success",
+                    });                    
+                }
+            }).catch((err)=>{
+                console.log(err)
+            })
+        },
+
         message(msg){
             this.$notify({
                
@@ -889,7 +967,11 @@ export default{
   transition: 1s;
 }
 
-.dropdown .dropdown-content:hover a{
+.dropdown .dropdown-content ul{
+padding: 0;
+}
+
+.dropdown .dropdown-content ul li:hover a{
   background:#CA1919;
   color:#fff;
   transition: 0.3s;

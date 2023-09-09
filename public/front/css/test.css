@@ -126,7 +126,7 @@ color: var(--white);
   padding: 10px;
 }
 
-.main-comment .social ul{
+.main-comment .social .content{
   display:inline-flex;
   padding: 0;
 width: 100%;
