@@ -41,7 +41,7 @@ const routes = [
     meta:{title:"update profile"},
   },
   {
-    path: "/season/:id",
+    path: "/season",
     name: "season",
     component: Season,
     meta:{title:"season"},

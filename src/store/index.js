@@ -7,6 +7,7 @@ export default createStore({
     token:null,
     user:null,
     loggedIn: false,
+    pageID:null,
 
     params:{},
   },
@@ -29,6 +30,10 @@ export default createStore({
     get_params(state){
       return state.params;
     },
+
+    get_pageId(state,payload){
+      return state.pageID;
+    },    
   },
 
   mutations: {
@@ -48,6 +53,10 @@ export default createStore({
     SET_params(state, payload) {
       state.params = payload;
     },    
+
+    SET_PageId(state,payload){
+      state.pageID = payload;
+    },
   },
 
   actions: {
@@ -200,6 +209,12 @@ export default createStore({
             })
       });
   },  
+
+  goToPage({commit},payload){
+
+    let id = payload.id;
+    commit("SET_PageId", id);
+  },    
 
 
   }, 

@@ -52,20 +52,20 @@
               <div class="add">
                 <div class="row">
                   <div class="col-md-6 col-sm-6">
-<div class="dropdown">
-  <button class="dropbtn">
-    <i class="fa fa-star-o"></i>
-    <br>    
-    أضف تقييمك
-  </button>
-  <div class="dropdown-content">
-    <a href="#">
-      <span> <i class="fa fa-plus"></i> </span>
-      اشاهدها حالياً
-      <span class="icon-left"> <i class="fa fa-plus"></i> </span>      
-    </a>
-  </div>
-</div>
+                    <div class="dropdown">
+                      <button class="dropbtn">
+                        <i class="fa fa-star-o"></i>
+                        <br>    
+                        أضف تقييمك
+                      </button>
+                      <div class="dropdown-content">
+                        <a href="#">
+                          <span> <i class="fa fa-plus"></i> </span>
+                          اشاهدها حالياً
+                          <span class="icon-left"> <i class="fa fa-plus"></i> </span>      
+                        </a>
+                      </div>
+                    </div>
 
               <!--       <main class="dropdown-menu star" id="star">
                       <button onclick="handleDropdownstarClicked(event)">
@@ -106,12 +106,12 @@
                     <br>
                     التريلر
                   </li>
-
+<!-- 
                   <li>
                     <i class="fa fa-share-alt"></i>
                     <br>
                     مشاركة
-                  </li>
+                  </li> -->
 
                   <li>
                     <div v-if="getLoggedIn" class="dropdown">
@@ -156,7 +156,7 @@
                   </li>
 
                   <li>
-                    <a @click.prevent="addToFav(episode.id)" href="#">
+                    <a @click.prevent="addToFav(episode.id,episode.name)" href="#">
                       <i class="fa fa-heart"></i>
                       <br>
                       المفضلة                      
@@ -250,10 +250,10 @@
                       <p> هل يحتوي علي مشاهد بها عنف و دمويه ؟</p>
                       <div class="row">
                         <div class="col-md-3 col-sm-12">
-                          <button class="btn btn-danger">يحتوي</button>
+                          <button @click.prevent="addClassify(episode.id ,'bloody')" class="btn btn-danger">يحتوي</button>
                         </div>
                         <div class="col-md-3 col-sm-12">
-                          <button class="btn btn-success">لا يحتوي</button>
+                          <button @click.prevent="addClassify(episode.id ,'bloody')" class="btn btn-success">لا يحتوي</button>
                         </div>
                       </div>
                     </div>
@@ -362,14 +362,24 @@
 
         </div>
         <br>
-        <div class="row" v-for="(episode, index) in episodes.data" :key="index">
+        <div class="row" v-for="(episode, index) in findEpisodeName" :key="index">
           <div class="card mb-3" style="max-width: 540px;" >
             <div class="row g-0">
               <div class="col-md-4 col-sm-4 position-relative card-video">
-                <div>
+
+                <div class="image-episode">
+                  <button class="btn btn-whatch"
+                    type="button" 
+                    data-bs-toggle="modal" 
+                    role="button"
+                    href="#whatch-episode"
+                    @click="getEpisodeWithServer(episode.id)">
+
+                    <i class="fa fa-play-circle-o" aria-hidden="true"></i>
+                  </button>
+                  <img :src="episode.still_path" class="img-fluid rounded-start" alt="...">
                 </div>
 
-                <img :src="episode.still_path" class="img-fluid rounded-start" alt="...">
                 <!--  -->
               </div>
               <div class="col-md-8 col-sm-8">
@@ -395,35 +405,7 @@
                   </div>
                 </div>
               </div>
-            </div>
-
-            <!-- start whatch episode -->
-            <!-- Modal -->
-            <div class="modal fade" :id="'whatch-episode-'+index" tabindex="-1" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">إختر السيرفر</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="row warning">
-                      <div class="container">
-                        <div v-for="video in episode.videos" :key="index">
-                        <a :href="video.link" target="_blank">{{video.server}}</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
-                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--  End whatch episode -->                  
+            </div>                 
 
             <!-- start noty -->
             <!-- Modal -->
@@ -545,10 +527,6 @@
 
                     </div>
                   </div>
-                  <!-- <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
                 </div>
               </div>
             </div>
@@ -646,6 +624,42 @@
           </div>
         </div>
 
+        <div class="pagination" v-if="episodes.links != ''">
+          <ul>
+            <li v-for="(episode_link, key) in episodes.last_page" :key="key">
+            <button @click.prevent="getSeasonsWithEpisode(page = key+1)" class="btn btn-light btn-sm">{{key+1}}</button>
+            </li>
+          </ul>
+        </div>
+
+            <!-- start whatch episode -->
+            <!-- Modal -->
+            <div class="modal fade" id="whatch-episode" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">إختر السيرفر</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="container">
+                        <div v-for="video in episodeWithServer.videos" :key="index">
+                        <a :href="video.link" target="_blank">{{video.server}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  End whatch episode -->   
+
             <!-- start series comment -->
             <!-- Modal -->
             <div class="modal fade" id="series-comments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -736,10 +750,37 @@
             <!--  End series commets -->        
       </section> 
 
-      <section class="characters">
-   <!--    <h4>الشخصيات</h4>
-        <br>
- -->    </section>           
+        <section id="top" class="section-padding casterslist">
+            <div class="">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>الشخصيات</h2>
+                    </div>
+                </div>
+            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
+                <slide v-for="(latestSeri, index) in episode.casterslist" :key="index">
+                    <div class="carousel__item">
+                        <div class="row">
+                            <a>
+                            <div class="col-md-3 col-sm-6 serie-image">
+                                <img v-lazy="latestSeri.profile_path" alt="">
+                            </div>  
+                            <h6>{{latestSeri.name}}</h6>  
+                            </a>                           
+                        </div>
+                    </div>
+                </slide>
+
+                <template #addons>
+                  <navigation />
+                  <!-- <pagination /> -->
+                </template>
+            </carousel>  
+             
+            </div>
+        </section>      
+         
 
     <section class="others">
      <!-- <h4>اخري</h4> -->
@@ -754,21 +795,64 @@
 
 import Footer from '../components/Footer.vue';
 
+import { Bootstrap5Pagination } from 'laravel-vue-pagination';
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
+
 
 export default{
     components:{
-        Footer,   
+        Footer, 
+        Bootstrap5Pagination,  
+        Carousel, Slide, Pagination, Navigation,
     },
 
     data(){
         return{
             episode:[],
-            episodes:[],
-            seariesId:'',
+            episodes:{},
+            seariesId:null,
             seriesComments:[],
             episodeComments:[],
+            episodeWithServer:[],
             searchEpisodeNmber:'',
             favorite:[],
+            season_id:null,
+
+            settings: {
+              itemsToShow: 1,
+              snapAlign: 'center',
+            },
+
+            breakpoints:{
+              // 700px and up
+              700: {
+                itemsToShow: 2,
+                snapAlign: 'center',
+              },
+              // 1024 and up
+              1024: {
+                itemsToShow: 3,
+                snapAlign: 'start',
+              },
+            },
+
+            settingsLatestSeri: {
+                itemsToShow: 2,
+                snapAlign: 'center',
+            },
+
+            breakpointsLatestSeri:{
+              // 700px and up
+              700: {
+                itemsToShow: 4,
+                snapAlign: 'center',
+              },
+              // 1024 and up
+              1024: {
+                itemsToShow: 6,
+                snapAlign: 'start',
+              },
+            }            
 
         }
     },
@@ -784,10 +868,10 @@ export default{
 
     computed:{
       findEpisodeName(){
-
-        return this.episodes.data.filter(episo =>{
-          return episo.episode_number.match(this.searchEpisodeNmber)
-        })
+          return this.episodes.data
+          // return this.episodes.data.filter((episo) =>{
+          //    return episo.episode_number.match(this.searchEpisodeNmber)
+          // })
       },
 
       getLoggedIn(){
@@ -796,34 +880,41 @@ export default{
 
       getToken(){
           return this.$store.getters.get_token
-      },            
+      },  
+
+      get_pageId(){
+        return this.$store.getters.get_pageId
+      }, 
     },
 
     methods:{
 
-        getSeasonEpisode(page= 1){
-          let id = this.$route.params.id;
-          this.seariesId = id
+        getSeasonEpisode(){
+          let id = this.get_pageId;
 
-            this.axios.post('https://animeeplus.online/api/series/show/'+id+'/code?page='+page
+            this.axios.post('https://animeeplus.online/api/series/show/'+id+'/code'
             ).then(res=>{
 
                 this.episode = res.data;
-
+console.log(res.data);
 
             }).catch(err=>{
                 console.log(err);
             })
         },
     
-        getSeasonsWithEpisode(){
+        getSeasonsWithEpisode(page){
+           
+           if (event.target.value != '') {
+            let seasonId = event.target.value
+              this.season_id = seasonId;
+           }
 
-           let seasonId = event.target.value
-            this.axios.get('https://animeeplus.online/api/series/seasons/'+seasonId+'/code'
+            this.axios.get('https://animeeplus.online/api/series/seasons/'+this.season_id+'/code?page='+page
             ).then(res=>{
 
                 this.episodes = res.data;
-                console.log(this.episodes);
+
             }).catch(err=>{
                 console.log(err);
             })
@@ -853,6 +944,23 @@ export default{
             })
         },
 
+        goToPage(id){
+            this.$store.dispatch("goToPage",{id: id});
+
+            this.$router.push('season')
+        },         
+
+        getEpisodeWithServer(id){
+          this.axios.get('https://animeeplus.online/api/series/episodeshow/'+id+'/code'
+          ).then(res=>{
+
+              this.episodeWithServer = res.data.episode;
+
+          }).catch(err=>{
+              console.log(err.message);
+          })          
+        },
+
         addtofavAction(id,title,watch_type){
 
             this.$store.dispatch('addtofavAction',{
@@ -874,7 +982,8 @@ export default{
             })
         },
 
-        addToFav(id){
+        addToFav(id,title){
+
             const headers ={
               'Authorization': 'Bearer '+ this.getToken,
             } 
@@ -885,12 +994,45 @@ export default{
             ).then(res=>{
 
                 this.favorite = res.data; 
-                 console.log(res);               
+                if (res.status = 200) {
+                  this.$notify({
+                     
+                    title: "تم إضافة "+title+" الي المفضلة 🎉",
+                    type: "success",
+                  }); 
+                }           
 
             }).catch(err=>{
                 console.log(err);
             })
         },
+
+        addClassify(id , type){
+
+          const headers ={
+                  'Authorization': 'Bearer '+ this.getToken,
+                }          
+
+            this.axios.post('https://animeeplus.online/api/episode/addClassify/'+id+'/'+type,{
+              type : type
+            },
+                {headers}
+            ).then(res=>{
+
+              console.log(res);
+
+              if (res.data != '') {
+                  this.$notify({
+                     
+                    title: "تم إضافة "+title+" الي قائمتي 🎉",
+                    type: "success",
+                  });  
+              }            
+
+            }).catch(err=>{
+                console.log(err);
+            })                
+        } ,        
 
         message(msg){
             this.$notify({
@@ -937,10 +1079,7 @@ export default{
   display: block;
 }
 
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #f1f1f1}
 
-/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
   display: block;
   transition: 1s;
@@ -948,11 +1087,56 @@ export default{
 
 .dropdown .dropdown-content ul{
 padding: 0;
+color:#fff;
 }
 
-.dropdown .dropdown-content ul li:hover a{
-  background:#CA1919;
-  color:#fff;
-  transition: 0.3s;
+.dropdown-content ul li a{
+  color:black;
+}
+
+.videos .pagination ul{
+  display:flex;
+}
+
+.videos .pagination ul li{
+  margin: 3px;
+}
+
+.videos .image-episode{
+  position:relative;
+  height:100%;
+}
+
+.videos .image-episode:hover{
+  cursor:pointer;
+}
+
+.videos .image-episode .btn-whatch{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0;  
+  z-index: 3;
+}
+
+.videos .btn-whatch:hover{
+  box-shadow: none !important;
+  border-color: none;
+}
+
+.videos .image-episode .btn-whatch i{
+    color: var(--white);
+    position: absolute;
+    font-size: 32px;
+    transform: translate(50%,50%);
+    top: 25%;
+}
+
+.videos #whatch-episode .modal-body a{
+  color: #fff;
+}
+
+.videos #whatch-episode .modal-body a:hover{
+  color: var(--red);
 }
 </style>

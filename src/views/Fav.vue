@@ -331,12 +331,14 @@
             getToken(){
                 return this.$store.getters.get_token
             },
+            
             getUser(){
                 return this.$store.getters.get_user
             },            
         },
 
         created(){
+            this.getShowFavorite();
         },
 
         methods:{ 

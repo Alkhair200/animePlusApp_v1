@@ -195,12 +195,12 @@
                 <slide v-for="(latestSeri, index) in latestSeries.recents" :key="index">
                     <div class="carousel__item">
                         <div class="row">
-                            <router-link :to="{ name: 'season', params: { id:latestSeri.id } } " >
+                            <a @click.prevent="goToPage(latestSeri.id)">
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
                             <h6>{{latestSeri.name}}</h6>  
-                            </router-link>                           
+                            </a>                           
                         </div>
                     </div>
                 </slide>
@@ -657,7 +657,7 @@ export default{
             },
             getLoggedIn(){
                 return this.$store.getters.get_loggedIn
-            },               
+            },              
         },   
 
     created(){
@@ -798,7 +798,13 @@ export default{
             }).catch((err)=>{
                 console.log(err)
             })
-        },
+        }, 
+
+        goToPage(id){
+            this.$store.dispatch("goToPage",{id: id});
+
+            this.$router.push('season')
+        },     
 
         message(msg){
             this.$notify({
