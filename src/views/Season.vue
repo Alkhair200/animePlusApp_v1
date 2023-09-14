@@ -212,10 +212,10 @@
                       <p>الفاظ نابيه</p>
                       <div class="row">
                         <div class="col-md-3 col-sm-12">
-                          <button class="btn btn-danger">يحتوي</button>
+                          <button class="btn btn-danger" @click.prevent="addClassify(episode.id ,'nasty')">يحتوي</button>
                         </div>
                         <div class="col-md-3 col-sm-12">
-                          <button class="btn btn-success">لا يحتوي</button>
+                          <button class="btn btn-success" @click.prevent="addClassify(episode.id ,'nasty')">لا يحتوي</button>
                         </div>
                       </div>
                     </div>
@@ -287,10 +287,10 @@
                       <p>هل يحتوي علي مشاهد مخيفه او صادمه ؟</p>
                       <div class="row">
                         <div class="col-md-3 col-sm-12">
-                          <button class="btn btn-danger">يحتوي</button>
+                          <button class="btn btn-danger" @click.prevent="addClassify(episode.id ,'scary')">يحتوي</button>
                         </div>
                         <div class="col-md-3 col-sm-12">
-                          <button class="btn btn-success">لا يحتوي</button>
+                          <button class="btn btn-success" @click.prevent="addClassify(episode.id ,'scary')">لا يحتوي</button>
                         </div>
                       </div>
                     </div>
@@ -325,10 +325,10 @@
                       <p> هل يحتوى علي مشاهد بها مخدرات ؟</p>
                       <div class="row">
                         <div class="col-md-3 col-sm-12">
-                          <button class="btn btn-danger">يحتوي</button>
+                          <button class="btn btn-danger" @click.prevent="addClassify(episode.id ,'drugs')">يحتوي</button>
                         </div>
                         <div class="col-md-3 col-sm-12">
-                          <button class="btn btn-success">لا يحتوي</button>
+                          <button class="btn btn-success" @click.prevent="addClassify(episode.id ,'drugs')">لا يحتوي</button>
                         </div>
                       </div>
                     </div>
@@ -779,7 +779,38 @@
             </carousel>  
              
             </div>
-        </section>      
+        </section>  
+
+        <section id="top" class="section-padding casterslist">
+            <div class="">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>اَخري</h2>
+                    </div>
+                </div>
+            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
+                <slide v-for="(related, index) in relateds" :key="index">
+                    <div class="carousel__item">
+                        <div class="row">
+                            <a @click="goToPage(related.id)">
+                            <div class="col-md-3 col-sm-6 serie-image">
+                                <img v-lazy="related.poster_path" alt="">
+                            </div>  
+                            <h6>{{related.name}}</h6>  
+                            </a>                           
+                        </div>
+                    </div>
+                </slide>
+
+                <template #addons>
+                  <navigation />
+                  <!-- <pagination /> -->
+                </template>
+            </carousel>  
+             
+            </div>
+        </section>           
          
 
     <section class="others">
@@ -817,6 +848,7 @@ export default{
             searchEpisodeNmber:'',
             favorite:[],
             season_id:null,
+            relateds:[],
 
             settings: {
               itemsToShow: 1,
@@ -859,6 +891,7 @@ export default{
 
     created(){
         this.getSeasonEpisode();
+        this.getRelatedsEpisode();
         this.getCommentsSeries();
     },
 
@@ -896,12 +929,25 @@ export default{
             ).then(res=>{
 
                 this.episode = res.data;
-console.log(res.data);
 
             }).catch(err=>{
                 console.log(err);
             })
         },
+
+        getRelatedsEpisode(){
+          let id = this.get_pageId;
+
+            this.axios.get('https://animeeplus.online/api/series/relateds/'+id+'/code'
+            ).then(res=>{
+
+                this.relateds = res.data.relateds;
+              console.log(res.data);
+
+            }).catch(err=>{
+                console.log(err);
+            })
+        },        
     
         getSeasonsWithEpisode(page){
            
@@ -945,7 +991,11 @@ console.log(res.data);
         },
 
         goToPage(id){
-            this.$store.dispatch("goToPage",{id: id});
+
+          this.$store.dispatch("goToPage",{id: id});
+          this.getSeasonEpisode();
+          this.getRelatedsEpisode();
+          this.getCommentsSeries();
 
             this.$router.push('season')
         },         
@@ -1013,8 +1063,8 @@ console.log(res.data);
                   'Authorization': 'Bearer '+ this.getToken,
                 }          
 
-            this.axios.post('https://animeeplus.online/api/episode/addClassify/'+id+'/'+type,{
-              type : type
+            this.axios.post('https://animeeplus.online/api/serie/addClassify/'+id+'/'+type,{
+              type : type,
             },
                 {headers}
             ).then(res=>{
@@ -1024,9 +1074,11 @@ console.log(res.data);
               if (res.data != '') {
                   this.$notify({
                      
-                    title: "تم إضافة "+title+" الي قائمتي 🎉",
+                    title: "تمت الإضافه 🎉",
                     type: "success",
                   });  
+
+                  this.getSeasonEpisode();
               }            
 
             }).catch(err=>{
