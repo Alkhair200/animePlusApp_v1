@@ -52,38 +52,62 @@
               <div class="add">
                 <div class="row">
                   <div class="col-md-6 col-sm-6">
-                    <div class="dropdown">
-                      <button class="dropbtn">
-                        <i class="fa fa-star-o"></i>
-                        <br>    
-                        أضف تقييمك
-                      </button>
-                      <div class="dropdown-content">
-                        <a href="#">
-                          <span> <i class="fa fa-plus"></i> </span>
-                          اشاهدها حالياً
-                          <span class="icon-left"> <i class="fa fa-plus"></i> </span>      
-                        </a>
+                    <button type="button" data-bs-toggle="modal" href="#rating-modal" role="button" class="dropbtn">
+                      <i class="fa fa-star-o"></i>
+                      <br>    
+                      أضف تقييمك
+                    </button>
+
+                    <!-- End Ratings -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="rating-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog ">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">تقييمك</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="comm-info">
+                              <h5>القصة</h5>
+                              <star-rating 
+                              @update:rating ="setStory"
+                              v-bind:max-rating="10"
+                              v-bind:star-size="25"
+                              active-color="#dc3545"></star-rating>
+
+                              <h5>الشخصيات</h5>
+                              <star-rating 
+                              @update:rating ="setChars"
+                              v-bind:max-rating="10"
+                              v-bind:star-size="25"
+                              active-color="#dc3545"></star-rating>
+
+                              <h5>الرسم والتحريك</h5>
+                              <star-rating 
+                              @update:rating ="setAnimation"
+                              v-bind:max-rating="10"
+                              v-bind:star-size="25"
+                              active-color="#dc3545"></star-rating>
+
+                              <h5>الموسيقى</h5>
+                              <star-rating 
+                              @update:rating ="setMusic"
+                              v-bind:max-rating="10"
+                              v-bind:star-size="25"
+                              active-color="#dc3545"></star-rating>   
+                              <br>
+                                <button @click.prevent="addEvaluation" type="button" class="btn btn-secondary btn-sm">تقييم</button>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger  btn-sm" data-bs-dismiss="modal">إغلاق</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
+                    <!-- End Ratings -->
 
-              <!--       <main class="dropdown-menu star" id="star">
-                      <button onclick="handleDropdownstarClicked(event)">
-                        <span class="material-symbols-outlined">
-                          <i class="fa fa-star-o"></i>
-                          <br>
-                          أضف تقييمك
-                      </button>
-                      <section class="dropdown__menu-labels dropdown-star">
-                        <button>
-                          <span> <i class="fa fa-plus"></i> </span>
-                          اشاهدها حالياً
-                          <span class="icon-left"> <i class="fa fa-plus"></i> </span>
-                        </button>
-                        </button>
-
-                      </section>
-                    </main> -->
                   </div>
                   <div class="col-md-6  col-sm-6">
                     <i class="fa fa-star"></i>
@@ -828,11 +852,13 @@ import Footer from '../components/Footer.vue';
 
 import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
+import StarRating from 'vue-star-rating';
 
 
 export default{
     components:{
         Footer, 
+        StarRating,
         Bootstrap5Pagination,  
         Carousel, Slide, Pagination, Navigation,
     },
@@ -849,6 +875,11 @@ export default{
             favorite:[],
             season_id:null,
             relateds:[],
+            story:null,
+            chars:null,
+            animation:null,
+            music:null,
+
 
             settings: {
               itemsToShow: 1,
@@ -972,7 +1003,6 @@ export default{
             ).then(res=>{
 
                 this.seriesComments = res.data;
-                console.log( res.data);
 
             }).catch(err=>{
                 console.log(err);
@@ -1084,7 +1114,64 @@ export default{
             }).catch(err=>{
                 console.log(err);
             })                
-        } ,        
+        } ,  
+
+        // Set ratings 
+      setStory(rating){
+          this.story = rating;
+      },  
+
+      setChars(rating){
+        this.chars = rating;
+      },
+
+      setAnimation(rating){
+        this.animation = rating;
+      },
+
+      setMusic(rating){
+          this.music = rating;
+      },
+
+      addEvaluation(){
+        if (this.story != null || this.chars != null || this.animation != null || this.music != null) {
+
+           let id = this.get_pageId;
+            const headers ={
+                    'Authorization': 'Bearer '+ this.getToken,
+                  }  
+
+              const types ={
+                'story': this.story,
+                'chars': this.chars,
+                'music': this.music,
+                'animation': this.animation
+              }       
+
+                   const type = ('music' ,'story','animation' ,'chars');
+
+              this.axios.post('https://animeeplus.online/api/serie/addEvaluation/'+id+'/'+type,
+                 {typs :types},
+                  {headers}
+              ).then(res=>{
+
+                if (!res.data.error) {
+                    this.$notify({
+                       
+                      title: "تم إضافة تقييمك بنجاح 🎉",
+                      type: "success",
+                    });  
+
+                    this.getSeasonEpisode();
+                }            
+
+              }).catch(err=>{
+                  console.log(err);
+              }) 
+
+        }
+
+      },
 
         message(msg){
             this.$notify({
@@ -1190,5 +1277,24 @@ color:#fff;
 
 .videos #whatch-episode .modal-body a:hover{
   color: var(--red);
+}
+
+#rating-modal .modal-content{
+background: #333;  
+}
+
+#rating-modal .modal-footer{
+  justify-content: right;
+}
+
+#rating-modal .modal-body{
+color: var(--white);
+background-color: var(--bg-section);
+text-align: right;
+}
+
+#rating-modal .modal-body h5,
+.vue-star-rating{
+  margin-bottom: 6px;
 }
 </style>

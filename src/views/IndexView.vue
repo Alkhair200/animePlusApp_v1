@@ -100,7 +100,7 @@
 
                 <div class="section-header">
                     <div class="left">
-                        <h2>اَخر الحلقات</h2>
+                        <h2>اَخر الحلقات</h2>                     
                     </div>
 
                     <div class="right">
@@ -586,7 +586,7 @@ export default{
         Carousel,
         Slide,
         Pagination,
-        Navigation,        
+        Navigation,   
     },
 
     data(){
@@ -665,7 +665,7 @@ export default{
         this.$store.dispatch("getParams")
     },
 
-    methods:{
+    methods:{  
 
         getServerFeatured(id){
             this.axios.get('https://animeeplus.online/api/series/episodeshow/'+id+'/code'
