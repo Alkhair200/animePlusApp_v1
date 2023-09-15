@@ -135,7 +135,7 @@
                                 <h5>{{latestSeri.name}}</h5>
                                 <span class="date">
 
-                                     قبل 18 ساعة  &nbsp;<i class="far fa-clock"></i>
+                                     <Timeago :datetime="latestSeri.created_at" long locale="ar"/>  &nbsp;<i class="far fa-clock"></i>
                                 </span>
                                 <h6 class="season">{{latestSeri.seasons_name}}</h6>
                                 <h6 class="episode">{{latestSeri.episode_name}}</h6>
@@ -578,6 +578,7 @@
 import Footer from '../components/Footer.vue';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
+import  {Timeago}  from 'vue2-timeago'
 import moment from "moment";
 
 export default{
@@ -586,7 +587,8 @@ export default{
         Carousel,
         Slide,
         Pagination,
-        Navigation,   
+        Navigation, 
+        Timeago,  
     },
 
     data(){
@@ -711,6 +713,7 @@ export default{
                 this.latestEpisodes = res.data;
                 this.latestSeries = res.data;
                 this.isLoading = false
+                console.log(this.latestEpisodes);
 
             }).catch(err=>{
                 this.isLoading = false
