@@ -12,9 +12,9 @@
           <div class="col-1 nav-link-info">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="fav.html">
+                <router-link class="nav-link" aria-current="page" to="fav">
                   <i class="fa fa-heart"></i>
-                </a>
+                </router-link >
               </li>
               <li class="nav-item">
                 <a class="nav-link buttons-effect border-right" href="index.html">

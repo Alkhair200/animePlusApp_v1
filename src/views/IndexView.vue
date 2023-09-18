@@ -349,47 +349,10 @@
                             <div class="active">
                               <span><a href="http://">1 ع</a></span>
                                 <span>
-                                  <a href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+                                  <a :class="'react-text-type-'+episodeComm.id" href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
                                     aria-expanded="false">
-                                    <span v-if="episodeComm.reacts.length != 0">
 
-                                        <span v-for="itemName in episodeComm.reacts">
-                              <!--           <span v-if="episodeComm.reacts[index].react_type == 'love'">
-                                          <span 
-                                            v-if="episodeComm.reacts[index].user_id == getUser.id"
-                                            style="color:#CA1919;">أحببته
-                                          </span>
-                                        </span>
-                                        <span v-else>
-                                          <span>أحببته
-                                          </span>                                            
-                                        </span> -->
-                                        
-                                        <span v-if="episodeComm.user_id == getUser.id">
-
-                                        <span 
-                                            v-if="itemName.react_type == 'like'"
-                                            style="color:rgb(81, 119, 233);">أعجبني
-                                          </span>
-                                  
-
-                                        </span>
-                                     
-                                        <!-- </span>  -->
-
-                       <!--                  <span 
-                                        v-if="itemName.react_type == 'dislike'"
-                                        style="color:#f03;">لم يعجبني</span>
-
-                                        <span 
-                                        v-if="itemName.react_type == 'haha'"
-                                        style="color:#ffb600;">أضحكني</span>    -->                                                                             
-                                                                           
-                                    </span>
-                                    </span>
-
-                                      <span v-else>أعجبنى</span>
-                                    
+                                    أعجبني
                                     </a>
 
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
@@ -400,17 +363,17 @@
                                     </li>
 
                                     <li>
-                                      <a class="" href="#">
+                                      <a class="" href="#" @click.prevent="addlikeOrReplies('love',episodeComm.id ,episodeComm.commentable_id)">
                                         <img src="/front/img/heart-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
-                                    <li><a class="" href="#">
+                                    <li><a class="" href="#" @click.prevent="addlikeOrReplies('haha',episodeComm.id ,episodeComm.commentable_id)">
                                         <img src="/front/img/joy-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
-                                    <li><a class="" href="#">
+                                    <li><a class="" href="#" @click.prevent="addlikeOrReplies('dislike',episodeComm.id ,episodeComm.commentable_id)">
                                         <img src="/front/img/unlike-100.png" alt="" srcset="">
                                       </a>
                                     </li>
@@ -419,55 +382,28 @@
 
                               <span><a href="http://">رد</a></span>
 
-                              <span v-if="episodeComm.reacts.length != 0">
-                                   <div v-for="(item ,key) in episodeComm.reacts"> 
-                                    <i 
-                                    v-if="item.react_type == 'like'"
-                                    class="fa fa-thumbs-up" 
-                                    style="color:#5177e9">
-                                     {{countReacts}} 
+                                    <i
+                                    :class="['fa fa-thumbs-up', 'myLike-'+episodeComm.id]" 
+                                    style="color:#5b8cb8">
+                                     
                                     </i> 
 
                                     <i 
-                                    v-if="item.react_type == 'love'"
-                                    class="fa fa-heart" 
+                                    :class="['fa fa-thumbs-down', 'myDislike-'+episodeComm.id]" 
+                                    style="color:#f03"></i>                                    
+
+                                    <i
+                                    :class="['fa fa-heart', 'myLove-'+episodeComm.id]" 
                                     style="color:#CA1919">
-                                     {{countHeart}} 
-                                    </i>                                                                         
-                                    <!-- </div> -->
                                     
-                                    
+                                    </i>  
 
-<!-- 
-                                    <i 
-                                    class="fa fa-heart" 
-                                    v-if="item.react_type == 'love'" 
-                                    style="color:#CA1919"></i>  
-
-                                    <i 
-                                    class="fa fa-thumbs-down" 
-                                    v-if="item.react_type == 'dislike'" 
-                                    style="color:#f03"></i>
-
-                                    <i 
-                                    class="fa" 
-                                    v-if="item.react_type == 'haha'">
+                                    <i class="fa">
+                                        <span :class="'myHaha-'+episodeComm.id"></span>
                                       <img src="/front/img/joy-100.png"
                                       style="width:20px;" 
                                        alt="" srcset="">
-                                    </i> -->
-
-                                   </div>
-                              
-                                
-                              </span>
-
-                              <span v-else>
-                                  <i 
-                                  class="fa" >
-                                  <span style="color:#000">.</span>
-                                  </i>                                  
-                              </span>                             
+                                    </i>                                                                  
                             </div>
                           </div>
                         </div>
@@ -680,31 +616,99 @@ export default{
             })
         },
 
-      addlikeOrReplies(react_type ,comment_id,commentable_id){
+        getReactsCount(reactType ,reactable_id){
         const headers ={
           'Authorization': 'Bearer '+ this.getToken,
-        }  
-        let reactType = null;
-        if (react_type == 'like') {
-            this.countReacts ++;
-          reactType = react_type;
-           this.isActive =! this.isActive;
-        }
+        } 
 
-            this.axios.post('https://animeeplus.online/api/media/addCommentReacts/'+comment_id,{
-              react_type: reactType
+            let id = reactable_id;
+
+                this.episodeComments.forEach((item,value)=>{
+
+                    item.reacts.forEach((val)=>{
+
+            this.axios.post('https://animeeplus.online/api/media/reactsCount/'+id,{
+              react_type: reactType,
+              reactable_type : 'BeyondCode\\Comments\\Comment',
             },{headers}
             ).then(res=>{
 
-                this.getEpisodeComment(commentable_id);
+                let count = res.data.count
+
+                // document.querySelectorAll('.myLike-'+reactable_id)[0].innerText = ''
+                // document.querySelectorAll('.myDislike-'+reactable_id)[0].innerText = ''
+                // document.querySelectorAll('.myHaha-'+reactable_id)[0].innerText = ''
+                // document.querySelectorAll('.myLove-'+reactable_id)[0].innerText = ''
+
+                if (reactType == 'like') {
+                    let target = document.querySelectorAll('.myLike-'+reactable_id)[0];
+                    target.innerText = count
+                               
+                }else if(reactType == 'dislike'){
+                    let target = document.querySelectorAll('.myDislike-'+reactable_id)[0];
+                    target.innerText = count
+
+                }else if(reactType == 'haha'){
+                    let target = document.querySelectorAll('.myHaha-'+reactable_id)[0];
+                    target.innerText = count
+
+                }else if(reactType == 'love'){
+                    let target = document.querySelectorAll('.myLove-'+reactable_id)[0];
+                    target.innerText = count
+                }
 
             }).catch(err=>{
                 console.log(err);
-            })        
+            })
+                    })
+                })            
+
+ 
+        },
+
+      addlikeOrReplies(react_type ,comment_id,commentable_id){
+        let id = this.commentsEpisode.episode_id
+
+        const headers ={
+          'Authorization': 'Bearer '+ this.getToken,
+        }      
+
+        //create new react       
+        this.axios.post('https://animeeplus.online/api/media/addCommentReacts/'+comment_id,{
+          react_type: react_type
+        },{headers}
+        ).then(res=>{
+
+            // react-text-type and color
+            let text =document.querySelectorAll('.react-text-type-'+comment_id)[0]
+            if (react_type == 'like') {
+                text.innerText = 'أعجبني';
+                text.style.color ='#5b8cb8'   
+
+            }else if(react_type == 'love'){
+                text.innerText = 'أحببته';
+                text.style.color = '#c74032' 
+
+            }else if(react_type == 'dislike'){
+                text.innerText = 'لم يعجبني';
+                text.style.color = 'rgb(255, 0, 51)'
+
+            }else if(react_type == 'haha'){
+                text.innerText = 'أضحكني';
+                text.style.color = '#ebd458'
+            }
+
+            this.getReactsCount(react_type ,comment_id)
+            this.getEpisodeComment(commentable_id);
+            this.getHomeContents();
+
+        }).catch(err=>{
+            console.log(err);
+        })      
+
       },
 
         getHomeContents(){
-
             this.isLoading = true
             this.axios.get("https://animeeplus.online/api/media/homecontent/code"
             ).then(res=>{
@@ -743,19 +747,18 @@ export default{
             this.axios.get('https://animeeplus.online/api/media/episodes/comments/'+id+'/code'
             ).then(res=>{
 
-                this.episodeComments = res.data.comments; 
-                this.episodeComments.forEach((value, index) => {
+                this.episodeComments = res.data.comments;
+                console.log(this.episodeComments)
 
-                    value.reacts.forEach((item)=>{
-                        if (item.react_type == "like") {
-                            this.countReacts ++;
-                        }else if(item.react_type == "love"){
-                            this.countHeart ++;
-                        }
+                this.episodeComments.forEach((item,value)=>{
 
-                        
+                    item.reacts.forEach((val)=>{ 
+
+                        this.getReactsCount(val.react_type,val.reactable_id)
                     })
-                });
+                })
+
+
 
             }).catch(err=>{
                 console.log(err);
@@ -890,5 +893,10 @@ object-fit: cover;
     display:none;
 }
 
-
+#comments .like-color{
+    color:#5b8cb8;
+}
+#comments .love-color{
+    color: #c74032;
+}
 </style>
