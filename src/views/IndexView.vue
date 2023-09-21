@@ -2,8 +2,8 @@
     <div>
 
     <section class="home-carousel">
-<!-- :autoplay="10000" -->
-  <Carousel  :wrap-around="true" >
+<!--  -->
+  <Carousel :autoplay="10000" :wrap-around="true" >
     <Slide v-for="(item,index) in homeContents.featured" :key="item.id">
       <div class="carousel__item">
         <div class="shadow"></div>
@@ -93,7 +93,92 @@
                     <img src="https://animeeplus.online/api/image/custombanner" alt="">
                 </a>
             </div>
-        </section>     
+        </section>  
+
+        <section id="top" class="section-padding">
+            <div class="container">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>أنميات مستمرة</h2>
+                    </div>
+
+                    <div class="right">
+                        <router-link to="latest-series">
+                            <p>مشاهدة الكل</p>
+                            <i class="fa fa-arrow-left"></i>
+                        </router-link>
+                    </div>
+                </div>
+            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
+                <slide v-for="(latestSeri, index) in ongoingAnime" :key="index">
+                    <div class="carousel__item">
+                        <div class="row">
+                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <div class="col-md-3 col-sm-6 serie-image">
+                                <img v-lazy="latestSeri.poster_path" alt="">
+                            </div>  
+                            <h6 style="text-align: center;">
+                                {{latestSeri.name.slice(0, 10)}}
+                                <span v-if="latestSeri.name.length > 10">...</span>
+                            </h6>  
+                                
+                            </a>                           
+                        </div>
+                    </div>
+                </slide>
+
+                <template #addons>
+                  <navigation />
+                  <!-- <pagination /> -->
+                </template>
+            </carousel>  
+             
+            </div>
+        </section>    
+
+
+        <section id="top" class="section-padding">
+            <div class="container">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>شخصيات رائجة</h2>
+                    </div>
+
+                    <div class="right">
+                        <router-link to="latest-series">
+                            <p>مشاهدة الكل</p>
+                            <i class="fa fa-arrow-left"></i>
+                        </router-link>
+                    </div>
+                </div>
+            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
+                <slide v-for="(latestSeri, index) in popularCasters" :key="index">
+                    <div class="carousel__item" style="width: 100%;">
+                        <div class="row">
+                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <div class="col-md-3 col-sm-6 serie-image">
+                                <img v-lazy="latestSeri.profile_path" alt="" style="border-radius: 100px;height: 160px; border: 4px solid #B41D1E;">
+                                <h6 style="text-align: center;">
+                                    {{latestSeri.name.toUpperCase().slice(0, 10)}}
+                                    <span v-if="latestSeri.name.length > 10">...</span>
+                                </h6>  
+                            </div>  
+                                
+                            </a>                           
+                        </div>
+                    </div>
+                </slide>
+
+                <template #addons>
+                  <navigation />
+                  <!-- <pagination /> -->
+                </template>
+            </carousel>  
+             
+            </div>
+        </section>                
 
         <section id="moves" class="section-padding">
             <div class="container">
@@ -104,13 +189,10 @@
                     </div>
 
                     <div class="right">
-                        <a
-                       type="button" 
-                       data-bs-toggle="modal" 
-                       href="#all-latest-episode" role="button">
+                        <router-link to="/latest-episode">
                             <p>مشاهدة الكل</p>
                             <i class="fa fa-arrow-left"></i>
-                        </a>
+                        </router-link>
                     </div>
                 </div>
 
@@ -131,8 +213,12 @@
                                     </button>
                                     <img v-lazy="latestSeri.poster_path" alt="">
                                 </div>
-                                
-                                <h5>{{latestSeri.name}}</h5>
+                             
+                                <h5>
+                                    {{latestSeri.name.slice(0, 20)}}  
+                                    <span v-if="latestSeri.name.length > 20">...</span> 
+                                </h5>
+
                                 <span class="date">
 
                                      <Timeago :datetime="latestSeri.created_at" long locale="ar"/>  &nbsp;<i class="far fa-clock"></i>
@@ -176,30 +262,115 @@
             </div>
         </section>
 
+        <section id="moves" class="section-padding">
+            <div class="container">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>اَخر حلقات الكرتون</h2>                     
+                    </div>
+
+                    <div class="right">
+                        <router-link to="/latest-episodes-animes">
+                            <p>مشاهدة الكل</p>
+                            <i class="fa fa-arrow-left"></i>
+                        </router-link>
+                    </div>
+                </div>
+
+                <carousel v-bind="settings" :breakpoints="breakpoints">
+                <slide v-for="(latestSeri, index) in latestEpisodesAnimes" :key="index">
+                    <div class="carousel__item">
+                        <div class="row" style="height: 230px;">
+                            <div class="move-content">
+                                <div class="image-right">
+                                    <button
+                                    class="btn whatch-latest-episode" 
+                                    type="button" 
+                                    data-bs-toggle="modal" 
+                                    href="#whatch-latest-episode-anim"
+                                    @click="getLatestEpisodeAnimWithServer(latestSeri.anime_episode_id)"
+                                    >
+                                        <i class="fa fa-play-circle-o play-icon" aria-hidden="true"></i>
+                                    </button>
+                                    <img v-lazy="latestSeri.poster_path" alt="">
+                                </div>
+                                
+                                <h5>
+                                    {{latestSeri.name.slice(0, 20)}}  
+                                    <span v-if="latestSeri.name.length > 20">...</span>                                     
+                                </h5>
+                                <span class="date">
+
+                                     <Timeago :datetime="latestSeri.created_at" long locale="ar"/>  &nbsp;<i class="far fa-clock"></i>
+                                </span>
+                                <h6 class="season">{{latestSeri.seasons_name}}</h6>
+                                <h6 class="episode">{{latestSeri.episode_name}}</h6>
+
+                                <div class="row">
+                                    <div class="col-6  text-center">
+                                        <a
+                                        v-if="getLoggedIn" 
+                                        class="dics-dtn" 
+                                        type="button" 
+                                        data-bs-toggle="modal" 
+                                        href="#anim-comments" role="button"
+                                        @click="getEpisodeAnimComment(latestSeri.anime_episode_id)">
+                                            <i class="fa fa-commenting-o"></i> التعليقات
+                                        </a>
+
+                                        <a
+                                        v-if="!getLoggedIn" 
+                                        class="dics-dtn" 
+                                        type="button"
+                                        @click="message('تحتاج الي تسجيل الدخول لتتمكن من التعليق')">
+                                            <i class="fa fa-commenting-o"></i> التعليقات
+                                        </a>                                        
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    </div>
+                                </div>
+                            </div>                         
+                        </div>
+                    </div>                   
+                </slide>
+
+                <template #addons>
+                  <pagination />
+                </template>
+                </carousel>              
+            </div>
+        </section>
+
         <section id="top" class="section-padding">
             <div class="container">
 
                 <div class="section-header">
                     <div class="left">
-                        <h2>اَخر المسلسلات</h2>
+                        <h2>اَخر الأفلام المضافة</h2>
                     </div>
 
                     <div class="right">
-                        <a href="test.html">
+                        <router-link to="latest-series">
                             <p>مشاهدة الكل</p>
                             <i class="fa fa-arrow-left"></i>
-                        </a>
+                        </router-link>
                     </div>
                 </div>
             <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
-                <slide v-for="(latestSeri, index) in latestSeries.recents" :key="index">
+                <slide v-for="(latestMovei, index) in latestMovieWatched" :key="index">
                     <div class="carousel__item">
                         <div class="row">
-                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <a @click.prevent="goToPage(latestMovei.id)">
                             <div class="col-md-3 col-sm-6 serie-image">
-                                <img v-lazy="latestSeri.poster_path" alt="">
+                                <img v-lazy="latestMovei.poster_path" alt="">
                             </div>  
-                            <h6>{{latestSeri.name}}</h6>  
+                            <h6 style="text-align: center;">
+                                {{latestMovei.title.slice(0,10)}}
+                                <span v-if="latestMovei.title
+                                .length > 10">...</span>
+                            </h6>  
                             </a>                           
                         </div>
                     </div>
@@ -214,6 +385,212 @@
             </div>
         </section>
 
+        <section id="top" class="section-padding">
+            <div class="container">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>اَخر المسلسلات</h2>
+                    </div>
+
+                    <div class="right">
+                        <router-link to="latest-series">
+                            <p>مشاهدة الكل</p>
+                            <i class="fa fa-arrow-left"></i>
+                        </router-link>
+                    </div>
+                </div>
+            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
+                <slide v-for="(latestSeri, index) in latestSeries.recents" :key="index">
+                    <div class="carousel__item">
+                        <div class="row">
+                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <div class="col-md-3 col-sm-6 serie-image">
+                                <img v-lazy="latestSeri.poster_path" alt="">
+                            </div>  
+                            <h6 style="text-align: center;">
+                                {{latestSeri.name.slice(0,10)}}
+                                <span v-if="latestSeri.name.length > 10">...</span>
+                            </h6>  
+                            </a>                           
+                        </div>
+                    </div>
+                </slide>
+
+                <template #addons>
+                  <navigation />
+                  <!-- <pagination /> -->
+                </template>
+            </carousel>  
+             
+            </div>
+        </section>
+
+        <section id="top" class="section-padding">
+            <div class="container">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>اَخر برامج الكرتون</h2>
+                    </div>
+
+                    <div class="right">
+                        <router-link to="latest-anime">
+                            <p>مشاهدة الكل</p>
+                            <i class="fa fa-arrow-left"></i>
+                        </router-link>
+                    </div>
+                </div>
+            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
+                <slide v-for="(latestSeri, index) in latestAnim" :key="index">
+                    <div class="carousel__item">
+                        <div class="row">
+                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <div class="col-md-3 col-sm-6 serie-image">
+                                <img v-lazy="latestSeri.poster_path" alt="">
+                            </div>  
+                            <h6 style="text-align: center;">
+                                {{latestSeri.name.slice(0,10)}}
+                                <span v-if="latestSeri.name.length > 10">...</span>
+                            </h6>  
+                            </a>                           
+                        </div>
+                    </div>
+                </slide>
+
+                <template #addons>
+                  <navigation />
+                  <!-- <pagination /> -->
+                </template>
+            </carousel>  
+             
+            </div>
+        </section>
+
+
+        <section id="top" class="section-padding">
+            <div class="container">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>أكثر الأفلام مشاهدة</h2>
+                    </div>
+
+                    <div class="right">
+                        <router-link to="latest-anime">
+                            <p>مشاهدة الكل</p>
+                            <i class="fa fa-arrow-left"></i>
+                        </router-link>
+                    </div>
+                </div>
+            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
+                <slide v-for="(latestSeri, index) in trending" :key="index">
+                    <div class="carousel__item">
+                        <div class="row">
+                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <div class="col-md-3 col-sm-6 serie-image">
+                                <img v-lazy="latestSeri.poster_path" alt="">
+                            </div>  
+                            <h6 style="text-align: center;">
+                                {{latestSeri.title.slice(0,10)}}
+                                <span v-if="latestSeri.title.length > 10">...</span>
+                            </h6>  
+                            </a>                           
+                        </div>
+                    </div>
+                </slide>
+
+                <template #addons>
+                  <navigation />
+                  <!-- <pagination /> -->
+                </template>
+            </carousel>  
+             
+            </div>
+        </section> 
+
+        <section id="top" class="section-padding">
+            <div class="container">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>اأكثر المسلسلات مشاهدة</h2>
+                    </div>
+
+                    <div class="right">
+                        <router-link to="latest-anime">
+                            <p>مشاهدة الكل</p>
+                            <i class="fa fa-arrow-left"></i>
+                        </router-link>
+                    </div>
+                </div>
+            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
+                <slide v-for="(latestSeri, index) in top10" :key="index">
+                    <div class="carousel__item">
+                        <div class="row">
+                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <div class="col-md-3 col-sm-6 serie-image">
+                                <img v-lazy="latestSeri.poster_path" alt="">
+                            </div>  
+                            <h6 style="text-align: center;">
+                                {{latestSeri.name.slice(0,10)}}
+                                <span v-if="latestSeri.name.length > 10">...</span>
+                            </h6>  
+                            </a>                           
+                        </div>
+                    </div>
+                </slide>
+
+                <template #addons>
+                  <navigation />
+                  <!-- <pagination /> -->
+                </template>
+            </carousel>  
+             
+            </div>
+        </section>        
+
+
+        <section id="top" class="section-padding">
+            <div class="container">
+
+                <div class="section-header">
+                    <div class="left">
+                        <h2>جديد هذا الشهر</h2>
+                    </div>
+
+                    <div class="right">
+                        <router-link to="latest-series">
+                            <p>مشاهدة الكل</p>
+                            <i class="fa fa-arrow-left"></i>
+                        </router-link>
+                    </div>
+                </div>
+            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
+                <slide v-for="(item, index) in thiWeeks" :key="index">
+                    <div class="carousel__item">
+                        <div class="row">
+                            <a @click.prevent="goToPage(item.id)">
+                            <div class="col-md-3 col-sm-6 serie-image">
+                                <img v-lazy="item.poster_path" alt="">
+                            </div>  
+                            <h6 style="text-align: center;">
+                                {{item.title}}
+                                <!-- <span v-if="item.title.length > 10">...</span> -->
+                            </h6>  
+                            </a>                           
+                        </div>
+                    </div>
+                </slide>
+
+                <template #addons>
+                  <navigation />
+                  <!-- <pagination /> -->
+                </template>
+            </carousel>  
+             
+            </div>
+        </section>
     </main>
 
     <Footer></Footer>
@@ -322,19 +699,48 @@
             </div>
             <!--  End whatch latest episode -->  
 
+            <!-- start whatch latest episode anim -->
+            <!-- Modal -->
+            <div class="modal fade" id="whatch-latest-episode-anim" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">إختر السيرفر</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row warning">
+                      <div class="container">
+                        <div v-for="video in latestEpisodeAnimWithServer.videos" :key="index">
+                        <a :href="video.link" target="_blank">{{video.server}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  End whatch latest episode anim -->              
+
            <!-- start episode comment -->
             <!-- Modal -->
             <div class="modal fade latest-episode-comment " id="comments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">التعليقات ({{episodeComments.length }}) </h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">التعليقات </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body comments">
                     <div class="comm-info">
 
                       <div class="users-comments" v-for="(episodeComm , index) in episodeComments" :key="index">
+                        <div v-for="item in episodeComm.reacts">
                         <div class="row">
                           <div class="col-md-1 col-sm-1">
                             <div class="img-user">
@@ -357,23 +763,23 @@
 
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
 
-                                    <li><a class="" @click.prevent="addlikeOrReplies('like',episodeComm.id ,episodeComm.commentable_id)" href="#">
+                                    <li><a class="" @click.prevent="addlikeOrReplies('like',episodeComm.id ,episodeComm.commentable_id ,item.reactable_type)" href="#">
                                         <img src="/front/img/like-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li>
-                                      <a class="" href="#" @click.prevent="addlikeOrReplies('love',episodeComm.id ,episodeComm.commentable_id)">
+                                      <a class="" href="#" @click.prevent="addlikeOrReplies('love',episodeComm.id ,episodeComm.commentable_id,item.reactable_type)">
                                         <img src="/front/img/heart-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
-                                    <li><a class="" href="#" @click.prevent="addlikeOrReplies('haha',episodeComm.id ,episodeComm.commentable_id)">
+                                    <li><a class="" href="#" @click.prevent="addlikeOrReplies('haha',episodeComm.id ,episodeComm.commentable_id,item.reactable_type)">
                                         <img src="/front/img/joy-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
-                                    <li><a class="" href="#" @click.prevent="addlikeOrReplies('dislike',episodeComm.id ,episodeComm.commentable_id)">
+                                    <li><a class="" href="#" @click.prevent="addlikeOrReplies('dislike',episodeComm.id ,episodeComm.commentable_id,item.reactable_type)">
                                         <img src="/front/img/unlike-100.png" alt="" srcset="">
                                       </a>
                                     </li>
@@ -387,6 +793,7 @@
                                     style="color:#5b8cb8">
                                      
                                     </i> 
+
 
                                     <i 
                                     :class="['fa fa-thumbs-down', 'myDislike-'+episodeComm.id]" 
@@ -408,7 +815,7 @@
                           </div>
                         </div>
                       </div>
-
+                      </div>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -430,68 +837,112 @@
                 </div>
               </div>
             </div>
-            <!--  End episode commet -->      
+            <!--  End episode commet -->     
 
 
-
-           <!-- start all latest episode -->
+           <!-- start episode anim comment -->
             <!-- Modal -->
-            <div class="modal fade latest-episode-comment " id="all-latest-episode" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade latest-episode-anim-comment" id="anim-comments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">اَخر الحلقات</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">التعليقات</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="modal-body">
-                        <div class="row" style="justify-content: center;">
-                            <div class="card m-2 col-md-5 col-sm-12" style="max-width: 540px;"
-                            v-for="(latestSeri, index) in latestEpisodes.latest_episodes" :key="index">
-                              <div class="row g-0 ">
-                                <div class="col-md-4">
-                                  <img src="front/img/51107.jpg" class="img-fluid rounded-start" alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                  <div class="card-body">
-                                    <h5 class="card-title">{{latestSeri.name}}</h5>
-                                    <span class="date">
+                  <div class="modal-body comments">
+                    <div class="comm-info">
 
-                                         قبل 18 ساعة  &nbsp;<i class="far fa-clock"></i>
-                                    </span>
-                                    <h6 class="season">{{latestSeri.seasons_name}}</h6>
-                                    <h6 class="episode">{{latestSeri.episode_name}}</h6>
-
-                                    <div class="row">
-                                        <div class="col-6  text-center">
-                                            <a 
-                                            class="dics-dtn" 
-                                            type="button" 
-                                            data-bs-toggle="modal" 
-                                            href="#comments" role="button"
-                                            @click="getEpisodeComment(latestSeri.episode_id)">
-                                                <i class="fa fa-commenting-o"></i> التعليقات
-                                            </a>
-                                        </div>
-                                        <div class="col-6 text-center">
-                                            <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
-                                        </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                      <div class="users-comments" v-for="(episodeComm , index) in episodeAnimComments" :key="index">
+                        <div>
+                        <div class="row">
+                          <div class="col-md-1 col-sm-1">
+                            <div class="img-user">
+                              <img :src="episodeComm.user_image" alt="">
                             </div>
+                          </div>
+                          <div class="col-md-6 col-sm-12">
+                            <div class="info">
+                              <h6>{{episodeComm.user_name}}</h6>
+                              <p class="comment">{{episodeComm.comment}}</p>
+                            </div>
+                            <div class="active">
+                              <span><a href="http://">1 ع</a></span>
+                                <span>
+                                  <a :class="'react-text-type-'+episodeComm.id" href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+
+                                    أعجبني
+                                    </a>
+
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+
+<!--                                     <li>
+                                       <a class="" @click.prevent="addlikeOrRepliesAnim('like',episodeComm.id ,episodeComm.commentable_id ,item.reactable_type)" href="#">
+                                        <img src="/front/img/like-100.png" alt="" srcset="">
+                                      </a>
+                                    </li>
+
+                                    <li>
+                                    <a class="" href="#" @click.prevent="addlikeOrRepliesAnim('love',episodeComm.id ,episodeComm.commentable_id,item.reactable_type)">
+                                        <img src="/front/img/heart-100.png" alt="" srcset="">
+                                      </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="" href="#" @click.prevent="addlikeOrRepliesAnim('haha',episodeComm.id ,episodeComm.commentable_id,item.reactable_type)">
+                                        <img src="/front/img/joy-100.png" alt="" srcset="">
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="" href="#" @click.prevent="addlikeOrRepliesAnim('dislike',episodeComm.id ,episodeComm.commentable_id,item.reactable_type)">
+                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
+                                      </a>
+                                    </li> -->
+                                  </ul>
+                                </span>
+
+                              <span><a href="http://">رد</a></span>
+
+                                    <i
+                                    :class="['fa fa-thumbs-up', 'myLike-'+episodeComm.id]" 
+                                    style="color:#5b8cb8">
+                                     
+                                    </i> 
+
+
+                                    <i 
+                                    :class="['fa fa-thumbs-down', 'myDislike-'+episodeComm.id]" 
+                                    style="color:#f03"></i>                                    
+
+                                    <i
+                                    :class="['fa fa-heart', 'myLove-'+episodeComm.id]" 
+                                    style="color:#CA1919">
+                                    
+                                    </i>  
+
+                                    <i class="fa">
+                                        <span :class="'myHaha-'+episodeComm.id"></span>
+                                      <img src="/front/img/joy-100.png"
+                                      style="width:20px;" 
+                                       alt="" srcset="">
+                                    </i>                                                                  
+                            </div>
+                          </div>
                         </div>
+                      </div>
+                      </div>
+                    </div>
                   </div>
                   <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button> -->
 
                     <div class="row" style="width: 100%;">
                       <div class="col-md-12">
                         <div class="type-comment">
                           <div class="input-group">
-                            <input type="text" class="form-control" placeholder="أكتب تعليق...."
+                            <input type="text" v-model="commentsEpisode.comments_message" class="form-control" placeholder="أكتب تعليق...."
                               aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <button class="btn btn-secondary">
+                            <button @click.prevent="addComentsEpisode" class="btn btn-secondary">
                               <i class="fa fa-send"></i>
                             </button>
                           </div>
@@ -502,7 +953,8 @@
                 </div>
               </div>
             </div>
-            <!--  End all latest episode -->                                           
+            <!--  End episode anim commet -->                
+                                          
     </div>
 
 <!-- <div v-show="isLoading">
@@ -533,10 +985,24 @@ export default{
             latestSeries:[],
             latestEpisodes:[],
             latestEpisodeWithServer:[],
+            latestEpisodeAnimWithServer:[],
             episodeComments:[],
+            episodeAnimComments:[],
+            ongoingAnime:[],
+            latestAnim:[],
+            top10:[],
+            trending:[],
+            popularCasters:[],
+
             moment: moment,
+
             itemShow:3,
+            thiWeeks:[],
+            latestEpisodesAnimes:[],
+            latestMovieWatched:[],
+
             screenWidth: window.innerWidth,
+
             isLoading:false,
             countReacts:0,
             countHeart:0,
@@ -545,6 +1011,12 @@ export default{
               comments_message:null,
               episode_id:null,
             },
+
+            commentsAnimEpisode:{
+                comments_message:null,
+                episode_id:null,
+            },
+            
 
             settings: {
               itemsToShow: 1,
@@ -616,7 +1088,8 @@ export default{
             })
         },
 
-        getReactsCount(reactType ,reactable_id){
+        getReactsCount(reactType ,reactable_id,reactable_type){
+
         const headers ={
           'Authorization': 'Bearer '+ this.getToken,
         } 
@@ -627,11 +1100,11 @@ export default{
 
                     item.reacts.forEach((val)=>{
 
-            this.axios.post('https://animeeplus.online/api/media/reactsCount/'+id,{
-              react_type: reactType,
-              reactable_type : 'BeyondCode\\Comments\\Comment',
-            },{headers}
-            ).then(res=>{
+                    this.axios.post('https://animeeplus.online/api/media/reactsCount/'+item.id,{
+                      react_type: reactType,
+                      reactable_type : reactable_type,
+                    },{headers}
+                    ).then(res=>{
 
                 let count = res.data.count
 
@@ -642,19 +1115,36 @@ export default{
 
                 if (reactType == 'like') {
                     let target = document.querySelectorAll('.myLike-'+reactable_id)[0];
-                    target.innerText = count
+                    if (count != 0) {
+                        target.innerText = count
+                    }else{
+                        target.innerText = ''
+                    }
+                    
                                
                 }else if(reactType == 'dislike'){
                     let target = document.querySelectorAll('.myDislike-'+reactable_id)[0];
-                    target.innerText = count
+                    if (count != 0) {
+                        target.innerText = count
+                    }else{
+                        target.innerText = ''
+                    }
 
                 }else if(reactType == 'haha'){
                     let target = document.querySelectorAll('.myHaha-'+reactable_id)[0];
-                    target.innerText = count
+                    if (count != 0) {
+                        target.innerText = count
+                    }else{
+                        target.innerText = ''
+                    }
 
                 }else if(reactType == 'love'){
                     let target = document.querySelectorAll('.myLove-'+reactable_id)[0];
-                    target.innerText = count
+                    if (count != 0) {
+                        target.innerText = count
+                    }else{
+                        target.innerText = ''
+                    }
                 }
 
             }).catch(err=>{
@@ -666,7 +1156,8 @@ export default{
  
         },
 
-      addlikeOrReplies(react_type ,comment_id,commentable_id){
+      addlikeOrReplies(react_type ,comment_id,commentable_id ,reactable_type){
+
         let id = this.commentsEpisode.episode_id
 
         const headers ={
@@ -675,7 +1166,8 @@ export default{
 
         //create new react       
         this.axios.post('https://animeeplus.online/api/media/addCommentReacts/'+comment_id,{
-          react_type: react_type
+          react_type: react_type,
+          reactable_type: reactable_type
         },{headers}
         ).then(res=>{
 
@@ -698,9 +1190,10 @@ export default{
                 text.style.color = '#ebd458'
             }
 
-            this.getReactsCount(react_type ,comment_id)
-            this.getEpisodeComment(commentable_id);
             this.getHomeContents();
+            // this.getReactsCount(react_type ,comment_id,reactable_type)
+            // this.getEpisodeComment(commentable_id);
+            
 
         }).catch(err=>{
             console.log(err);
@@ -708,6 +1201,50 @@ export default{
 
       },
 
+      addlikeOrRepliesAnim(react_type ,comment_id,commentable_id ,reactable_type){
+
+        let id = this.commentsEpisode.episode_id
+
+        const headers ={
+          'Authorization': 'Bearer '+ this.getToken,
+        }      
+
+        //create new react       
+        this.axios.post('https://animeeplus.online/api/media/addCommentReacts/'+comment_id,{
+          react_type: react_type,
+          reactable_type: reactable_type
+        },{headers}
+        ).then(res=>{
+
+            // react-text-type and color
+            let text =document.querySelectorAll('.react-text-type-'+comment_id)[0]
+            if (react_type == 'like') {
+                text.innerText = 'أعجبني';
+                text.style.color ='#5b8cb8'   
+
+            }else if(react_type == 'love'){
+                text.innerText = 'أحببته';
+                text.style.color = '#c74032' 
+
+            }else if(react_type == 'dislike'){
+                text.innerText = 'لم يعجبني';
+                text.style.color = 'rgb(255, 0, 51)'
+
+            }else if(react_type == 'haha'){
+                text.innerText = 'أضحكني';
+                text.style.color = '#ebd458'
+            }
+
+            this.getHomeContents();
+            // this.getReactsCount(react_type ,comment_id,reactable_type)
+            // this.getEpisodeComment(commentable_id);
+            
+
+        }).catch(err=>{
+            console.log(err);
+        })      
+
+      },
         getHomeContents(){
             this.isLoading = true
             this.axios.get("https://animeeplus.online/api/media/homecontent/code"
@@ -716,8 +1253,16 @@ export default{
                 this.homeContents = res.data;
                 this.latestEpisodes = res.data;
                 this.latestSeries = res.data;
+                this.ongoingAnime = res.data.pinned;
+                this.thiWeeks = res.data.thisweek;
+                this.latestMovieWatched =res.data.latest;
+                this.latestEpisodesAnimes = res.data.latest_episodes_animes;
+                this.latestAnim = res.data.anime;
+                this.top10 = res.data.top10;
+                this.trending =res.data.trending;
+                this.popularCasters = res.data.popular_casters;
                 this.isLoading = false
-                console.log(this.latestEpisodes);
+                console.log(res.data );
 
             }).catch(err=>{
                 this.isLoading = false
@@ -739,7 +1284,19 @@ export default{
             }).catch(err=>{
                 console.log(err.message);
             })
-        },  
+        }, 
+
+        getLatestEpisodeAnimWithServer(id){
+
+            this.axios.get('https://animeeplus.online/api/animes/episodeshow/'+id+'/code'
+            ).then(res=>{
+
+                this.latestEpisodeAnimWithServer = res.data.episode;
+
+            }).catch(err=>{
+                console.log(err.message);
+            })            
+        },
 
         getEpisodeComment(id){
 
@@ -748,17 +1305,36 @@ export default{
             ).then(res=>{
 
                 this.episodeComments = res.data.comments;
-                console.log(this.episodeComments)
 
                 this.episodeComments.forEach((item,value)=>{
 
                     item.reacts.forEach((val)=>{ 
 
-                        this.getReactsCount(val.react_type,val.reactable_id)
+                        this.getReactsCount(val.react_type,val.reactable_id ,val.reactable_type)
                     })
                 })
 
+            }).catch(err=>{
+                console.log(err);
+            })
+        },
 
+        getEpisodeAnimComment(id){
+          this.commentsAnimEpisode.episode_id = id
+            this.axios.get('https://animeeplus.online/api/media/episodesanimes/comments/'+id+'/code'
+            ).then(res=>{
+
+                this.episodeAnimComments = res.data.comments;
+
+                 console.log(this.episodeAnimComments);
+
+                // this.episodeAnimComments.forEach((item,value)=>{
+
+                //     item.reacts.forEach((val)=>{ 
+
+                //         this.getReactsCount(val.react_type,val.reactable_id ,val.reactable_type)
+                //     })
+                // })
 
             }).catch(err=>{
                 console.log(err);
@@ -892,6 +1468,7 @@ object-fit: cover;
 .home-carousel .fa-check{
     display:none;
 }
+
 
 #comments .like-color{
     color:#5b8cb8;

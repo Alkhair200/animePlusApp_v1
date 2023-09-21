@@ -454,13 +454,15 @@ text-align: center;
     cursor: pointer;
 }
 
-.latest-episode-comment .modal-content{
+.latest-episode-comment .modal-content,
+.latest-episode-anim-comment .modal-content{
     background-color: var(--bg-section);
 color: var(--white);
 }
 
 
-.latest-episode-comment .modal-header .btn-close {
+.latest-episode-comment .modal-header .btn-close,
+.latest-episode-anim-comment .modal-header .btn-close {
     padding: .5rem .5rem;
     margin: 0;
     color: var(--white);

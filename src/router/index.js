@@ -7,8 +7,11 @@ import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 import UpdateProfile from "../views/UpdateProfile.vue"
 import LatestEpisode from "../views/LatestEpisode.vue"
+import LatestSeries from "../views/LatestSeries.vue"
 import latestEpisodesAnimes from "../views/latestEpisodesAnimes.vue"
+import LatestAnim from "../views/LatestAnim.vue"
 import EpisodeReleaseDates from "../views/EpisodeReleaseDates.vue"
+import VideoPlayer from "../views/VideoPlayer.vue"
 import store from "../store"
 
 
@@ -61,10 +64,27 @@ const routes = [
     
   {
     path: "/latest-episode",
-    name: "episode-release",
+    name: "episode-episode",
     component: LatestEpisode,
     meta:{title:"latest episode"},
   },
+
+    {
+    path: "/latest-anime",
+    name: "episode-episode",
+    component: LatestAnim,
+    meta:{title:"latest anime"},
+  },
+
+
+    {
+    path: "/latest-series",
+    name: "episode-series",
+    component: LatestSeries,
+    meta:{title:"latest series"},
+  },
+
+  // 
     {
     path: "/latest-episodes-animes",
     name: "latest-episodes-animes",
@@ -77,6 +97,15 @@ const routes = [
     component: EpisodeReleaseDates,
     meta:{title:"episode release dates"},
   },
+    {
+    path: "/play",
+    name: "play",
+    component: VideoPlayer,
+    meta:{title:"play"},
+  },
+
+
+  // 
 
 
 

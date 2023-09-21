@@ -28,7 +28,7 @@
                     <router-link v-if="!getLoggedIn" to="/login" class="btn">تسجيل الدخول</router-link>
 
                     <router-link v-if="getLoggedIn" to="/update-profile" class="btn">تعديل الملف الشخصي</router-link>
-                    <a v-if="getLoggedIn" href="https://animeeplus.net/subscriptions/" class="btn subsc-btn">إشتراك الاَن</a>
+                    <!-- <a v-if="getLoggedIn" href="https://animeeplus.net/subscriptions/" class="btn subsc-btn">إشتراك الاَن</a> -->
 
                     <div class="social-media">
                         <span>
@@ -86,7 +86,7 @@
                             </router-link>
                         </li>
 
-                        <li>
+<!--                         <li>
                             <i class="fa fa-exclamation-circle"></i>
                             <a href="index.html">
                                 الإقتراحات
@@ -98,7 +98,7 @@
                             <a href="index.html">
                                 شارك الموقع
                             </a>
-                        </li>
+                        </li> -->
 
                     </ul>
                 </div>

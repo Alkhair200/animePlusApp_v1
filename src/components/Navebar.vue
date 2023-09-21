@@ -16,12 +16,12 @@
                   <i class="fa fa-heart"></i>
                 </router-link >
               </li>
-              <li class="nav-item">
+<!--               <li class="nav-item">
                 <a class="nav-link buttons-effect border-right" href="index.html">
                   <i class="fa fa-cog"></i>
                 </a>
 
-              </li>
+              </li> -->
             </ul>
           </div>
         </div>

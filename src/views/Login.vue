@@ -44,13 +44,13 @@
 					</div>
 					<br>
 
-					<div class="text-center p-t-12">
+<!-- 					<div class="text-center p-t-12">
 						<button class="login100-form-btn" style="background:#fff; color:#333">
 							<i class="fa fa-google"></i>
 							&nbsp;
 							المتابعة بواسطه جوجل 
 						</button>
-					</div>	
+					</div>	 -->
 
 					<div class="text-center p-t-136">
 						<router-link class="txt2" to="register">

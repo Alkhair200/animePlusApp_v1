@@ -19,7 +19,9 @@
 				    </div>
 				    <div class="col-md-8">
 				      <div class="card-body">
-                        <h5 class="card-title">{{latest_episode.name}}</h5>
+                        <h5 class="card-title">
+                          <span v-if="latest_episode.name.length > 20">...</span>{{latest_episode.name.slice(0, 20)}}
+                        </h5>
                             <span class="date">
 
                                  قبل 18 ساعة  &nbsp;<i class="far fa-clock"></i>
