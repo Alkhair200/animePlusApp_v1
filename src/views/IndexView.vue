@@ -685,7 +685,7 @@
                     <div class="row warning">
                       <div class="container">
                         <div v-for="video in latestEpisodeWithServer.videos" :key="index">
-                        <a target="_blank" style="cursor: pointer;" @click="goToPlayer(video.link,'season')" >{{video.server}}</a>
+                        <a style="cursor: pointer;" @click="goToPlayer(video.link,'season')" >{{video.server}}</a>
                         </div>
                       </div>
                     </div>
@@ -713,7 +713,7 @@
                     <div class="row warning">
                       <div class="container">
                         <div v-for="video in latestEpisodeAnimWithServer.videos" :key="index">
-                        <a :href="video.link" target="_blank">{{video.server}}</a>
+                        <a style="cursor: pointer;" @click="goToPlayer(video.link,'anim')">{{video.server}}</a>
                         </div>
                       </div>
                     </div>
@@ -1398,12 +1398,10 @@ export default{
         goToPlayer(link,type){
             if (type == "season") {
                 this.$store.dispatch("goToPlayer",{link: link,type:'season'});
+                 this.$router.push(window.open('play','_blank'))
 
-                this.$router.push(window.open('play','_blank'))  
-
-            }else if(type == "movie"){
-                this.$store.dispatch("goToPlayer",{link: link,type:'movie'});
-
+            }else if(type == "anim"){
+                this.$store.dispatch("goToPlayer",{link: link,type:'anim'});
                  this.$router.push(window.open('play','_blank'))                 
             }
         }, 

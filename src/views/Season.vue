@@ -670,7 +670,7 @@
                     <div class="row">
                       <div class="container">
                         <div v-for="video in episodeWithServer.videos" :key="index">
-                        <a :href="video.link" target="_blank">{{video.server}}</a>
+                        <a style="cursor: pointer;" @click="goToPlayer(video.link)" >{{video.server}}</a>
                         </div>
                       </div>
                     </div>
@@ -1183,7 +1183,12 @@ export default{
               title: msg,
               type: "warn",
             });
-        },                  
+        },
+
+        goToPlayer(link){
+          this.$store.dispatch("goToPlayer",{link: link,type:'anim'});
+          this.$router.push(window.open('play','_blank')) 
+        },                           
 
       }
 

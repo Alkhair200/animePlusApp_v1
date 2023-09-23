@@ -37,11 +37,11 @@
           <div class="row">
             <div class="col-md-12 col-sm-12">
               <div class="comment">
-                <button v-if="getLoggedIn" type="button" data-bs-toggle="modal" href="#series-comments" role="button"
+                <button v-if="getLoggedIn" type="button" data-bs-toggle="modal" href="#whatch-episode" role="button"
                 style="background-color:var(--red);margin-bottom:10px;" 
                   class="btn btn">شاهد الاَن</button>
 
-                <button v-if="getLoggedIn" type="button" data-bs-toggle="modal" href="#series-comments" role="button"
+                <button v-if="getLoggedIn" type="button"
                 style="background-color:#2f88c9;margin-bottom:10px;border:2px solid #2f88c9" 
                   class="btn btn">تحميل</button>                  
 
@@ -531,6 +531,35 @@
                 </div>
               </div>
             </div>  
+
+
+            <!-- start whatch episode -->
+            <!-- Modal -->
+            <div class="modal fade" id="whatch-episode" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">إختر السيرفر</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="container">
+                        <div v-for="video in episode.videos" :key="index">
+                        <a style="cursor: pointer;" @click="goToPlayer(video.link)" >{{video.server}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  End whatch episode -->               
 </template>
 
   <script>
@@ -868,7 +897,12 @@ export default{
               title: msg,
               type: "warn",
             });
-        },                  
+        },  
+
+        goToPlayer(link){
+          this.$store.dispatch("goToPlayer",{link: link,type:'anim'});
+          this.$router.push(window.open('play','_blank')) 
+        },   
 
       }
 
