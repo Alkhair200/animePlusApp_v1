@@ -9,6 +9,10 @@ import UpdateProfile from "../views/UpdateProfile.vue"
 import LatestEpisode from "../views/LatestEpisode.vue"
 import LatestSeries from "../views/LatestSeries.vue"
 import latestEpisodesAnimes from "../views/latestEpisodesAnimes.vue"
+import PopularCasters from "../views/PopularCasters.vue"
+import LatestMovie from "../views/LatestMovie.vue"
+
+
 import LatestAnim from "../views/LatestAnim.vue"
 import EpisodeReleaseDates from "../views/EpisodeReleaseDates.vue"
 import VideoPlayer from "../views/VideoPlayer.vue"
@@ -63,12 +67,28 @@ const routes = [
   },
     
   {
-    path: "/latest-episode",
-    name: "episode-episode",
+    path: "/latest",
+    name: "latest",
     component: LatestEpisode,
     meta:{title:"latest episode"},
   },
 
+    {
+    path: "/popular-casters",
+    name: "popular-casters",
+    component: PopularCasters,
+    meta:{title:"popular casters"},
+  },
+
+  {
+    path: "/latest-movie",
+    name: "latest-movie",
+    component: LatestMovie,
+    meta:{title:"latest movie"},
+  },
+
+
+  // 
     {
     path: "/latest-anime",
     name: "episode-episode",
@@ -101,7 +121,7 @@ const routes = [
     path: "/play",
     name: "play",
     component: VideoPlayer,
-    meta:{title:"play"},
+    meta:{title:"play"},    
   },
 
 

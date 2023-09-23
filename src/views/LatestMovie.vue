@@ -20,15 +20,11 @@
         </li>
         <span class="pb-3" style=" font-size: 30px; color: #B41D1E;"> . </span>
         <li class="px-1 list-text-2">
-          {{episode.first_air_date}}
+          {{episode.release_date}}
         </li>
         <span class="pb-3" style="font-size: 30px; color: #B41D1E;"> . </span>
         <li class=" px-1 list-text-3">
-          <div v-if="episode.seasons">عدد الموسم: {{episode.seasons.length}}</div>
-        </li>
-        <span class="pb-3" style="font-size: 30px; color: #B41D1E;"> . </span>
-        <li class="px-1 list-text-4">
-          مستمر
+          <Timeago :datetime="episode.created_at" long locale="ar"/>
         </li>
       </ul>
     </div>
@@ -42,6 +38,15 @@
             <div class="col-md-12 col-sm-12">
               <div class="comment">
                 <button v-if="getLoggedIn" type="button" data-bs-toggle="modal" href="#series-comments" role="button"
+                style="background-color:var(--red);margin-bottom:10px;" 
+                  class="btn btn">شاهد الاَن</button>
+
+                <button v-if="getLoggedIn" type="button" data-bs-toggle="modal" href="#series-comments" role="button"
+                style="background-color:#2f88c9;margin-bottom:10px;border:2px solid #2f88c9" 
+                  class="btn btn">تحميل</button>                  
+
+                <button v-if="getLoggedIn" type="button" data-bs-toggle="modal" href="#series-comments" role="button"
+                style="border:none;" 
                   class="btn btn">التعليقات</button>
 
                 <button v-if="!getLoggedIn" type="button" @click.prevent="message('يجب عليك تسجيل الخول اولاً')" role="button"
@@ -364,331 +369,86 @@
         </div>
       </section>
 
-      <section class="videos section-padding" id="popular">
+        <section id="top" class="section-padding casterslist">
+            <div class="">
 
-        <div class="row">
-          <div class="col-md-5 col-sm-5">
-            <select class="form-select dropdown" aria-label="Default select example" 
-            @change="getSeasonsWithEpisode($event)">
-            <option selected disabled="">إختر الموسم</option>}
-            option
-  <option :class="[episode.seasons.length == 1?'selected':'']" :value="season.id" v-for="(season ,index) in episode.seasons" :key="index"
-  >{{season.name}}</option>
-</select>
-
-          </div>
-          &nbsp;
-          &nbsp;
-
-          <div class="col-md-5 col-sm-5 nav-searchs">
-            <input v-model="searchEpisodeNmber" class="form-control video-search bordred" type="search" placeholder="إبحث برقم الحلقه....">
-          </div>
-
-        </div>
-        <br>
-        <div class="row" v-for="(episode, index) in findEpisodeName" :key="index">
-          <div class="card mb-3" style="max-width: 540px;" >
-            <div class="row g-0">
-              <div class="col-md-4 col-sm-4 position-relative card-video">
-
-                <div class="image-episode">
-                  <button class="btn btn-whatch"
-                    type="button" 
-                    data-bs-toggle="modal" 
-                    role="button"
-                    href="#whatch-episode"
-                    @click="getEpisodeWithServer(episode.id)">
-
-                    <i class="fa fa-play-circle-o" aria-hidden="true"></i>
-                  </button>
-                  <img :src="episode.still_path" class="img-fluid rounded-start" alt="...">
-                </div>
-
-                <!--  -->
-              </div>
-              <div class="col-md-8 col-sm-8">
-                <div class="card-body">
-                  <h5 class="card-title">
-                     {{episode.name}}
-                    <span>
-                      <a class="btn exclamation" data-bs-toggle="modal" href="#exampleModal" role="button">
-                        <i class="fa fa-exclamation-circle"></i>
-                      </a>
-                    </span>
-                  </h5>
-
-                  <div class=" comm-down">
-                  <a href="#" class="btn downloads" target="_blank">
-                    <i class="fa fa-download"></i>
-                    تحميل
-                  </a>
-
-                  <a class="btn comment" @click="getEpisodeComment(episode.id)" data-bs-toggle="modal" :href="'#comments-'+index" role="button">
-                    <i class="fa fa-commenting">&nbsp; التعليقات</i>
-                  </a>                    
-                  </div>
-                </div>
-              </div>
-            </div>                 
-
-            <!-- start noty -->
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">الموسم: 0 - الحلقة: 1</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="row warning">
-                      <div class="container">
-                        <p>
-                          <i class="fa fa-warning"></i>
-                          &nbsp;
-                          أولاَ قم بالتأكد من سرعة الإنترنت عندك.
-                        </p>
-                        <p>
-                          <i class="fa fa-warning"></i>
-                          &nbsp;
-                          ثانياَ قم بتشغيل VPN قبل إرسال البلاغ.
-                        </p>
-                        <p>
-                          <i class="fa fa-warning"></i>
-                          &nbsp;
-                          ثالثاَ تكرار البلاغ يؤدي الي حظر حسابك.
-                        </p>
-                      </div>
+                <div class="section-header">
+                    <div class="left">
+                        <h2>الشخصيات</h2>
                     </div>
-
-                    <div class='check-option'>
-                      <div class="dpx">
-                        <div class='py'>
-                          <label>
-                            <input type="radio" class="option-input radio" name="example" checked />
-                            الترجمة غير متزامنه مع الصوت
-                          </label>
-                          <label>
-                            <input type="radio" class="option-input radio" name="example" />
-                            ترجمة خاطئة
-                          </label>
-                          <label>
-                            <input type="radio" class="option-input radio" name="example" />
-                            الصوت غير واضح أو سيئ
-                          </label>
-                          <label>
-                            <input type="radio" class="option-input radio" name="example" />
-                            سيرفر معطل
-                          </label>
-                          <label>
-                            <input type="radio" class="option-input radio" name="example" />
-                            الفيديو لا يعمل إطلاقاً
-                          </label>
-                          <label>
-                            <input type="radio" class="option-input radio" name="example" />
-                            آخرى
-                          </label>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-md-12">
-                          <button type="button" class="btn send">إرسال</button>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
-                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                  </div>
                 </div>
-              </div>
-            </div>
-            <!--  End noty -->
+            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
 
-            <!-- start whatch and download -->
-            <!-- Modal -->
-            <div class="modal fade" id="whatch-down" tabindex="-1" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">الموسم: 0 -  الحلقة: 1</h1> -->
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="row warning video-img">
-                      <img src="/front/img/image_2.jpg" alt="" srcset="">
-                      <div class="video-text">
-                        <h2>
-                          اونا 1
-                        </h2>
-                        <p class="text-1">
-                          <span>7.8</span>
-                          &nbsp;
-                          &nbsp;
-                          2023-16-23
-                        </p>
-                        <p class="text-2">اونا اضافية وتعتبر الحلقة رقم 12 للانمى.</p>
-                        <p class="text-3">whatch whatchwhatch whatchwhatch whatch.</p>
-                      </div>
-                    </div>
-
-                    <div class='whatch-option'>
-
-                      <div class="row">
-                        <div class="col-md-6">
-                          <button type="button" class="btn whatch-now">شاهد الآن</button>
-                        </div>
-
-                        <div class="col-md-6">
-                          <button type="button" class="btn download-now">تحميل</button>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--  End whatch and download -->
-
-            <!-- start episode comment -->
-            <!-- Modal -->
-            <div class="modal fade" :id="'comments-'+index" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">التعليقات</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body comments">
-                    <div class="comm-info">
-
-                      <div class="users-comments" v-for="(episodeComm , index) in episodeComments" :key="index">
+                <slide v-for="(latestSeri, index) in episode.casterslist" :key="index">
+                    <div class="carousel__item" style="width: 100%;">
                         <div class="row">
-                          <div class="col-md-1 col-sm-1">
-                            <div class="img-user">
-                              <img :src="episodeComm.user_image" alt="">
-                            </div>
-                          </div>
-                          <div class="col-md-6 col-sm-12">
-                            <div class="info">
-                              <h6>{{episodeComm.user_name}}</h6>
-                              <p class="comment">{{episodeComm.comment}}</p>
-                            </div>
-                            <div class="active">
-                              <span><a href="http://">1 ع</a></span>
-                              <span>
-                                <span>
-                                  <a href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                    aria-expanded="false">أعجبنى</a>
-
-                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/like-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li>
-                                      <a class="" href="#">
-                                        <img src="/front/img/heart-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/joy-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-
-                                    <li><a class="" href="#">
-                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </span>
-                              </span>
-                              <span><a href="http://">رد</a></span>
-                              <span>
-                                <i class="fa fa-heart"></i>
-                                3
-                              </span>
-                            </div>
-                          </div>
+                            <a @click.prevent="goToPage(popular.id)">
+                            <div class="col-md-3 col-sm-6 serie-image">
+                                <img v-lazy="latestSeri.profile_path" alt="" style="border-radius: 100px;height: 160px; border: 4px solid #B41D1E;">
+                                <h6 style="text-align: center;">
+                                    {{latestSeri.name.toUpperCase().slice(0, 10)}}
+                                    <span v-if="latestSeri.name.length > 10">...</span>
+                                </h6>  
+                            </div>  
+                                
+                            </a>                           
                         </div>
-                      </div>
-
                     </div>
-                  </div>
-                  <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button> -->
+                </slide>
 
-                    <div class="row" style="width: 100%;">
-                      <div class="col-md-12">
-                        <div class="type-comment">
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="أكتب تعليق...."
-                              aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <button class="btn btn-secondary">
-                              <i class="fa fa-send"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <template #addons>
+                  <navigation />
+                  <!-- <pagination /> -->
+                </template>
+            </carousel>  
+             
             </div>
-            <!--  End episode commet -->
+        </section>  
 
-          </div>
-        </div>
+        <section id="top" class="section-padding casterslist">
+            <div class="">
 
-        <div class="pagination" v-if="episodes.links != ''">
-          <ul>
-            <li v-for="(episode_link, key) in episodes.last_page" :key="key">
-            <button @click.prevent="getSeasonsWithEpisode(page = key+1)" class="btn btn-light btn-sm">{{key+1}}</button>
-            </li>
-          </ul>
-        </div>
-
-            <!-- start whatch episode -->
-            <!-- Modal -->
-            <div class="modal fade" id="whatch-episode" tabindex="-1" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">إختر السيرفر</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="row">
-                      <div class="container">
-                        <div v-for="video in episodeWithServer.videos" :key="index">
-                        <a :href="video.link" target="_blank">{{video.server}}</a>
-                        </div>
-                      </div>
+                <div class="section-header">
+                    <div class="left">
+                        <h2>اَخري</h2>
                     </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
-                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                  </div>
                 </div>
-              </div>
-            </div>
-            <!--  End whatch episode -->   
+            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
+                <slide v-for="(related, index) in relateds" :key="index">
+                    <div class="carousel__item">
+                        <div class="row">
+                            <a @click="goToPage(related.id)">
+                            <div class="col-md-3 col-sm-6 serie-image">
+                                <img v-lazy="related.poster_path" alt="">
+                            </div>  
+                            <h6>{{related.name}}</h6>  
+                            </a>                           
+                        </div>
+                    </div>
+                </slide>
 
-            <!-- start series comment -->
-            <!-- Modal -->
+                <template #addons>
+                  <navigation />
+                  <!-- <pagination /> -->
+                </template>
+            </carousel>  
+             
+            </div>
+        </section>           
+         
+
+    <section class="others">
+     <!-- <h4>اخري</h4> -->
+
+  </section>    
+
+    </div>
+  </div>
+
             <div class="modal fade" id="series-comments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content">
+                <div class="modal-content"  style="background-color: var(--bg-section);
+                   color: var(--white);">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">التعليقات</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -770,86 +530,7 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <!--  End series commets -->        
-      </section> 
-
-        <section id="top" class="section-padding casterslist">
-            <div class="">
-
-                <div class="section-header">
-                    <div class="left">
-                        <h2>الشخصيات</h2>
-                    </div>
-                </div>
-            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
-
-                <slide v-for="(latestSeri, index) in episode.casterslist" :key="index">
-                    <div class="carousel__item" style="width: 100%;">
-                        <div class="row">
-                            <a @click.prevent="goToPage(latestSeri.id ,'season')">
-                            <div class="col-md-3 col-sm-6 serie-image">
-                                <img v-lazy="latestSeri.profile_path" alt="" style="border-radius: 100px;height: 160px; border: 4px solid #B41D1E;">
-                                <h6 style="text-align: center;">
-                                    {{latestSeri.name.toUpperCase().slice(0, 10)}}
-                                    <span v-if="latestSeri.name.length > 10">...</span>
-                                </h6>  
-                            </div>  
-                                
-                            </a>                           
-                        </div>
-                    </div>
-                </slide>
-
-
-                <template #addons>
-                  <navigation />
-                  <!-- <pagination /> -->
-                </template>
-            </carousel>  
-             
-            </div>
-        </section>  
-
-        <section id="top" class="section-padding casterslist">
-            <div class="">
-
-                <div class="section-header">
-                    <div class="left">
-                        <h2>اَخري</h2>
-                    </div>
-                </div>
-            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
-                <slide v-for="(related, index) in relateds" :key="index">
-                    <div class="carousel__item">
-                        <div class="row">
-                            <a @click="goToPage(related.id ,'season')">
-                            <div class="col-md-3 col-sm-6 serie-image">
-                                <img v-lazy="related.poster_path" alt="">
-                            </div>  
-                            <h6>{{related.name}}</h6>  
-                            </a>                           
-                        </div>
-                    </div>
-                </slide>
-
-                <template #addons>
-                  <navigation />
-                  <!-- <pagination /> -->
-                </template>
-            </carousel>  
-             
-            </div>
-        </section>           
-         
-
-    <section class="others">
-     <!-- <h4>اخري</h4> -->
-
-  </section>    
-
-    </div>
-  </div>
+            </div>  
 </template>
 
   <script>
@@ -859,6 +540,7 @@ import Footer from '../components/Footer.vue';
 import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 import StarRating from 'vue-star-rating';
+import  {Timeago}  from 'vue2-timeago'
 
 
 export default{
@@ -867,6 +549,7 @@ export default{
         StarRating,
         Bootstrap5Pagination,  
         Carousel, Slide, Pagination, Navigation,
+        Timeago,
     },
 
     data(){
@@ -927,13 +610,13 @@ export default{
     },
 
     created(){
-        this.getSeasonEpisode();
-        this.getRelatedsEpisode();
-        this.getCommentsSeries();
+        this.getMovieEpisode();
+        // this.getRelatedsEpisode();
+        // this.getCommentsSeries();
     },
 
     mounted(){
-      this.getSeasonsWithEpisode();
+      // this.getSeasonsWithEpisode();
     },
 
     computed:{
@@ -959,32 +642,32 @@ export default{
 
     methods:{
 
-        getSeasonEpisode(){
+        getMovieEpisode(){
           let id = this.get_pageId;
 
-            this.axios.post('https://animeeplus.online/api/series/show/'+id+'/code'
+            this.axios.post('https://animeeplus.online/api/media/detail/'+id+'/code'
             ).then(res=>{
-
+              console.log(res);
                 this.episode = res.data;
-                  console.log(res.data);
 
             }).catch(err=>{
                 console.log(err);
             })
         },
 
-        getRelatedsEpisode(){
-          let id = this.get_pageId;
+        // getRelatedsEpisode(){
+        //   let id = this.get_pageId;
 
-            this.axios.get('https://animeeplus.online/api/series/relateds/'+id+'/code'
-            ).then(res=>{
+        //     this.axios.get('https://animeeplus.online/api/series/relateds/'+id+'/code'
+        //     ).then(res=>{
 
-                this.relateds = res.data.relateds;
+        //         this.relateds = res.data.relateds;
+        //       console.log(res.data);
 
-            }).catch(err=>{
-                console.log(err);
-            })
-        },        
+        //     }).catch(err=>{
+        //         console.log(err);
+        //     })
+        // },        
     
         getSeasonsWithEpisode(page){
            
@@ -1026,10 +709,10 @@ export default{
             })
         },
 
-        goToPage(id ,type){
+        goToPage(id){
 
           this.$store.dispatch("goToPage",{id: id});
-          this.getSeasonEpisode();
+          this.getMovieEpisode();
           this.getRelatedsEpisode();
           this.getCommentsSeries();
 
@@ -1053,6 +736,7 @@ export default{
                 id: id,
                 watch_type: watch_type
             }).then((res)=>{
+                        console.log(res);
 
                 if (res.data != '') {
                     
@@ -1104,6 +788,7 @@ export default{
                 {headers}
             ).then(res=>{
 
+              console.log(res);
 
               if (res.data != '') {
                   this.$notify({
@@ -1112,7 +797,7 @@ export default{
                     type: "success",
                   });  
 
-                  this.getSeasonEpisode();
+                  this.getMovieEpisode();
               }            
 
             }).catch(err=>{
@@ -1166,7 +851,7 @@ export default{
                       type: "success",
                     });  
 
-                    this.getSeasonEpisode();
+                    this.getMovieEpisode();
                 }            
 
               }).catch(err=>{

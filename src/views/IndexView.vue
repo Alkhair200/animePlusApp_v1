@@ -147,22 +147,22 @@
                     </div>
 
                     <div class="right">
-                        <router-link to="latest-series">
+                        <router-link to="popular-casters">
                             <p>مشاهدة الكل</p>
                             <i class="fa fa-arrow-left"></i>
                         </router-link>
                     </div>
                 </div>
             <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
-                <slide v-for="(latestSeri, index) in popularCasters" :key="index">
+                <slide v-for="(popular, index) in popularCasters" :key="index">
                     <div class="carousel__item" style="width: 100%;">
                         <div class="row">
-                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <a @click.prevent="goToPage(popular.id)">
                             <div class="col-md-3 col-sm-6 serie-image">
-                                <img v-lazy="latestSeri.profile_path" alt="" style="border-radius: 100px;height: 160px; border: 4px solid #B41D1E;">
+                                <img v-lazy="popular.profile_path" alt="" style="border-radius: 100px;height: 160px; border: 4px solid #B41D1E;">
                                 <h6 style="text-align: center;">
-                                    {{latestSeri.name.toUpperCase().slice(0, 10)}}
-                                    <span v-if="latestSeri.name.length > 10">...</span>
+                                    {{popular.name.toUpperCase().slice(0, 10)}}
+                                    <span v-if="popular.name.length > 10">...</span>
                                 </h6>  
                             </div>  
                                 
@@ -189,7 +189,7 @@
                     </div>
 
                     <div class="right">
-                        <router-link to="/latest-episode">
+                        <router-link to="/latest">
                             <p>مشاهدة الكل</p>
                             <i class="fa fa-arrow-left"></i>
                         </router-link>
@@ -352,7 +352,7 @@
                     </div>
 
                     <div class="right">
-                        <router-link to="latest-series">
+                        <router-link to="latest-movie">
                             <p>مشاهدة الكل</p>
                             <i class="fa fa-arrow-left"></i>
                         </router-link>
@@ -362,7 +362,7 @@
                 <slide v-for="(latestMovei, index) in latestMovieWatched" :key="index">
                     <div class="carousel__item">
                         <div class="row">
-                            <a @click.prevent="goToPage(latestMovei.id)">
+                            <a @click.prevent="goToPage(latestMovei.id , 'latestMovie')">
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="latestMovei.poster_path" alt="">
                             </div>  
@@ -404,7 +404,7 @@
                 <slide v-for="(latestSeri, index) in latestSeries.recents" :key="index">
                     <div class="carousel__item">
                         <div class="row">
-                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <a @click.prevent="goToPage(latestSeri.id ,'season')">
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
@@ -487,7 +487,7 @@
                 <slide v-for="(latestSeri, index) in trending" :key="index">
                     <div class="carousel__item">
                         <div class="row">
-                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <a @click.prevent="goToPage(latestSeri.id ,'latestMovie')">
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
@@ -528,7 +528,7 @@
                 <slide v-for="(latestSeri, index) in top10" :key="index">
                     <div class="carousel__item">
                         <div class="row">
-                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <a @click.prevent="goToPage(latestSeri.id,'season')">
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
@@ -685,7 +685,7 @@
                     <div class="row warning">
                       <div class="container">
                         <div v-for="video in latestEpisodeWithServer.videos" :key="index">
-                        <a :href="video.link" target="_blank">{{video.server}}</a>
+                        <a target="_blank" style="cursor: pointer;" @click="goToPlayer(video.link,'season')" >{{video.server}}</a>
                         </div>
                       </div>
                     </div>
@@ -1280,7 +1280,7 @@ export default{
             ).then(res=>{
 
                 this.latestEpisodeWithServer = res.data.episode;
-
+                console.log(res.data.episode);
             }).catch(err=>{
                 console.log(err.message);
             })
@@ -1382,11 +1382,31 @@ export default{
             })
         }, 
 
-        goToPage(id){
-            this.$store.dispatch("goToPage",{id: id});
+        goToPage(id ,type){
+            if (type == "season") {
+                this.$store.dispatch("goToPage",{id: id});
 
-            this.$router.push('season')
-        },     
+                this.$router.push('season') 
+
+            }else if(type == "latestMovie"){
+                this.$store.dispatch("goToPage",{id: id});
+
+                this.$router.push('latest-movie')                
+            }
+        }, 
+
+        goToPlayer(link,type){
+            if (type == "season") {
+                this.$store.dispatch("goToPlayer",{link: link,type:'season'});
+
+                this.$router.push(window.open('play','_blank'))  
+
+            }else if(type == "movie"){
+                this.$store.dispatch("goToPlayer",{link: link,type:'movie'});
+
+                 this.$router.push(window.open('play','_blank'))                 
+            }
+        }, 
 
         message(msg){
             this.$notify({

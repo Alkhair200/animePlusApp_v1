@@ -8,6 +8,8 @@ export default createStore({
     user:null,
     loggedIn: false,
     pageID:null,
+    PlayType:null,
+    playLink:null,
 
     params:{},
   },
@@ -33,7 +35,15 @@ export default createStore({
 
     get_pageId(state,payload){
       return state.pageID;
-    },    
+    }, 
+
+    get_playType(state){
+      return state.PlayType;
+    },
+
+    get_playLink(state){
+      return state.playLink;
+    },           
   },
 
   mutations: {
@@ -57,6 +67,14 @@ export default createStore({
     SET_PageId(state,payload){
       state.pageID = payload;
     },
+
+    SET_PlayType(state,payload){
+      state.PlayType = payload;
+    },
+
+    SET_PlayLink(state,payload){
+      state.playLink = payload;
+    },        
   },
 
   actions: {
@@ -157,10 +175,16 @@ export default createStore({
             let data = [];
             if (payload == "latestEpisodes") {
               data = res.data.latest_episodes
+
             }else if(payload == "latestEpisodesAnimes"){
               data = res.data.latest_episodes_animes
+
+            }else if(payload == "popularCasters"){
+              data = res.data.popular_casters
             }
+
               resolve(data);
+            
 
             }).catch((err)=>{
 
@@ -212,9 +236,13 @@ export default createStore({
 
   goToPage({commit},payload){
 
-    let id = payload.id;
-    commit("SET_PageId", id);
-  },    
+    commit("SET_PageId", payload.id);
+  }, 
+
+  goToPlayer({commit},payload){
+    commit('SET_PlayLink',payload.link)
+    commit('SET_PlayType',payload.type)
+  }   
 
 
   }, 

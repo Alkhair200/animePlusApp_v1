@@ -289,7 +289,7 @@
 			getAllLatestEpisodes(){
 			this.$store.dispatch("getHomeContents","latestEpisodes").then((res)=>{
 				this.allLatestEpisodes = res;
-				
+				console.log(res)
 			}).catch((err)=>{
 				console.log(err)
 			})		

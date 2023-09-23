@@ -2,10 +2,10 @@
 	<div>
 		<section class="all-latest-episodes">
 <!--  <video width="320" height="240" controls>
-  <source src="https://vudeo.co/embed-1q1vvgum2ody.html" type="video/ogg">
+  <embed src="https://vudeo.co/embed-1q1vvgum2ody.html" type="video/ogg">
   Your browser does not support the video tag.
-</video>  -->
-<embed width="320" height="240" src="https://vudeo.co/embed-1q1vvgum2ody.html"  type=""/>
+</video> --> 
+<embed width="1000" height="400" :src="getVideoLink"  type=""/>
       				<!--  -->
 		</section>
 	</div>
@@ -27,31 +27,24 @@
 		},
 
 		created(){
+            this.getLatestEpisodeWithServer();
+            console.log(this.getVideoLink)
 		},
 
-        computed:{
-            getUser(){
-                return this.$store.getters.get_user;
-            } ,
-            getToken(){
-                return this.$store.getters.get_token;
-            },             
+        computed:{   
+
+            getVideoLink(){
+                return this.$store.getters.get_playLink;
+
+            },                                     
         },      
 
 		methods:{
 
-      getLatestEpisodeWithServer(id){
-
-        this.axios.get('https://animeeplus.online/api/series/episodeshow/'+id+'/code'
-        ).then(res=>{
-
-            this.latestEpisodeWithServer = res.data.episode;
-
-        }).catch(err=>{
-            console.log(err.message);
-        })
-      },  
+      getLatestEpisodeWithServer(){
+ 
 	         	
 		}
+    }
 	}
 </script>
