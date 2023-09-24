@@ -828,7 +828,7 @@
                                 <img v-lazy="related.poster_path" alt="">
                             </div>  
                             <h6>
-{{related.name.toUpperCase().slice(0, 10)}}
+                              {{related.name.toUpperCase().slice(0, 10)}}
                                     <span v-if="related.name.length > 10">...</span>
                             </h6>  
                             </a>                           
@@ -843,13 +843,7 @@
             </carousel>  
              
             </div>
-        </section>           
-         
-
-    <section class="others">
-     <!-- <h4>اخري</h4> -->
-
-  </section>    
+        </section>              
 
     </div>
   </div>

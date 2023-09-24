@@ -102,7 +102,7 @@
                               v-bind:star-size="25"
                               active-color="#dc3545"></star-rating>   
                               <br>
-                                <button @click.prevent="addEvaluations" type="button" class="btn btn-secondary btn-sm">تقييم</button>
+                                <button @click.prevent="addEvaluation" type="button" class="btn btn-secondary btn-sm">تقييم</button>
                             </div>
                           </div>
                           <div class="modal-footer">
@@ -403,7 +403,7 @@
             </carousel>  
              
             </div>
-        </section>  
+        </section>           
 
         <section id="top" class="section-padding casterslist">
             <div class="">
@@ -421,7 +421,10 @@
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="related.poster_path" alt="">
                             </div>  
-                            <h6>{{related.name}}</h6>  
+                            <h6>
+                              {{related.title.toUpperCase().slice(0, 10)}}
+                                    <span v-if="related.title.length > 10">...</span>
+                            </h6>  
                             </a>                           
                         </div>
                     </div>
@@ -434,13 +437,7 @@
             </carousel>  
              
             </div>
-        </section>           
-         
-
-    <section class="others">
-     <!-- <h4>اخري</h4> -->
-
-  </section>    
+        </section>     
 
     </div>
   </div>
@@ -559,7 +556,11 @@
                 </div>
               </div>
             </div>
-            <!--  End whatch episode -->               
+            <!--  End whatch episode -->   
+
+<div v-show="isLoading">
+    <loader object="#ffb600" color1="#ffffff" color2="#ca1919" size="5" speed="2" bg="#000000" objectbg="#999793" opacity="80" disableScrolling="" name="circular"></loader>   
+</div>                        
 </template>
 
   <script>
@@ -593,6 +594,7 @@ export default{
             favorite:[],
             season_id:null,
             relateds:[],
+            isLoading:false,
 
             story:null,
             chars:null,
@@ -641,7 +643,7 @@ export default{
 
     created(){
         this.getMovieEpisode();
-        // this.getRelatedsEpisode();
+        this.getRelatedsEpisode();
         // this.getCommentsSeries();
     },
 
@@ -673,31 +675,34 @@ export default{
     methods:{
 
         getMovieEpisode(){
+           this.isLoading = true
           let id = this.get_pageId;
 
             this.axios.post('https://animeeplus.online/api/media/detail/'+id+'/code'
             ).then(res=>{
-              console.log(res);
+              
                 this.episode = res.data;
 
+                 this.isLoading = false
+
             }).catch(err=>{
+               this.isLoading = false
                 console.log(err);
             })
         },
 
-        // getRelatedsEpisode(){
-        //   let id = this.get_pageId;
+        getRelatedsEpisode(){
+          let id = this.get_pageId;
 
-        //     this.axios.get('https://animeeplus.online/api/series/relateds/'+id+'/code'
-        //     ).then(res=>{
+            this.axios.get('https://animeeplus.online/api/media/relateds/'+id+'/code'
+            ).then(res=>{
 
-        //         this.relateds = res.data.relateds;
-        //       console.log(res.data);
+                this.relateds = res.data.relateds;
 
-        //     }).catch(err=>{
-        //         console.log(err);
-        //     })
-        // },        
+            }).catch(err=>{
+                console.log(err);
+            })
+        },        
     
         getSeasonsWithEpisode(page){
            
@@ -740,22 +745,25 @@ export default{
         },
 
         goToPage(id){
-
+          this.isLoading = true
           this.$store.dispatch("goToPage",{id: id});
           this.getMovieEpisode();
           this.getRelatedsEpisode();
           this.getCommentsSeries();
 
-            this.$router.push('season')
+            this.$router.push('latest-movie')
+            this.isLoading = false
         },         
 
         getEpisodeWithServer(id){
+          this.isLoading = true
           this.axios.get('https://animeeplus.online/api/series/episodeshow/'+id+'/code'
           ).then(res=>{
 
               this.episodeWithServer = res.data.episode;
-
+              this.isLoading = false
           }).catch(err=>{
+            this.isLoading = false
               console.log(err.message);
           })          
         },
@@ -875,7 +883,7 @@ export default{
           this.music = rating;
       },
 
-      addEvaluations(){
+      addEvaluation(){
         if (this.story != null || this.chars != null || this.animation != null || this.music != null) {
 
            let id = this.get_pageId;
@@ -897,7 +905,7 @@ export default{
                  {typs :types},
                   {headers}
               ).then(res=>{
-console.log(res.data);
+
                 if (!res.data.error) {
                     this.$notify({
                        
