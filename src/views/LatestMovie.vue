@@ -102,7 +102,7 @@
                               v-bind:star-size="25"
                               active-color="#dc3545"></star-rating>   
                               <br>
-                                <button @click.prevent="addEvaluation" type="button" class="btn btn-secondary btn-sm">تقييم</button>
+                                <button @click.prevent="addEvaluations" type="button" class="btn btn-secondary btn-sm">تقييم</button>
                             </div>
                           </div>
                           <div class="modal-footer">
@@ -185,7 +185,7 @@
                   </li>
 
                   <li>
-                    <a @click.prevent="addToFav(episode.id,episode.name)" href="#">
+                    <a @click.prevent="addToFav(episode.id,episode.title)" href="#">
                       <i class="fa fa-heart"></i>
                       <br>
                       المفضلة                      
@@ -593,6 +593,7 @@ export default{
             favorite:[],
             season_id:null,
             relateds:[],
+
             story:null,
             chars:null,
             animation:null,
@@ -761,6 +762,29 @@ export default{
 
         addtofavAction(id,title,watch_type){
 
+            const headers ={
+              'Authorization': 'Bearer '+ this.getToken,
+            }           
+
+          this.axios.post('https://animeeplus.online/api/movie/addWatchType/'+id,{
+              id: id,
+              watch_type: watch_type,
+            },
+              {headers}).then((res)=>{
+                if (res.data != '') {
+
+                    this.$notify({
+                       
+                      title: "تم إضافة "+title+" الي قائمتي 🎉",
+                      type: "success",
+                    });                    
+                }
+
+              }).catch((err)=>{
+
+                console.log(err)
+              })          
+
             this.$store.dispatch('addtofavAction',{
                 id: id,
                 watch_type: watch_type
@@ -786,7 +810,7 @@ export default{
               'Authorization': 'Bearer '+ this.getToken,
             } 
 
-            this.axios.post('https://animeeplus.online/api/serie/addtofav/'+id,{
+            this.axios.post('https://animeeplus.online/api/movie/addtofav/'+id,{
               id :id
             },{headers}
             ).then(res=>{
@@ -811,7 +835,7 @@ export default{
                   'Authorization': 'Bearer '+ this.getToken,
                 }          
 
-            this.axios.post('https://animeeplus.online/api/serie/addClassify/'+id+'/'+type,{
+            this.axios.post('https://animeeplus.online/api/movie/addClassify/'+id+'/'+type,{
               type : type,
             },
                 {headers}
@@ -819,7 +843,7 @@ export default{
 
               console.log(res);
 
-              if (res.data != '') {
+              if (res.data.classify) {
                   this.$notify({
                      
                     title: "تمت الإضافه 🎉",
@@ -851,10 +875,11 @@ export default{
           this.music = rating;
       },
 
-      addEvaluation(){
+      addEvaluations(){
         if (this.story != null || this.chars != null || this.animation != null || this.music != null) {
 
            let id = this.get_pageId;
+
             const headers ={
                     'Authorization': 'Bearer '+ this.getToken,
                   }  
@@ -868,11 +893,11 @@ export default{
 
                    const type = ('music' ,'story','animation' ,'chars');
 
-              this.axios.post('https://animeeplus.online/api/serie/addEvaluation/'+id+'/'+type,
+              this.axios.post('https://animeeplus.online/api/movie/addEvaluation/'+id+'/'+type,
                  {typs :types},
                   {headers}
               ).then(res=>{
-
+console.log(res.data);
                 if (!res.data.error) {
                     this.$notify({
                        
