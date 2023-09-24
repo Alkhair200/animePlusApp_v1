@@ -792,24 +792,6 @@ export default{
 
                 console.log(err)
               })          
-
-            this.$store.dispatch('addtofavAction',{
-                id: id,
-                watch_type: watch_type
-            }).then((res)=>{
-                        console.log(res);
-
-                if (res.data != '') {
-                    
-                    this.$notify({
-                       
-                      title: "تم إضافة "+title+" الي قائمتي 🎉",
-                      type: "success",
-                    });                    
-                }
-            }).catch((err)=>{
-                console.log(err)
-            })
         },
 
         addToFav(id,title){
@@ -824,7 +806,7 @@ export default{
             ).then(res=>{
 
                 this.favorite = res.data; 
-                if (res.status = 200) {
+                if (res.data != '') {
                   this.$notify({
                      
                     title: "تم إضافة "+title+" الي المفضلة 🎉",
