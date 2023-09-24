@@ -5,6 +5,9 @@ import Season from "../views/Season.vue"
 import Fav from "../views/Fav.vue"
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
+import ResetPassword from "../views/ResetPassword.vue"
+import Reset from "../views/Reset.vue"
+
 import UpdateProfile from "../views/UpdateProfile.vue"
 import LatestEpisode from "../views/LatestEpisode.vue"
 import LatestSeries from "../views/LatestSeries.vue"
@@ -28,6 +31,20 @@ const routes = [
     meta:{title:"login",
     guest:true}
   },
+
+  {
+    path: "/reset-password",
+    name: "reset-password",
+    component: ResetPassword,
+    meta:{title:"reset password",guest:true},
+  },  
+
+  {
+    path: "/reset",
+    name: "reset",
+    component: Reset,
+    meta:{title:"reset",guest:true},
+  },   
 
   {
     path: "/",

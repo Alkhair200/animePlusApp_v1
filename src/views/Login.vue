@@ -63,9 +63,9 @@
 						<span class="txt1">
 							نسيت
 						</span>
-						<a class="txt2" href="#">
+						<router-link class="txt2" to="/reset">
 							 كلمة المرور ؟
-						</a>
+						</router-link>
 					</div>					
 				</form>
 			</div>
