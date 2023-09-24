@@ -19,6 +19,9 @@ ol {
 a {
     text-decoration: none;
 }
+body.overflowHidden{
+    overflow: scroll !important;
+}
 
 body {
     --primary-color: #B41D1E;

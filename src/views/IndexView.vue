@@ -957,9 +957,9 @@
                                           
     </div>
 
-<!-- <div v-show="isLoading">
-<loader object="#ffb600" color1="#ffffff" color2="#ca1919" size="5" speed="2" bg="#000000" objectbg="#999793" opacity="80" disableScrolling="false" name="circular"></loader>   
-    </div>    --> 
+<div v-show="isLoading">
+    <loader object="#ffb600" color1="#ffffff" color2="#ca1919" size="5" speed="2" bg="#000000" objectbg="#999793" opacity="80" disableScrolling="" name="circular"></loader>   
+</div>
 </template>
 
 <script>

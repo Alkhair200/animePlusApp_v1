@@ -827,7 +827,10 @@
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="related.poster_path" alt="">
                             </div>  
-                            <h6>{{related.name}}</h6>  
+                            <h6>
+{{related.name.toUpperCase().slice(0, 10)}}
+                                    <span v-if="related.name.length > 10">...</span>
+                            </h6>  
                             </a>                           
                         </div>
                     </div>
@@ -850,6 +853,10 @@
 
     </div>
   </div>
+
+<div v-show="isLoading">
+    <loader object="#ffb600" color1="#ffffff" color2="#ca1919" size="5" speed="2" bg="#000000" objectbg="#999793" opacity="80" disableScrolling="" name="circular"></loader>   
+</div>  
 </template>
 
   <script>
@@ -885,6 +892,7 @@ export default{
             chars:null,
             animation:null,
             music:null,
+            isLoading:false,
 
 
             settings: {
@@ -927,6 +935,7 @@ export default{
     },
 
     created(){
+      
         this.getSeasonEpisode();
         this.getRelatedsEpisode();
         this.getCommentsSeries();
@@ -960,15 +969,17 @@ export default{
     methods:{
 
         getSeasonEpisode(){
+          this.isLoading = true
           let id = this.get_pageId;
 
             this.axios.post('https://animeeplus.online/api/series/show/'+id+'/code'
             ).then(res=>{
 
                 this.episode = res.data;
-                  console.log(res.data);
+                this.isLoading = false
 
             }).catch(err=>{
+              this.isLoading = false
                 console.log(err);
             })
         },
