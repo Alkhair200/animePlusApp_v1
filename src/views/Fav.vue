@@ -398,12 +398,15 @@
                 this.axios.post('https://animeeplus.online/api/serie/showByType',{
                     watch_type: watchType
                 },{headers}).then((res)=>{
-                    this.seariesWatchByType = res.data                 
                     this.isLoading = false
+                    this.seariesWatchByType = res.data                 
+                    
                 }).catch((err)=>{
                     this.isLoading = false
                     console.log(err)
-                })                
+                })    
+
+                this.isLoading = false            
             },
 
             MovieGetFav(watchType){
@@ -414,12 +417,14 @@
                 this.axios.post('https://animeeplus.online/api/movie/showByType',{
                     watch_type: watchType
                 },{headers}).then((res)=>{
-                    this.moviesWatchByType = res.data                 
                     this.isLoading = false
+                    this.moviesWatchByType = res.data                 
                 }).catch((err)=>{
                     this.isLoading = false
                     console.log(err)
-                })                
+                })  
+
+                this.isLoading = false              
             },
 
 
@@ -431,12 +436,15 @@
                 this.axios.post('https://animeeplus.online/api/serie/showFavo',{
                     id: this.getUser.id
                 },{headers}).then((res)=>{
-                    this.showSeriFavorite = res.data                 
                     this.isLoading = false
+                    this.showSeriFavorite = res.data                 
+                    
                 }).catch((err)=>{
                     this.isLoading = false
                     console.log(err)
-                })                
+                }) 
+
+                  this.isLoading = false               
             },
 
             getShowMovieFavorite(){
@@ -447,12 +455,15 @@
                 this.axios.post('https://animeeplus.online/api/movie/showFavo',{
                     id: this.getUser.id
                 },{headers}).then((res)=>{
-                    this.showMovieFavorite = res.data                 
                     this.isLoading = false
+                    this.showMovieFavorite = res.data                 
+                    
                 }).catch((err)=>{
                      this.isLoading = false
                     console.log(err)
-                })                
+                })
+
+                this.isLoading = false                
             }               
 
                       

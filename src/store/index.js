@@ -10,6 +10,7 @@ export default createStore({
     pageID:null,
     PlayType:null,
     playLink:null,
+    playId:null,
 
     params:{},
   },
@@ -43,7 +44,11 @@ export default createStore({
 
     get_playLink(state){
       return state.playLink;
-    },           
+    },   
+
+    get_playId(state){
+      return state.playId;
+    },             
   },
 
   mutations: {
@@ -74,7 +79,10 @@ export default createStore({
 
     SET_PlayLink(state,payload){
       state.playLink = payload;
-    },        
+    },  
+    SET_PlayTypeId(state,payload){
+      state.playId = payload;
+    } ,     
   },
 
   actions: {
@@ -242,6 +250,7 @@ export default createStore({
   goToPlayer({commit},payload){
     commit('SET_PlayLink',payload.link)
     commit('SET_PlayType',payload.type)
+    commit('SET_PlayTypeId',payload.id)
   }   
 
 

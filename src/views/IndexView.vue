@@ -685,7 +685,7 @@
                     <div class="row warning">
                       <div class="container">
                         <div v-for="video in latestEpisodeWithServer.videos" :key="index">
-                        <a style="cursor: pointer;" @click="goToPlayer(video.link,'season')" >{{video.server}}</a>
+                        <a style="cursor: pointer;" @click="goToPlayer(video.link ,video.episode_id,'season')" >{{video.server}}</a>
                         </div>
                       </div>
                     </div>
@@ -713,7 +713,7 @@
                     <div class="row warning">
                       <div class="container">
                         <div v-for="video in latestEpisodeAnimWithServer.videos" :key="index">
-                        <a style="cursor: pointer;" @click="goToPlayer(video.link,'anim')">{{video.server}}</a>
+                        <a style="cursor: pointer;" @click="goToPlayer(video.link,video.episode_id,'anim')">{{video.server}}</a>
                         </div>
                       </div>
                     </div>
@@ -1395,13 +1395,13 @@ export default{
             }
         }, 
 
-        goToPlayer(link,type){
+        goToPlayer(link ,id,type){
             if (type == "season") {
-                this.$store.dispatch("goToPlayer",{link: link,type:'season'});
+                this.$store.dispatch("goToPlayer",{link: link,id:id,type:'season'});
                  this.$router.push(window.open('play','_blank'))
 
             }else if(type == "anim"){
-                this.$store.dispatch("goToPlayer",{link: link,type:'anim'});
+                this.$store.dispatch("goToPlayer",{link: link,id:id,type:'anim'});
                  this.$router.push(window.open('play','_blank'))                 
             }
         }, 
