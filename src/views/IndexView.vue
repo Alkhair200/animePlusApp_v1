@@ -2,88 +2,88 @@
     <div>
 
     <section class="home-carousel">
-<!--  -->
-  <Carousel :autoplay="10000" :wrap-around="true" >
-    <Slide v-for="(item,index) in homeContents.featured" :key="item.id">
-      <div class="carousel__item">
-        <div class="shadow"></div>
-        <img :src="item.poster_path" alt="" class="img-poster">
-        <div class="miniposter">
-            <div class="image">
-               <img :src="item.miniposter" alt=""> 
-            </div>
-            <h4>{{item.title}}</h4>
-            <ol class="sm-list">
-                <li>{{item.genre}}</li>
-                <li>{{moment(item.release_date).format("YYYY") }}</li>
-                <li>
-                    <i class="fa fa-star"></i>
-                    {{item.vote_average}}
-                    
-                </li>
-            </ol>
-            <div class="row home-btn">
-                <div class="col-md-4 col-sm-12">
-                    <button @click="getServerFeatured(item.featured_id)" type="button" data-bs-toggle="modal" href="#whatch-episode-header" role="button" class="btn btn-danger">شاهد الاَن</button>
+
+        <Carousel :autoplay="10000" :wrap-around="true" >
+            <Slide v-for="(item,index) in homeContents.featured" :key="item.id">
+              <div class="carousel__item">
+                <div class="shadow"></div>
+                <img :src="item.poster_path" alt="" class="img-poster">
+                <div class="miniposter">
+                    <div class="image">
+                       <img :src="item.miniposter" alt=""> 
+                    </div>
+                    <h4>{{item.title}}</h4>
+                    <ol class="sm-list">
+                        <li>{{item.genre}}</li>
+                        <li>{{moment(item.release_date).format("YYYY") }}</li>
+                        <li>
+                            <i class="fa fa-star"></i>
+                            {{item.vote_average}}
+                            
+                        </li>
+                    </ol>
+                    <div class="row home-btn">
+                        <div class="col-md-4 col-sm-12">
+                            <button @click="getServerFeatured(item.featured_id)" type="button" data-bs-toggle="modal" href="#whatch-episode-header" role="button" class="btn btn-danger">شاهد الاَن</button>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+
+                        <dropdown-menu v-if="getLoggedIn">
+                          <template #trigger>
+                            <button class="btn btn-light">
+                                إضافة لقائمتي
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                            </button>                  
+                          </template>                
+
+                          <template #body>
+                            <ul>
+                                <li>
+                                    <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'now')">
+                                        <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                                      اشاهدها حالياً
+                                    </button>        
+                                </li>
+                                <li>
+                                    <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'want')">
+                                        <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                                      أرغب بمشاهدتها
+                                    </button>       
+                                </li>
+                                <li>
+                                    <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'done')">
+                                        <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                                      تمت مشاهدتها
+                                    </button>                                      
+                                </li>
+                                <li>
+                                    <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'later')">
+                                        <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                                     أكمله لاحقاً
+                                    </button>                                       
+                                </li>                        
+                              
+                            </ul>
+                          </template>
+                        </dropdown-menu>
+
+                        <button v-if="!getLoggedIn" @click="message('يجب عليك تسجيل الدخول أولاً')" class="btn btn-light">
+                            إضافة لقائمتي
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                        </button>              
+                           
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+              </div>
+            </Slide>
 
-                <dropdown-menu v-if="getLoggedIn">
-                  <template #trigger>
-                    <button class="btn btn-light">
-                        إضافة لقائمتي
-                        <i class="fa fa-bars" aria-hidden="true"></i>
-                    </button>                  
-                  </template>                
-
-                  <template #body>
-                    <ul>
-                        <li>
-                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'now')">
-                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
-                              اشاهدها حالياً
-                            </button>        
-                        </li>
-                        <li>
-                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'want')">
-                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
-                              أرغب بمشاهدتها
-                            </button>       
-                        </li>
-                        <li>
-                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'done')">
-                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
-                              تمت مشاهدتها
-                            </button>                                      
-                        </li>
-                        <li>
-                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'later')">
-                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
-                             أكمله لاحقاً
-                            </button>                                       
-                        </li>                        
-                      
-                    </ul>
-                  </template>
-                </dropdown-menu>
-
-                <button v-if="!getLoggedIn" @click="message('يجب عليك تسجيل الدخول أولاً')" class="btn btn-light">
-                    إضافة لقائمتي
-                    <i class="fa fa-bars" aria-hidden="true"></i>
-                </button>              
-                   
-                </div>
-            </div>
-        </div>
-      </div>
-    </Slide>
-
-    <template #addons>
-      <Navigation />
-      <Pagination />
-    </template>
-  </Carousel>
-</section>
+            <template #addons>
+              <Navigation />
+              <Pagination />
+            </template>
+        </Carousel>
+    </section>
 
     <main>
 
@@ -136,7 +136,6 @@
              
             </div>
         </section>    
-
 
         <section id="top" class="section-padding">
             <div class="container">
@@ -385,7 +384,7 @@
             </div>
         </section>
 
-        <section id="top" class="section-padding">
+      <section id="top" class="section-padding">
             <div class="container">
 
                 <div class="section-header">
@@ -424,7 +423,7 @@
             </carousel>  
              
             </div>
-        </section>
+        </section>        
 
         <section id="top" class="section-padding">
             <div class="container">
@@ -466,7 +465,6 @@
              
             </div>
         </section>
-
 
         <section id="top" class="section-padding">
             <div class="container">
@@ -549,7 +547,6 @@
              
             </div>
         </section>        
-
 
         <section id="top" class="section-padding">
             <div class="container">
@@ -1262,7 +1259,6 @@ export default{
                 this.trending =res.data.trending;
                 this.popularCasters = res.data.popular_casters;
                 this.isLoading = false
-                console.log(res.data );
 
             }).catch(err=>{
                 this.isLoading = false

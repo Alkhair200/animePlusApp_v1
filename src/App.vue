@@ -2,7 +2,7 @@
   <Navbar></Navbar>
   <Sidebar></Sidebar>
   <router-view />
-  <notifications position="top center"/>
+  <notifications position="top center" dir="rtl"/>
 </template>
 
 <script>

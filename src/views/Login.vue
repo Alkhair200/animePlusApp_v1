@@ -12,6 +12,8 @@
 						تسجيل دخول 
 					</span>
 
+					<p id="warning-msg" v-show="message">{{message}}</p>
+
 					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" v-model="user.email" placeholder="إيميل">
 						<span class="focus-input100"></span>
@@ -86,6 +88,7 @@
 				},
 
 				isLoading:false,
+				message:null,
 			}
 		},
 
@@ -103,7 +106,7 @@
 					password: this.user.password,
 				}).then((res)=>{
 
-					if (res!= '') {
+					if (res != '') {
 						const headers = {
 						    'Authorization': 'Bearer '+ this.getToken,
 						};  						
@@ -112,9 +115,13 @@
 
 					}else{
 						this.isLoading = false;
-						console.log(res)
+						
 					}
 
+				}).catch((err) =>{
+					if (err.response.data.message) {
+						this.message = err.response.data.message
+					}
 				})
             }
 			
@@ -122,3 +129,13 @@
 	    }
     }
 </script>
+
+<style>
+	#warning-msg{
+color: #f03;
+box-shadow: 0px 0px 6px  #f03;
+margin: 10px 0;
+text-align: center;		
+border-radius:5px;
+	}
+</style>

@@ -11,6 +11,10 @@
     --bs-gutter-x: 0;
 }
 
+.carousel{
+    overflow: hidden !important;
+}
+
 ul,
 ol {
     list-style: none;
@@ -94,12 +98,13 @@ body.light {
     padding-right: 10px;
     position: relative;
     color: var(--text-color-white);
+    font-size: 18px;
 }
 
 .section-header .left h2:after {
     position: absolute;
     right: 0;
-    top: 5px;
+    top: -7px;
     height: 32px;
     width: 5px;
     background: var(--primary-color);

@@ -123,7 +123,6 @@ export default createStore({
             }).catch((err)=>{
 
               reject(err)
-              console.log(err)
             })
       });
     },    
