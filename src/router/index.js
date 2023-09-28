@@ -154,10 +154,15 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    return { top: 0 }
+  },
 });
 
 
 router.beforeEach((to, from, next) => {
+   // window.scrollTo(0,0)
   document.title = to.meta.title;
   if (to.matched.some((record) => record.meta.secure)) {
     if (!store.state.loggedIn) {

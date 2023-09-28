@@ -19,7 +19,10 @@
 				    </div>
 				    <div class="col-md-8">
 				      <div class="card-body">
-                        <h5 class="card-title">{{latest_episode_anime.name}}</h5>
+                        <h5 class="card-title">
+                        {{latest_episode_anime.name.slice(0, 15)}}
+                        <span v-if="latest_episode_anime.name.length > 15">...</span>                          
+                        </h5>
                             <span class="date">
 
                                  قبل 18 ساعة  &nbsp;<i class="far fa-clock"></i>
@@ -254,6 +257,10 @@
             <!--  End whatch latest episode -->             				
 		</section>
 	</div>
+
+<div v-show="isLoading">
+    <loader object="#ffb600" color1="#ffffff" color2="#ca1919" size="5" speed="2" bg="#000000" objectbg="#999793" opacity="80" disableScrolling="" name="circular"></loader>   
+</div>  
 </template>
 
 <script>
@@ -286,8 +293,11 @@
 
 		methods:{
 			getLatestEpisodesAnimes(){
+        this.isLoading = true
 			this.$store.dispatch("getHomeContents","latestEpisodesAnimes").then((res)=>{
+        
 				this.latestEpisodesAnimes = res;
+        this.isLoading = false
 
 			}).catch((err)=>{
 				console.log(err)

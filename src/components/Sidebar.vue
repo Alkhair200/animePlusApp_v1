@@ -67,7 +67,7 @@
 
                         <li>
                             <i class="fa fa-fire"></i>
-                            <router-link to="latest-episode">
+                            <router-link to="latest">
                                 اخر الحلقات
                             </router-link>
                         </li>

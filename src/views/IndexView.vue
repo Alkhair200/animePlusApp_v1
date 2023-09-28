@@ -2,9 +2,9 @@
     <div>
 
     <section class="home-carousel">
-
-        <Carousel :autoplay="10000" :wrap-around="true" >
-            <Slide v-for="(item,index) in homeContents.featured" :key="item.id">
+        <!-- :autoplay="10000"  -->
+        <Carousel :wrap-around="true" >
+            <Slide v-for="(item,index) in homeContents.featured" :key="index">
               <div class="carousel__item">
                 <div class="shadow"></div>
                 <img :src="item.poster_path" alt="" class="img-poster">
@@ -12,10 +12,13 @@
                     <div class="image">
                        <img :src="item.miniposter" alt=""> 
                     </div>
-                    <h4>{{item.title}}</h4>
+                    <h4>{{item.title.slice(0,25)}} <span v-if="item.title.length > 25">...</span></h4>
                     <ol class="sm-list">
-                        <li>{{item.genre}}</li>
-                        <li>{{moment(item.release_date).format("YYYY") }}</li>
+                        <li>
+                            {{item.genre}}
+                        </li>
+                        <li>{{moment(item.release_date).format("YYYY") }}
+                        </li>
                         <li>
                             <i class="fa fa-star"></i>
                             {{item.vote_average}}
@@ -23,56 +26,55 @@
                         </li>
                     </ol>
                     <div class="row home-btn">
-                        <div class="col-md-4 col-sm-12">
-                            <button @click="getServerFeatured(item.featured_id)" type="button" data-bs-toggle="modal" href="#whatch-episode-header" role="button" class="btn btn-danger">شاهد الاَن</button>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
+                            <div class="col-md-5 col-sm-12">
+                                <button @click="getServerFeatured(item.featured_id)" type="button" data-bs-toggle="modal" href="#whatch-episode-header" role="button" class="btn btn-danger btn-sm">شاهد الاَن</button>                               
+                            </div>
 
-                        <dropdown-menu v-if="getLoggedIn">
-                          <template #trigger>
-                            <button class="btn btn-light">
-                                إضافة لقائمتي
-                                <i class="fa fa-bars" aria-hidden="true"></i>
-                            </button>                  
-                          </template>                
+                            <div class="col-md-5 col-sm-12">
+                                <dropdown-menu v-if="getLoggedIn">
+                                  <template #trigger>
+                                    <button class="btn btn-light btn-sm">
+                                        إضافة لقائمتي
+                                        <i class="fa fa-bars" aria-hidden="true"></i>
+                                    </button>                  
+                                  </template>                
 
-                          <template #body>
-                            <ul>
-                                <li>
-                                    <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'now')">
-                                        <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
-                                      اشاهدها حالياً
-                                    </button>        
-                                </li>
-                                <li>
-                                    <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'want')">
-                                        <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
-                                      أرغب بمشاهدتها
-                                    </button>       
-                                </li>
-                                <li>
-                                    <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'done')">
-                                        <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
-                                      تمت مشاهدتها
-                                    </button>                                      
-                                </li>
-                                <li>
-                                    <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'later')">
-                                        <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
-                                     أكمله لاحقاً
-                                    </button>                                       
-                                </li>                        
-                              
-                            </ul>
-                          </template>
-                        </dropdown-menu>
+                                  <template #body>
+                                    <ul>
+                                        <li>
+                                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'now')">
+                                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                                              اشاهدها حالياً
+                                            </button>        
+                                        </li>
+                                        <li>
+                                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'want')">
+                                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                                              أرغب بمشاهدتها
+                                            </button>       
+                                        </li>
+                                        <li>
+                                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'done')">
+                                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                                              تمت مشاهدتها
+                                            </button>                                      
+                                        </li>
+                                        <li>
+                                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'later')">
+                                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                                             أكمله لاحقاً
+                                            </button>                                       
+                                        </li>                        
+                                      
+                                    </ul>
+                                  </template>
+                                </dropdown-menu>
 
-                        <button v-if="!getLoggedIn" @click="message('يجب عليك تسجيل الدخول أولاً')" class="btn btn-light">
-                            إضافة لقائمتي
-                            <i class="fa fa-bars" aria-hidden="true"></i>
-                        </button>              
-                           
-                        </div>
+                                <button v-if="!getLoggedIn" @click="message('يجب عليك تسجيل الدخول أولاً')" class="btn btn-light">
+                                    إضافة لقائمتي
+                                    <i class="fa fa-bars" aria-hidden="true"></i>
+                                </button>                                 
+                            </div>                            
                     </div>
                 </div>
               </div>
@@ -118,10 +120,12 @@
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
+                            <div class="col-md-12">
                             <h6 style="text-align: center;">
-                                {{latestSeri.name.slice(0, 10)}}
-                                <span v-if="latestSeri.name.length > 10">...</span>
-                            </h6>  
+                                <span v-if="latestSeri.name.length > 21">.....</span>
+                                {{latestSeri.name.slice(0, 21)}}
+                            </h6>
+                            </div>  
                                 
                             </a>                           
                         </div>
@@ -1036,6 +1040,7 @@ export default{
             settingsLatestSeri: {
                 itemsToShow: 2,
                 snapAlign: 'center',
+                dir:'rtl',
             },
 
             breakpointsLatestSeri:{
@@ -1259,6 +1264,7 @@ export default{
                 this.trending =res.data.trending;
                 this.popularCasters = res.data.popular_casters;
                 this.isLoading = false
+                console.log(res.data.featured);
 
             }).catch(err=>{
                 this.isLoading = false
@@ -1276,7 +1282,6 @@ export default{
             ).then(res=>{
 
                 this.latestEpisodeWithServer = res.data.episode;
-                console.log(res.data.episode);
             }).catch(err=>{
                 console.log(err.message);
             })
@@ -1367,6 +1372,10 @@ export default{
 
                 if (res.data != '') {
 
+                    // '+item.
+                    let iconCheck =document.querySelectorAll('.checked-type-'+featured_id)[0]
+                    iconCheck.attr.add("display",'block');
+                    console.log(iconCheck)
                     this.$notify({
                        
                       title: "تم إضافة "+title+" الي قائمتي 🎉",
@@ -1459,6 +1468,11 @@ box-shadow: 0px 0px 3px #868484;
 object-fit: cover;
 } 
 
+.home-carousel .home-btn .btn{
+    height:40px;
+
+}
+
 .home-carousel .v-dropdown-menu__body{
     background: #fff;
     border-radius: 10px;  
@@ -1467,6 +1481,22 @@ object-fit: cover;
 }
 .home-carousel .v-dropdown-menu__body .btn{
     
+}
+
+.home-carousel .sm-list{
+    width:100%;
+}
+
+.home-carousel .sm-list li:not(:last-child):after{
+    content: '';
+    background: #f03;
+    color: #f03;
+    height: 8px;
+    width: 8px;
+    position: absolute;
+    margin-top: 10px;
+    border-radius: 20px;
+    margin-right: 8px;
 }
 
 .home-carousel .v-dropdown-menu__body .btn:hover{
@@ -1480,7 +1510,7 @@ object-fit: cover;
 }
 
 .home-carousel .fa-check{
-    display:none;
+    display:;
 }
 
 

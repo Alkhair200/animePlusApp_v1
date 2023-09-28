@@ -8,7 +8,10 @@
               <div class="col-md-3 col-sm-6 serie-image">
                   <img v-lazy="latestSeri.poster_path" alt="">
 
-                  <h6>{{latestSeri.name}}</h6> 
+                  <h6>
+                        {{latestSeri.name.slice(0, 20)}}
+                        <span v-if="latestSeri.name.length > 20">...</span>
+                  </h6> 
               </div>  
                
               </a> 
@@ -19,6 +22,10 @@
           				
 		</section>
 	</div>
+
+<div v-show="isLoading">
+    <loader object="#ffb600" color1="#ffffff" color2="#ca1919" size="5" speed="2" bg="#000000" objectbg="#999793" opacity="80" disableScrolling="" name="circular"></loader>   
+</div>    
 </template>
 
 <script>
@@ -35,6 +42,7 @@
               episode_id:null,
               
               allLatestEpisodes:[],
+              isLoading:false
             },				
 			}
 		},
@@ -60,6 +68,7 @@
             ).then(res=>{
 
                 this.latestAnim = res.data.anime;
+                this.isLoading = false
 
             }).catch(err=>{
 
@@ -80,9 +89,9 @@
 			},
 
         goToPage(id){
-            this.$store.dispatch("goToPage",{id: id});
+            // this.$store.dispatch("goToPage",{id: id});
 
-            this.$router.push('season')
+            // this.$router.push('season')
         },       
 		}
 	}

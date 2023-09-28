@@ -89,6 +89,22 @@ position-relative{
   padding: 0 7px;
 }
 
+.slider .text-image .list-style li{
+  margin: 0 12px;
+}
+
+.slider .text-image .list-style li:not(:last-child):after{
+    content: '';
+    background: #f03;
+    color: #f03;
+    height: 8px;
+    width: 8px;
+    position: absolute;
+    margin-top: 10px;
+    border-radius: 20px;
+    margin-right: 8px;  
+}
+
 
 /* ============== start main-comment ============== */
 
@@ -280,13 +296,18 @@ border-radius: 10px;
   display: inline-flex;
   justify-content: space-between;
 } */
-.story .slug span{
+
+.story .slug ul{
+  display: inline-flex;
+}
+.story .slug ul li{
     margin: 0;
     padding: 3px 10px;
     border-radius: 10px;
     font-size: 12px;
     background-color: #555151;
     font-weight: bold;
+    margin: 0 10px;
 }
 /* end story */
 

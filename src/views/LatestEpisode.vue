@@ -255,6 +255,10 @@
             <!--  End whatch latest episode -->             				
 		</section>
 	</div>
+
+<div v-show="isLoading">
+    <loader object="#ffb600" color1="#ffffff" color2="#ca1919" size="5" speed="2" bg="#000000" objectbg="#999793" opacity="80" disableScrolling="" name="circular"></loader>   
+</div>  
 </template>
 
 <script>
@@ -264,6 +268,7 @@
 				allLatestEpisodes:[],
 				episodeComments:[],
         latestEpisodeWithServer:[],
+        isLoading:false,
 
             commentsEpisode:{
               comments_message:null,
@@ -287,9 +292,12 @@
 
 		methods:{
 			getAllLatestEpisodes(){
+        this.isLoading = true
 			this.$store.dispatch("getHomeContents","latestEpisodes").then((res)=>{
+
 				this.allLatestEpisodes = res;
-				console.log(res)
+        this.isLoading = false
+        
 			}).catch((err)=>{
 				console.log(err)
 			})		

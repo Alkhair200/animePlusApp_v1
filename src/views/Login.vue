@@ -92,6 +92,10 @@
 			}
 		},
 
+		created(){
+			// this.test();
+		},
+
 		computed:{
 			getUser(){
 				return this.$store.getters.get_user;
@@ -99,6 +103,16 @@
 		},
 
 		methods:{
+
+			// test(){
+			// 	this.axios.get("https://animeeplus.online/api/search/نينجاغو/code").then((res)=>{
+
+			// 		console.log(res.data)
+			// 	}).catch((err)=>{
+			// 		console.log(err)
+			// 	})
+			// },
+
 			Login(){
 				this.isLoading = true;
 				this.$store.dispatch("performLoginAction",{

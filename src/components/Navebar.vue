@@ -4,7 +4,7 @@
     <nav class="navbar  navbarDark">
       <div class="container   ">
         <div class="row" style="width: 100%;">
-          <div class="col-11 text-center  logo-img">
+          <div class="col-11 text-center  logo-img" style="padding-right: 30px;">
             <router-link class="navbar-brand" to="/">
               <img src="front/img/logo.png" alt="" srcset="">
             </router-link>

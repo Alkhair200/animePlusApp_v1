@@ -14,21 +14,20 @@
         <span class="views"><i class="fa fa-eye"></i> {{episode.views}} ألف </span>
       </p>
 
-      <ul class="list-style d-flex justify-content-center align-episodes-center  p-0">
-        <li class="px-1 list-text-1">
+      <ul class="list-style d-flex justify-content-center align-episodes-center">
+        <li>
           <i class="fa fa-star"></i> {{episode.vote_average}}
         </li>
-        <span class="pb-3" style=" font-size: 30px; color: #B41D1E;"> . </span>
-        <li class="px-1 list-text-2">
+        <li>
           {{episode.first_air_date}}
         </li>
-        <span class="pb-3" style="font-size: 30px; color: #B41D1E;"> . </span>
-        <li class=" px-1 list-text-3">
-          <div v-if="episode.seasons">عدد الموسم: {{episode.seasons.length}}</div>
+        <li>
+          <span v-if="episode.seasons">عدد الموسم: {{episode.seasons.length}}</span>
         </li>
-        <span class="pb-3" style="font-size: 30px; color: #B41D1E;"> . </span>
-        <li class="px-1 list-text-4">
-          مستمر
+        <li>
+          <span v-if="episode.newEpisodes == 0">مكتمل</span>
+          <span v-if="episode.newEpisodes == 1">مستمر</span>
+          
         </li>
       </ul>
     </div>
@@ -36,7 +35,7 @@
 
   <div class="container">
     <div class="row">
-      <section>
+      <section class="rating">
         <div class="main-comment">
           <div class="row">
             <div class="col-md-12 col-sm-12">
@@ -96,12 +95,13 @@
                               v-bind:max-rating="10"
                               v-bind:star-size="25"
                               active-color="#dc3545"></star-rating>   
-                              <br>
-                                <button @click.prevent="addEvaluation" type="button" class="btn btn-secondary btn-sm">تقييم</button>
-                            </div>
+
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-danger  btn-sm" data-bs-dismiss="modal">إغلاق</button>
+                            &nbsp;
+                                <button @click.prevent="addEvaluation" type="button" class="btn btn-secondary btn-sm">تقييم</button>
+                            </div>                            
                           </div>
                         </div>
                       </div>
@@ -114,7 +114,7 @@
                     <br>
                     <div v-if="episode.story">{{episode.story.aveg}}/10
                       <br>
-                      ({{episode.story.count}} &nbsp;صوت)
+                      <span v-show="episode.story.count != 0 ">({{episode.story.count}} &nbsp;صوت)</span>
                     </div>
 
                   </div>
@@ -130,12 +130,11 @@
                     <br>
                     التريلر
                   </li>
-<!-- 
                   <li>
                     <i class="fa fa-share-alt"></i>
                     <br>
                     مشاركة
-                  </li> -->
+                  </li>
 
                   <li>
                     <div v-if="getLoggedIn" class="dropdown">
@@ -200,7 +199,9 @@
         </p>
         <br>
         <p class="slug">
-          <span style="margin-left:10px" v-for="(list ,index) in episode.genreslist" :key="index">{{list}}</span>
+          <ul>
+            <li v-for="(list ,index) in episode.genreslist" :key="index">{{list}}</li>
+          </ul>
         </p>
       </section> 
       
@@ -213,13 +214,13 @@
               <button id="accordion" class="accordion-button" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                 style="margin-right: auto">
-                الفاظ نابيه
+                الفاظ نابية
                 &nbsp;
                 <span class="descrip" v-if="episode != ''">شديد [{{episode.nasty.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
               data-bs-parent="#accordionExample">
               <div class="accordion-body">
 
@@ -233,7 +234,7 @@
                   </div>
                   <div class="col-md-12">
                     <div class="body">
-                      <p>الفاظ نابيه</p>
+                      <p>هل يحتوي علي الفاظ نابية ؟</p>
                       <div class="row">
                         <div class="col-md-3 col-sm-12">
                           <button class="btn btn-danger" @click.prevent="addClassify(episode.id ,'nasty')">يحتوي</button>
@@ -370,12 +371,12 @@
           <div class="col-md-5 col-sm-5">
             <select class="form-select dropdown" aria-label="Default select example" 
             @change="getSeasonsWithEpisode($event)">
-            <option selected disabled="">إختر الموسم</option>}
-            option
-  <option :class="[episode.seasons.length == 1?'selected':'']" :value="season.id" v-for="(season ,index) in episode.seasons" :key="index"
-  >{{season.name}}</option>
-</select>
-
+              <option selected disabled="">إختر الموسم</option>}
+              option
+              <option :class="[episode.seasons.length == 1?'selected':'']" :value="season.id" v-for="(season ,index) in episode.seasons" :key="index"
+              >{{season.name}}
+              </option>
+            </select>
           </div>
           &nbsp;
           &nbsp;
@@ -386,7 +387,8 @@
 
         </div>
         <br>
-        <div class="row" v-for="(episode, index) in findEpisodeName" :key="index">
+        <div class="row">
+          <div class="col-sm-12 col-md-6" v-for="(episode, index) in findEpisodeName" :key="index">
           <div class="card mb-3" style="max-width: 540px;" >
             <div class="row g-0">
               <div class="col-md-4 col-sm-4 position-relative card-video">
@@ -644,7 +646,7 @@
               </div>
             </div>
             <!--  End episode commet -->
-
+          </div>            
           </div>
         </div>
 
@@ -774,7 +776,7 @@
             <!--  End series commets -->        
       </section> 
 
-        <section id="top" class="section-padding casterslist">
+        <section v-if="episode.casterslist" id="top" class="section-padding casterslist">
             <div class="">
 
                 <div class="section-header">
@@ -816,7 +818,7 @@
 
                 <div class="section-header">
                     <div class="left">
-                        <h2>اَخري</h2>
+                        <h2>اَخرى</h2>
                     </div>
                 </div>
             <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
@@ -972,6 +974,8 @@ export default{
                 this.episode = res.data;
                 this.isLoading = false
 
+                console.log(this.episode);
+
             }).catch(err=>{
               this.isLoading = false
                 console.log(err);
@@ -996,6 +1000,9 @@ export default{
            if (event.target.value != '') {
             let seasonId = event.target.value
               this.season_id = seasonId;
+           }else{
+            let seasonId = this.get_pageId;
+            this.season_id = seasonId
            }
 
             this.axios.get('https://animeeplus.online/api/series/seasons/'+this.season_id+'/code?page='+page
@@ -1310,5 +1317,16 @@ text-align: right;
 #rating-modal .modal-body h5,
 .vue-star-rating{
   margin-bottom: 6px;
+}
+
+.content .accordion-button{
+  font-size:20px;
+}
+
+.rating #rating-modal .btn-close{
+    padding: .5rem .5rem;
+    margin: 0;
+    color: var(--white);
+    background: #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat !important;
 }
 </style>
