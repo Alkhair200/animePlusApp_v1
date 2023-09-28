@@ -226,7 +226,7 @@
 
                                      <Timeago :datetime="latestSeri.created_at" long locale="ar"/>  &nbsp;<i class="far fa-clock"></i>
                                 </span>
-                                <h6 class="season">{{latestSeri.seasons_name}}</h6>
+                                <h6 class="season">الموسم&nbsp;{{latestSeri.season_number}}</h6>
                                 <h6 class="episode">{{latestSeri.episode_name}}</h6>
 
                                 <div class="row">
@@ -307,7 +307,7 @@
 
                                      <Timeago :datetime="latestSeri.created_at" long locale="ar"/>  &nbsp;<i class="far fa-clock"></i>
                                 </span>
-                                <h6 class="season">{{latestSeri.seasons_name}}</h6>
+                                <h6 class="season">الموسم&nbsp;{{latestSeri.season_number}}</h6>
                                 <h6 class="episode">{{latestSeri.episode_name}}</h6>
 
                                 <div class="row">
@@ -370,9 +370,9 @@
                                 <img v-lazy="latestMovei.poster_path" alt="">
                             </div>  
                             <h6 style="text-align: center;">
-                                {{latestMovei.title.slice(0,10)}}
-                                <span v-if="latestMovei.title
-                                .length > 10">...</span>
+                                <span v-if="latestMovei.title.length > 20">...</span>
+                                {{latestMovei.title.slice(0,20)}}
+
                             </h6>  
                             </a>                           
                         </div>
@@ -412,8 +412,9 @@
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
                             <h6 style="text-align: center;">
-                                {{latestSeri.name.slice(0,10)}}
-                                <span v-if="latestSeri.name.length > 10">...</span>
+                                <span v-if="latestSeri.name.length > 20">...</span>
+                                {{latestSeri.name.slice(0,20)}}
+                                
                             </h6>  
                             </a>                           
                         </div>
@@ -453,8 +454,8 @@
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
                             <h6 style="text-align: center;">
-                                {{latestSeri.name.slice(0,10)}}
-                                <span v-if="latestSeri.name.length > 10">...</span>
+                                {{latestSeri.name.slice(0,20)}}
+                                <span v-if="latestSeri.name.length > 20">...</span>
                             </h6>  
                             </a>                           
                         </div>
@@ -494,8 +495,8 @@
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
                             <h6 style="text-align: center;">
-                                {{latestSeri.title.slice(0,10)}}
-                                <span v-if="latestSeri.title.length > 10">...</span>
+                                {{latestSeri.title.slice(0,20)}}
+                                <span v-if="latestSeri.title.length > 20">...</span>
                             </h6>  
                             </a>                           
                         </div>
@@ -535,8 +536,8 @@
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
                             <h6 style="text-align: center;">
-                                {{latestSeri.name.slice(0,10)}}
-                                <span v-if="latestSeri.name.length > 10">...</span>
+                                {{latestSeri.name.slice(0,20)}}
+                                <span v-if="latestSeri.name.length > 20">...</span>
                             </h6>  
                             </a>                           
                         </div>
@@ -575,10 +576,14 @@
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="item.poster_path" alt="">
                             </div>  
-                            <h6 style="text-align: center;">
-                                {{item.title}}
-                                <!-- <span v-if="item.title.length > 10">...</span> -->
+                            <h6 v-if="item.title" style="text-align: center;">
+                                {{item.title.slice(0,20)}}
+                                <span v-show="item.title.length > 20">...</span>
                             </h6>  
+                            <h6 v-if="item.name" style="text-align: center;">
+                                {{item.name.slice(0,20)}}
+                                <span v-show="item.name.length > 20">...</span>                                
+                            </h6>
                             </a>                           
                         </div>
                     </div>
@@ -1264,8 +1269,7 @@ export default{
                 this.trending =res.data.trending;
                 this.popularCasters = res.data.popular_casters;
                 this.isLoading = false
-                console.log(res.data.featured);
-
+                     console.log(this.thiWeeks); 
             }).catch(err=>{
                 this.isLoading = false
                 console.log(err);

@@ -100,7 +100,8 @@
                           <div class="modal-footer">
                             <button type="button" class="btn btn-danger  btn-sm" data-bs-dismiss="modal">إغلاق</button>
                             &nbsp;
-                                <button @click.prevent="addEvaluation" type="button" class="btn btn-secondary btn-sm">تقييم</button>
+                                <button @click.prevent="addEvaluation" type="button" 
+                                :class="['btn btn-sm',btnRateColor]">تقييم</button>
                             </div>                            
                           </div>
                         </div>
@@ -179,7 +180,7 @@
                   </li>
 
                   <li>
-                    <a @click.prevent="addToFav(episode.id,episode.name)" href="#">
+                    <a :class="btnFavColor" @click.prevent="addToFav(episode.id,episode.name)" href="#">
                       <i class="fa fa-heart"></i>
                       <br>
                       المفضلة                      
@@ -889,6 +890,8 @@ export default{
             animation:null,
             music:null,
             isLoading:false,
+            btnFavColor: "white-color",
+            btnRateColor: "btn-secondary",
 
 
             settings: {
@@ -963,6 +966,24 @@ export default{
     },
 
     methods:{
+
+        toggleColorFav(){
+          if(this.btnFavColor === "white-color") {
+            this.btnFavColor = "red-color";
+          } 
+          // else {
+          //  this.btnFavColor = "white-color";
+          // }    
+        } , 
+
+        toggleColor() {
+          if(this.btnRateColor === "btn-secondary") {
+            this.btnRateColor = "btn-success";
+          } 
+          // else {
+          //  this.btnRateColor = "btn-secondary";
+          // }
+        },        
 
         getSeasonEpisode(){
           this.isLoading = true
@@ -1088,8 +1109,8 @@ export default{
             this.axios.post('https://animeeplus.online/api/serie/addtofav/'+id,{
               id :id
             },{headers}
-            ).then(res=>{
-
+            ).then(res=>{ 
+                this.toggleColorFav()
                 this.favorite = res.data; 
                 if (res.status = 200) {
                   this.$notify({
@@ -1172,6 +1193,8 @@ export default{
               ).then(res=>{
 
                 if (!res.data.error) {
+
+                  this.toggleColor()
                     this.$notify({
                        
                       title: "تم إضافة تقييمك بنجاح 🎉",

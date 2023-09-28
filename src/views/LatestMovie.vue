@@ -18,11 +18,9 @@
         <li class="px-1 list-text-1">
           <i class="fa fa-star"></i> {{episode.vote_average}}
         </li>
-        <span class="pb-3" style=" font-size: 30px; color: #B41D1E;"> . </span>
         <li class="px-1 list-text-2">
-          {{episode.release_date}}
+          {{getTimeInHoursAndMins(episode.runtime)}}
         </li>
-        <span class="pb-3" style="font-size: 30px; color: #B41D1E;"> . </span>
         <li class=" px-1 list-text-3">
           <Timeago :datetime="episode.created_at" long locale="ar"/>
         </li>
@@ -101,12 +99,13 @@
                               v-bind:max-rating="10"
                               v-bind:star-size="25"
                               active-color="#dc3545"></star-rating>   
-                              <br>
-                                <button @click.prevent="addEvaluation" type="button" class="btn btn-secondary btn-sm">تقييم</button>
+                              
                             </div>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-danger  btn-sm" data-bs-dismiss="modal">إغلاق</button>
+                            &nbsp;
+                            <button @click.prevent="addEvaluation" type="button" :class="['btn ,btn-sm', btnRateColor]">تقييم</button>
                           </div>
                         </div>
                       </div>
@@ -185,7 +184,7 @@
                   </li>
 
                   <li>
-                    <a @click.prevent="addToFav(episode.id,episode.title)" href="#">
+                    <a :class="btnFavColor" @click.prevent="addToFav(episode.id,episode.title)" href="#">
                       <i class="fa fa-heart"></i>
                       <br>
                       المفضلة                      
@@ -600,7 +599,8 @@ export default{
             chars:null,
             animation:null,
             music:null,
-
+      btnRateColor: "btn-secondary",
+      btnFavColor: "white-color",
 
             settings: {
               itemsToShow: 1,
@@ -674,6 +674,28 @@ export default{
 
     methods:{
 
+    getTimeInHoursAndMins(timeInsSeconds) {
+          const hours = Math.floor(timeInsSeconds / 3600);
+          const minutes = Math.floor((timeInsSeconds % 3600) / 60);
+          return `${hours} ساعة ${minutes} دقيقة`;
+    }, 
+
+  toggleColor() {
+    if(this.btnRateColor === "btn-secondary") {
+      this.btnRateColor = "btn-success";
+    } else {
+     this.btnRateColor = "btn-secondary";
+    }
+  }, 
+
+  toggleColorFav(){
+    if(this.btnFavColor === "white-color") {
+      this.btnFavColor = "red-color";
+    } else {
+     this.btnFavColor = "#fff";
+    }    
+  } ,  
+
         getMovieEpisode(){
            this.isLoading = true
           let id = this.get_pageId;
@@ -681,7 +703,14 @@ export default{
             this.axios.post('https://animeeplus.online/api/media/detail/'+id+'/code'
             ).then(res=>{
               
-                this.episode = res.data;
+                
+                console.log(this.episode);
+                let data = res.data;
+                // this.getTimeInHoursAndMins(data.runtime)
+                // data.runtime = data.runtime.toString().replace(/(\d{1,2})(\d{2})$/,"$1:$2")
+
+
+                this.episode = data;
 
                  this.isLoading = false
 
@@ -807,6 +836,8 @@ export default{
 
                 this.favorite = res.data; 
                 if (res.data != '') {
+
+                  this.toggleColorFav()
                   this.$notify({
                      
                     title: "تم إضافة "+title+" الي المفضلة 🎉",
@@ -889,6 +920,8 @@ export default{
               ).then(res=>{
 
                 if (!res.data.error) {
+
+                    this.toggleColor()                  
                     this.$notify({
                        
                       title: "تم إضافة تقييمك بنجاح 🎉",

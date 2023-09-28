@@ -6,6 +6,14 @@
     --section-padding: 100px;
     
 }
+
+.red-color{
+  color:#CA1919;
+}
+
+.white-color{
+  color:#fff;
+}
 * {box-sizing: border-box}
 body{
     direction: rtl;
@@ -149,13 +157,14 @@ width: 100%;
 justify-content: space-between;
 }
 
-.main-comment .social .content li a{
+/*.main-comment .social .content li a{
   color: var(--white);
-}
+}*/
 
 .main-comment .social .content li:hover a{
   color: var(--red);
 }
+
 
 
 
