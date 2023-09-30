@@ -76,6 +76,7 @@
                 this.episodeServer = res.data.episode.videos;
                 this.isLoading = false
             }).catch(err=>{
+            	this.isLoading = false
                 console.log(err.message);
             })
             

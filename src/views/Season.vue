@@ -51,7 +51,7 @@
               <div class="add">
                 <div class="row">
                   <div class="col-md-6 col-sm-6">
-                    <button type="button" data-bs-toggle="modal" href="#rating-modal" role="button" class="dropbtn">
+                    <button type="button" data-bs-toggle="modal" href="#rating-modal" role="button" :class="btnColor">
                       <i class="fa fa-star-o"></i>
                       <br>    
                       أضف تقييمك
@@ -139,7 +139,7 @@
 
                   <li>
                     <div v-if="getLoggedIn" class="dropdown">
-                      <button class="dropbtn">
+                      <button :class="dropbtn">
                         <i class="fa fa-bars" aria-hidden="true"></i>
                         <br>    
                         إضافة لقائمتي
@@ -212,12 +212,12 @@
         <div class="accordion" id="accordionExample">
           <div class="accordion-episode">
             <h2 class="accordion-header" id="headingOne">
-              <button id="accordion" class="accordion-button" type="button" data-bs-toggle="collapse"
+              <button id="accordion" :class="['accordion-button',accordionButtonNasty ]" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                style="margin-right: auto">
-                الفاظ نابية
+                style="margin-right: auto; color:#fff">
+                الفاظ نابيه
                 &nbsp;
-                <span class="descrip" v-if="episode != ''">شديد [{{episode.nasty.count}}]</span>
+                <span class="descrip" v-if="nasty >= 1">شديد [{{episode.nasty.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
@@ -228,14 +228,14 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text" v-if="episode != ''">عدد المصوتين ({{episode.nasty.count}})</span>
+                      <span class="head-text" v-if="nasty >= 1">عدد المصوتين ({{episode.nasty.count}})</span>
                       <p class="head-text" v-else>لا يوجد</p>
 
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="body">
-                      <p>هل يحتوي علي الفاظ نابية ؟</p>
+                      <p>هل يحتوي علي مشاهد بها الفاظ نابية ؟</p>
                       <div class="row">
                         <div class="col-md-3 col-sm-12">
                           <button class="btn btn-danger" @click.prevent="addClassify(episode.id ,'nasty')">يحتوي</button>
@@ -253,11 +253,13 @@
           </div>
           <div class="accordion-episode">
             <h2 class="accordion-header" id="headingTwo">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              <button
+              :class="['accordion-button , collapsed',accordionButtonBloody ]"
+               type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 عنف و دمويه
                 &nbsp;
-                <span class="descrip" v-if="episode != ''">شديد [{{episode.bloody.count}}]</span>
+                <span class="descrip" v-if="bloody >= 1">شديد [{{episode.bloody.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
@@ -267,7 +269,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text" v-if="episode != ''">عدد المصوتين ({{episode.bloody.count}})</span>
+                      <span class="head-text"  v-if="bloody >= 1">عدد المصوتين ({{episode.bloody.count}})</span>
                       <p class="head-text" v-else>لا يوجد</p>
                     </div>
                   </div>
@@ -290,11 +292,11 @@
           </div>
           <div class="accordion-episode">
             <h2 class="accordion-header" id="headingThree">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              <button :class="['accordion-button , collapsed',accordionButtonScary ]" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 مشاهد مخيفه او صادمه
                 &nbsp;
-                <span class="descrip" v-if="episode != ''">متوسط [{{episode.scary.count}}]</span>
+                <span class="descrip" v-if="scary >= 1">متوسط [{{episode.scary.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
@@ -304,7 +306,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text" v-if="episode != ''">عدد المصوتين ({{episode.scary.count}})</span>
+                      <span class="head-text" v-if="scary >= 1">عدد المصوتين ({{episode.scary.count}})</span>
                       <p class="head-text" v-else>لا يوجد</p>
                     </div>
                   </div>
@@ -328,11 +330,11 @@
 
           <div class="accordion-episode">
             <h2 class="accordion-header" id="headingFour">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              <button :class="['accordion-button , collapsed',accordionButtonDrugs ]"  type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
                 مخدرات و كحول و تدخين
                 &nbsp;
-                <span class="descrip" v-if="episode != ''">متوسط [{{episode.drugs.count}}]</span>
+                <span class="descrip" v-if="drugs >= 1">متوسط [{{episode.drugs.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
@@ -342,7 +344,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text" v-if="episode != ''">عدد المصوتين ({{episode.drugs.count}})</span>
+                      <span class="head-text" v-if="drugs >= 1">عدد المصوتين ({{episode.drugs.count}})</span>
                       <p class="head-text" v-else>لا يوجد</p>
                     </div>
                   </div>
@@ -892,6 +894,18 @@ export default{
             isLoading:false,
             btnFavColor: "white-color",
             btnRateColor: "btn-secondary",
+            btnColor:"white-color",
+            dropbtn:"white-color",
+
+            accordionButtonNasty: "before",
+            accordionButtonBloody: "before",
+            accordionButtonScary:"before",
+            accordionButtonDrugs:"before", 
+
+            nasty:null,           
+            drugs:null,
+            bloody:null,
+            scary:null,
 
 
             settings: {
@@ -941,6 +955,7 @@ export default{
     },
 
     mounted(){
+      this.getSeasonEpisode();
       this.getSeasonsWithEpisode();
     },
 
@@ -993,9 +1008,32 @@ export default{
             ).then(res=>{
 
                 this.episode = res.data;
+
+                this.nasty = this.episode.nasty.count
+                this.drugs = this.episode.drugs.count
+                this.bloody = this.episode.bloody.count
+                this.scary = this.episode.scary.count
+
+                
+                if(this.nasty >=1){
+                  this.accordionButtonNasty = "after"
+
+                }
+                if(this.bloody >=1){
+                  this.accordionButtonBloody ="after"
+
+                }
+                 if(this.scary >=1){
+                  this.accordionButtonScary ="after"
+
+                }
+                 if(this.drugs >=1){
+                  this.accordionButtonDrugs ="after"
+                }
+
                 this.isLoading = false
 
-                console.log(this.episode);
+                 console.log(this.episode);
 
             }).catch(err=>{
               this.isLoading = false
@@ -1018,12 +1056,14 @@ export default{
     
         getSeasonsWithEpisode(page){
            
+           if (event) {
            if (event.target.value != '') {
             let seasonId = event.target.value
               this.season_id = seasonId;
            }else{
             let seasonId = this.get_pageId;
             this.season_id = seasonId
+           }            
            }
 
             this.axios.get('https://animeeplus.online/api/series/seasons/'+this.season_id+'/code?page='+page
@@ -1088,6 +1128,10 @@ export default{
             }).then((res)=>{
 
                 if (res.data != '') {
+
+                  if(this.dropbtn == "white-color"){
+                    this.dropbtn = "red-color"
+                  }                  
                     
                     this.$notify({
                        
@@ -1137,8 +1181,20 @@ export default{
                 {headers}
             ).then(res=>{
 
+              if (res.data.classify) {
 
-              if (res.data != '') {
+                if(type == "nasty"){
+                  this.accordionButtonNasty = "after"
+
+                }else if(type == "bloody"){
+                  this.accordionButtonBloody ="after"
+
+                }else if(type == "scary"){
+                  this.accordionButtonScary ="after"
+
+                }else if(type == "drugs"){
+                  this.accordionButtonDrugs ="after"
+                }                  
                   this.$notify({
                      
                     title: "تمت الإضافه 🎉",
@@ -1195,6 +1251,11 @@ export default{
                 if (!res.data.error) {
 
                   this.toggleColor()
+
+                  if (this.btnColor == "white-color") {
+                    this.btnColor = "red-color"
+                  }
+
                     this.$notify({
                        
                       title: "تم إضافة تقييمك بنجاح 🎉",
@@ -1231,30 +1292,26 @@ export default{
 </script>
 
 <style>
-/* Style The Dropdown Button */
 .dropbtn {
   color: white;
   border: none;
   cursor: pointer;
 }
 
-/* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
-/* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
-/* Links inside the dropdown */
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
@@ -1268,9 +1325,10 @@ export default{
   transition: 1s;
 }
 
-.dropdown .dropdown-content ul{
-padding: 0;
-color:#fff;
+
+.dropdown-content ul li:hover{
+
+  color: #333 !important;
 }
 
 .dropdown-content ul li a{
@@ -1344,6 +1402,14 @@ text-align: right;
 
 .content .accordion-button{
   font-size:20px;
+}
+
+.red-color{
+  color:#CA1919;
+}
+
+.white-color{
+  color:#fff;
 }
 
 .rating #rating-modal .btn-close{

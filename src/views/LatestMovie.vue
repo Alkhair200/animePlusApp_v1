@@ -55,7 +55,7 @@
               <div class="add">
                 <div class="row">
                   <div class="col-md-6 col-sm-6">
-                    <button type="button" data-bs-toggle="modal" href="#rating-modal" role="button" class="dropbtn">
+                    <button type="button" data-bs-toggle="modal" href="#rating-modal" role="button" :class="btnColor">
                       <i class="fa fa-star-o"></i>
                       <br>    
                       أضف تقييمك
@@ -143,7 +143,7 @@
 
                   <li>
                     <div v-if="getLoggedIn" class="dropdown">
-                      <button class="dropbtn">
+                      <button :class="dropbtn">
                         <i class="fa fa-bars" aria-hidden="true"></i>
                         <br>    
                         إضافة لقائمتي
@@ -214,30 +214,30 @@
         <div class="accordion" id="accordionExample">
           <div class="accordion-episode">
             <h2 class="accordion-header" id="headingOne">
-              <button id="accordion" class="accordion-button" type="button" data-bs-toggle="collapse"
+              <button id="accordion" :class="['accordion-button',accordionButtonNasty ]" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                style="margin-right: auto">
+                style="margin-right: auto; color:#fff">
                 الفاظ نابيه
                 &nbsp;
-                <span class="descrip" v-if="episode != ''">شديد [{{episode.nasty.count}}]</span>
+                <span class="descrip" v-if="episode.nasty.count">شديد [{{episode.nasty.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
               data-bs-parent="#accordionExample">
               <div class="accordion-body">
 
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text" v-if="episode != ''">عدد المصوتين ({{episode.nasty.count}})</span>
+                      <span class="head-text" v-if="episode.nasty.count">عدد المصوتين ({{episode.nasty.count}})</span>
                       <p class="head-text" v-else>لا يوجد</p>
 
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="body">
-                      <p>الفاظ نابيه</p>
+                      <p>هل يحتوي علي مشاهد بها الفاظ نابية ؟</p>
                       <div class="row">
                         <div class="col-md-3 col-sm-12">
                           <button class="btn btn-danger" @click.prevent="addClassify(episode.id ,'nasty')">يحتوي</button>
@@ -255,7 +255,9 @@
           </div>
           <div class="accordion-episode">
             <h2 class="accordion-header" id="headingTwo">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              <button
+              :class="['accordion-button , collapsed',accordionButtonBloody ]"
+               type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 عنف و دمويه
                 &nbsp;
@@ -292,7 +294,7 @@
           </div>
           <div class="accordion-episode">
             <h2 class="accordion-header" id="headingThree">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              <button :class="['accordion-button , collapsed',accordionButtonScary ]" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 مشاهد مخيفه او صادمه
                 &nbsp;
@@ -330,7 +332,7 @@
 
           <div class="accordion-episode">
             <h2 class="accordion-header" id="headingFour">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              <button :class="['accordion-button , collapsed',accordionButtonDrugs ]"  type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
                 مخدرات و كحول و تدخين
                 &nbsp;
@@ -594,6 +596,10 @@ export default{
             season_id:null,
             relateds:[],
             isLoading:false,
+            accordionButtonNasty: "before",
+            accordionButtonBloody: "before",
+            accordionButtonScary:"before",
+            accordionButtonDrugs:"before",
 
             story:null,
             chars:null,
@@ -601,6 +607,8 @@ export default{
             music:null,
       btnRateColor: "btn-secondary",
       btnFavColor: "white-color",
+      btnColor:"white-color",
+      dropbtn:"white-color",
 
             settings: {
               itemsToShow: 1,
@@ -810,6 +818,10 @@ export default{
               {headers}).then((res)=>{
                 if (res.data != '') {
 
+                  if(this.dropbtn == "white-color"){
+                    this.dropbtn = "red-color"
+                  }                           
+
                     this.$notify({
                        
                       title: "تم إضافة "+title+" الي قائمتي 🎉",
@@ -862,9 +874,20 @@ export default{
                 {headers}
             ).then(res=>{
 
-              console.log(res);
-
               if (res.data.classify) {
+
+                if(type == "nasty"){
+                  this.accordionButtonNasty = "after"
+
+                }else if(type == "bloody"){
+                  this.accordionButtonBloody ="after"
+
+                }else if(type == "scary"){
+                  this.accordionButtonScary ="after"
+
+                }else if(type == "drugs"){
+                  this.accordionButtonDrugs ="after"
+                }             
                   this.$notify({
                      
                     title: "تمت الإضافه 🎉",
@@ -921,6 +944,10 @@ export default{
 
                 if (!res.data.error) {
 
+                  if (this.btnColor =="white-color") {
+                    this.btnColor = "red-color"
+                  }
+
                     this.toggleColor()                  
                     this.$notify({
                        
@@ -958,20 +985,17 @@ export default{
 </script>
 
 <style>
-/* Style The Dropdown Button */
 .dropbtn {
   color: white;
   border: none;
   cursor: pointer;
 }
 
-/* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
-/* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -981,7 +1005,6 @@ export default{
   z-index: 1;
 }
 
-/* Links inside the dropdown */
 .dropdown-content a {
   color: black;
   padding: 12px 16px;

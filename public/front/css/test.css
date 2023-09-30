@@ -333,11 +333,20 @@ border-radius: 10px;
     font-size: 12px;
 }*/
 
-.accordion .accordion-button::before{
+.before::before{
     position: absolute;
     content: "";
     right: 0px;
     background-color: var(--dark-yellow);
+    width: 10px;
+    height: 16px;
+} 
+
+.after::before{
+    position: absolute;
+    content: "";
+    right: 0px;
+    background-color: var(--red);
     width: 10px;
     height: 16px;
 } 

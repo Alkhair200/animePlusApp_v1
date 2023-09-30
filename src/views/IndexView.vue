@@ -42,26 +42,26 @@
                                   <template #body>
                                     <ul>
                                         <li>
-                                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'now')">
-                                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                                            <button :class="['btn',btnColor]" @click="addtofavAction(item.featured_id ,item.title,'now')">
+                                                <i v-show="btnNow" :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
                                               اشاهدها حالياً
                                             </button>        
                                         </li>
                                         <li>
-                                            <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'want')">
-                                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                                            <button :class="['btn',btnColor]" @click="addtofavAction(item.featured_id ,item.title,'want')">
+                                                <i v-show="btnWant" :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
                                               أرغب بمشاهدتها
                                             </button>       
                                         </li>
                                         <li>
                                             <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'done')">
-                                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                                                <i v-show="btnDone" :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
                                               تمت مشاهدتها
                                             </button>                                      
                                         </li>
                                         <li>
                                             <button class="btn" @click="addtofavAction(item.featured_id ,item.title,'later')">
-                                                <i :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
+                                                <i v-show="btnLater" :class="['fa fa-check', 'checked-type-'+item.featured_id]"></i>
                                              أكمله لاحقاً
                                             </button>                                       
                                         </li>                        
@@ -250,7 +250,13 @@
                                         </a>                                        
                                     </div>
                                     <div class="col-6 text-center">
-                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    <a  
+                                        @click="getLatestEpisodeWithServer(latestSeri.episode_id)"
+                                        type="button" 
+                                        data-bs-toggle="modal" 
+                                        href="#whatch-latest-episode"
+                                         class="dics-dtn"><i class="fa fa-info-circle"></i> دخول
+                                    </a>
                                     </div>
                                 </div>
                             </div>                         
@@ -318,7 +324,8 @@
                                         type="button" 
                                         data-bs-toggle="modal" 
                                         href="#anim-comments" role="button"
-                                        @click="getEpisodeAnimComment(latestSeri.anime_episode_id)">
+                                        @click="getLatestEpisodeAnimWithServer(latestSeri.anime_episode_id)"                                        
+                                        >
                                             <i class="fa fa-commenting-o"></i> التعليقات
                                         </a>
 
@@ -331,7 +338,14 @@
                                         </a>                                        
                                     </div>
                                     <div class="col-6 text-center">
-                                        <a class="dics-dtn"><i class="fa fa-info-circle"></i> دخول</a>
+                                    <a 
+                                        @click="getLatestEpisodeAnimWithServer(latestSeri.anime_episode_id)"
+                                        type="button" 
+                                        data-bs-toggle="modal" 
+                                         href="#whatch-latest-episode-anim"
+
+                                        class="dics-dtn"><i class="fa fa-info-circle"></i> دخول
+                                    </a>
                                     </div>
                                 </div>
                             </div>                         
@@ -746,7 +760,7 @@
                     <div class="comm-info">
 
                       <div class="users-comments" v-for="(episodeComm , index) in episodeComments" :key="index">
-                        <div v-for="item in episodeComm.reacts">
+                        <!-- <div v-if="episodeComm.reacts.length != 0" v-for="item in episodeComm.reacts"> -->
                         <div class="row">
                           <div class="col-md-1 col-sm-1">
                             <div class="img-user">
@@ -769,23 +783,23 @@
 
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
 
-                                    <li><a class="" @click.prevent="addlikeOrReplies('like',episodeComm.id ,episodeComm.commentable_id ,item.reactable_type)" href="#">
+                                    <li><a class="" @click.prevent="addlikeOrReplies('like',episodeComm.id ,episodeComm.commentable_id)" href="#">
                                         <img src="/front/img/like-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li>
-                                      <a class="" href="#" @click.prevent="addlikeOrReplies('love',episodeComm.id ,episodeComm.commentable_id,item.reactable_type)">
+                                      <a class="" href="#" @click.prevent="addlikeOrReplies('love',episodeComm.id ,episodeComm.commentable_id)">
                                         <img src="/front/img/heart-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
-                                    <li><a class="" href="#" @click.prevent="addlikeOrReplies('haha',episodeComm.id ,episodeComm.commentable_id,item.reactable_type)">
+                                    <li><a class="" href="#" @click.prevent="addlikeOrReplies('haha',episodeComm.id ,episodeComm.commentable_id)">
                                         <img src="/front/img/joy-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
-                                    <li><a class="" href="#" @click.prevent="addlikeOrReplies('dislike',episodeComm.id ,episodeComm.commentable_id,item.reactable_type)">
+                                    <li><a class="" href="#" @click.prevent="addlikeOrReplies('dislike',episodeComm.id ,episodeComm.commentable_id)">
                                         <img src="/front/img/unlike-100.png" alt="" srcset="">
                                       </a>
                                     </li>
@@ -820,7 +834,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      <!-- </div> -->
                       </div>
                     </div>
                   </div>
@@ -1007,11 +1021,16 @@ export default{
             latestEpisodesAnimes:[],
             latestMovieWatched:[],
 
-            screenWidth: window.innerWidth,
+            // screenWidth: window.innerWidth,
 
             isLoading:false,
             countReacts:0,
             countHeart:0,
+
+            btnNow: false,
+            btnDone: false,
+            btnWant: false,
+            btnLater: false,
 
             commentsEpisode:{
               comments_message:null,
@@ -1311,12 +1330,14 @@ export default{
 
                 this.episodeComments = res.data.comments;
 
+                console.log(this.episodeComments)
+
                 this.episodeComments.forEach((item,value)=>{
 
-                    item.reacts.forEach((val)=>{ 
+                    // item.reacts.forEach((val)=>{ 
 
-                        this.getReactsCount(val.react_type,val.reactable_id ,val.reactable_type)
-                    })
+                    //     this.getReactsCount(val.react_type,val.reactable_id ,val.reactable_type)
+                    // })
                 })
 
             }).catch(err=>{
@@ -1375,11 +1396,25 @@ export default{
             }).then((res)=>{
 
                 if (res.data != '') {
+                    this.btnNow =false
+                    this.btnDone = false
+                    this.btnWant = false
+                    this.btnLater = false
+
+                    if (watch_type == "now") {
+                        this.btnNow = true
+                    }else if(watch_type == "later"){
+                         this.btnLater = true
+                    }else if(watch_type == "want"){
+                         this.btnWant= true
+                    }else if(watch_type == "done"){
+                         this.btnDone = true
+                    }
 
                     // '+item.
-                    let iconCheck =document.querySelectorAll('.checked-type-'+featured_id)[0]
-                    iconCheck.attr.add("display",'block');
-                    console.log(iconCheck)
+                    // let iconCheck =document.querySelectorAll('.checked-type-'+featured_id)[0]
+                    // iconCheck.style.color("primary-color)");
+                    // console.log(iconCheck)
                     this.$notify({
                        
                       title: "تم إضافة "+title+" الي قائمتي 🎉",
@@ -1389,7 +1424,7 @@ export default{
             }).catch((err)=>{
                 console.log(err)
             })
-        }, 
+        },         
 
         goToPage(id ,type){
             if (type == "season") {
