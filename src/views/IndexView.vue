@@ -3,10 +3,10 @@
 
     <section class="home-carousel">
         <!-- :autoplay="10000"  -->
-        <Carousel :wrap-around="true" >
+        <Carousel :wrap-around="true" id="carousel-home">
             <Slide v-for="(item,index) in homeContents.featured" :key="index">
               <div class="carousel__item">
-                <div class="shadow"></div>
+                <div @click.prevent="goToPage(item.featured_id ,'season')" class="shadow"></div>
                 <img :src="item.poster_path" alt="" class="img-poster">
                 <div class="miniposter">
                     <div class="image">
@@ -26,11 +26,11 @@
                         </li>
                     </ol>
                     <div class="row home-btn">
-                            <div class="col-md-5 col-sm-12">
+                            <div class="col-md-3 col-sm-12">
                                 <button @click="getServerFeatured(item.featured_id)" type="button" data-bs-toggle="modal" href="#whatch-episode-header" role="button" class="btn btn-danger btn-sm">شاهد الاَن</button>                               
                             </div>
 
-                            <div class="col-md-5 col-sm-12">
+                            <div class="col-md-3 col-sm-12">
                                 <dropdown-menu v-if="getLoggedIn">
                                   <template #trigger>
                                     <button class="btn btn-light btn-sm">
@@ -116,7 +116,7 @@
                 <slide v-for="(latestSeri, index) in ongoingAnime" :key="index">
                     <div class="carousel__item">
                         <div class="row">
-                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <a @click.prevent="goToPage(latestSeri.id ,'season')">
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
@@ -160,9 +160,9 @@
                 <slide v-for="(popular, index) in popularCasters" :key="index">
                     <div class="carousel__item" style="width: 100%;">
                         <div class="row">
-                            <a @click.prevent="goToPage(popular.id)">
-                            <div class="col-md-3 col-sm-6 serie-image">
-                                <img v-lazy="popular.profile_path" alt="" style="border-radius: 100px;height: 160px; border: 4px solid #B41D1E;">
+                            <a @click.prevent="goToPage(popular.id ,'season')">
+                            <div class="col-md-3 col-sm-6 char-image">
+                                <img v-lazy="popular.profile_path" alt="" style="border-radius: 100px; border: 4px solid #B41D1E;">
                                 <h6 style="text-align: center;">
                                     {{popular.name.toUpperCase().slice(0, 10)}}
                                     <span v-if="popular.name.length > 10">...</span>
@@ -251,10 +251,7 @@
                                     </div>
                                     <div class="col-6 text-center">
                                     <a  
-                                        @click="getLatestEpisodeWithServer(latestSeri.episode_id)"
-                                        type="button" 
-                                        data-bs-toggle="modal" 
-                                        href="#whatch-latest-episode"
+                                        @click.prevent="goToPage(latestSeri.id ,'season')"
                                          class="dics-dtn"><i class="fa fa-info-circle"></i> دخول
                                     </a>
                                     </div>
@@ -339,10 +336,8 @@
                                     </div>
                                     <div class="col-6 text-center">
                                     <a 
-                                        @click="getLatestEpisodeAnimWithServer(latestSeri.anime_episode_id)"
-                                        type="button" 
-                                        data-bs-toggle="modal" 
-                                         href="#whatch-latest-episode-anim"
+
+                                     
 
                                         class="dics-dtn"><i class="fa fa-info-circle"></i> دخول
                                     </a>
@@ -463,7 +458,7 @@
                 <slide v-for="(latestSeri, index) in latestAnim" :key="index">
                     <div class="carousel__item">
                         <div class="row">
-                            <a @click.prevent="goToPage(latestSeri.id)">
+                            <a>
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
@@ -586,7 +581,7 @@
                 <slide v-for="(item, index) in thiWeeks" :key="index">
                     <div class="carousel__item">
                         <div class="row">
-                            <a @click.prevent="goToPage(item.id)">
+                            <a @click.prevent="goToPage(item.id , 'latestMovie')">
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="item.poster_path" alt="">
                             </div>  
@@ -1288,7 +1283,7 @@ export default{
                 this.trending =res.data.trending;
                 this.popularCasters = res.data.popular_casters;
                 this.isLoading = false
-                     console.log(this.thiWeeks); 
+                     console.log(res.data.anime); 
             }).catch(err=>{
                 this.isLoading = false
                 console.log(err);
@@ -1435,7 +1430,8 @@ export default{
             }else if(type == "latestMovie"){
                 this.$store.dispatch("goToPage",{id: id});
 
-                this.$router.push('latest-movie')                
+                this.$router.push('latest-movie')  
+
             }
         }, 
 

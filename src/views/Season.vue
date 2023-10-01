@@ -423,7 +423,7 @@
                   </h5>
 
                   <div class=" comm-down">
-                  <a href="#" class="btn downloads" target="_blank">
+                  <a v-if="getLoggedIn"  class="btn downloads" target="_blank">
                     <i class="fa fa-download"></i>
                     تحميل
                   </a>
@@ -779,7 +779,7 @@
             <!--  End series commets -->        
       </section> 
 
-        <section v-if="episode.casterslist" id="top" class="section-padding casterslist">
+        <section v-if="casterslist != 0" id="top" class="section-padding casterslist">
             <div class="">
 
                 <div class="section-header">
@@ -793,8 +793,8 @@
                     <div class="carousel__item" style="width: 100%;">
                         <div class="row">
                             <a @click.prevent="goToPage(latestSeri.id ,'season')">
-                            <div class="col-md-3 col-sm-6 serie-image">
-                                <img v-lazy="latestSeri.profile_path" alt="" style="border-radius: 100px;height: 160px; border: 4px solid #B41D1E;">
+                            <div class="col-md-3 col-sm-6 char-image">
+                                <img v-lazy="latestSeri.profile_path" alt="" style="border-radius: 100px; border: 4px solid #B41D1E;">
                                 <h6 style="text-align: center;">
                                     {{latestSeri.name.toUpperCase().slice(0, 10)}}
                                     <span v-if="latestSeri.name.length > 10">...</span>
@@ -901,6 +901,7 @@ export default{
             accordionButtonBloody: "before",
             accordionButtonScary:"before",
             accordionButtonDrugs:"before", 
+            casterslist:0,
 
             nasty:null,           
             drugs:null,
@@ -948,15 +949,14 @@ export default{
     },
 
     created(){
-      
         this.getSeasonEpisode();
         this.getRelatedsEpisode();
         this.getCommentsSeries();
+        this.getEpisode();
     },
 
     mounted(){
       this.getSeasonEpisode();
-      this.getSeasonsWithEpisode();
     },
 
     computed:{
@@ -1008,6 +1008,11 @@ export default{
             ).then(res=>{
 
                 this.episode = res.data;
+                this.casterslist = res.data.casterslist.length
+
+                let seasonId = res.data.seasons[0].id;
+
+                 this.getEpisode(seasonId)
 
                 this.nasty = this.episode.nasty.count
                 this.drugs = this.episode.drugs.count
@@ -1031,10 +1036,9 @@ export default{
                   this.accordionButtonDrugs ="after"
                 }
 
+                
+
                 this.isLoading = false
-
-                 console.log(this.episode);
-
             }).catch(err=>{
               this.isLoading = false
                 console.log(err);
@@ -1052,21 +1056,26 @@ export default{
             }).catch(err=>{
                 console.log(err);
             })
-        },        
-    
-        getSeasonsWithEpisode(page){
-           
-           if (event) {
-           if (event.target.value != '') {
-            let seasonId = event.target.value
-              this.season_id = seasonId;
-           }else{
-            let seasonId = this.get_pageId;
-            this.season_id = seasonId
-           }            
-           }
+        },  
 
-            this.axios.get('https://animeeplus.online/api/series/seasons/'+this.season_id+'/code?page='+page
+        getEpisode (id ,page){
+
+            this.axios.get('https://animeeplus.online/api/series/seasons/'+id+'/code?page='+page
+            ).then(res=>{
+                this.episodes = res.data;
+
+            }).catch(err=>{
+                console.log(err);
+            })
+        } ,   
+    
+        getSeasonsWithEpisode(id,page){
+
+           let seasonId = null
+           if (event) {
+              seasonId = event.target.value
+           }     
+            this.axios.get('https://animeeplus.online/api/series/seasons/'+seasonId+'/code?page='+page
             ).then(res=>{
 
                 this.episodes = res.data;
@@ -1412,10 +1421,7 @@ text-align: right;
   color:#fff;
 }
 
-.rating #rating-modal .btn-close{
-    padding: .5rem .5rem;
-    margin: 0;
-    color: var(--white);
-    background: #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat !important;
+carousel{
+    overflow: hidden !important;
 }
 </style>

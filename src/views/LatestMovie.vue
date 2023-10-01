@@ -219,7 +219,7 @@
                 style="margin-right: auto; color:#fff">
                 الفاظ نابيه
                 &nbsp;
-                <span class="descrip" v-if="episode.nasty.count">شديد [{{episode.nasty.count}}]</span>
+                <span class="descrip" v-if="nasty >= 1">شديد [{{episode.nasty.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
@@ -230,7 +230,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text" v-if="episode.nasty.count">عدد المصوتين ({{episode.nasty.count}})</span>
+                      <span class="head-text" v-if="nasty >= 1">عدد المصوتين ({{episode.nasty.count}})</span>
                       <p class="head-text" v-else>لا يوجد</p>
 
                     </div>
@@ -261,7 +261,7 @@
                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 عنف و دمويه
                 &nbsp;
-                <span class="descrip" v-if="episode != ''">شديد [{{episode.bloody.count}}]</span>
+                <span class="descrip" v-if="bloody >= 1">شديد [{{episode.bloody.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
@@ -271,7 +271,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text" v-if="episode != ''">عدد المصوتين ({{episode.bloody.count}})</span>
+                      <span class="head-text"  v-if="bloody >= 1">عدد المصوتين ({{episode.bloody.count}})</span>
                       <p class="head-text" v-else>لا يوجد</p>
                     </div>
                   </div>
@@ -298,7 +298,7 @@
                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 مشاهد مخيفه او صادمه
                 &nbsp;
-                <span class="descrip" v-if="episode != ''">متوسط [{{episode.scary.count}}]</span>
+                <span class="descrip" v-if="scary >= 1">متوسط [{{episode.scary.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
@@ -308,7 +308,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text" v-if="episode != ''">عدد المصوتين ({{episode.scary.count}})</span>
+                      <span class="head-text" v-if="scary >= 1">عدد المصوتين ({{episode.scary.count}})</span>
                       <p class="head-text" v-else>لا يوجد</p>
                     </div>
                   </div>
@@ -336,7 +336,7 @@
                 data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
                 مخدرات و كحول و تدخين
                 &nbsp;
-                <span class="descrip" v-if="episode != ''">متوسط [{{episode.drugs.count}}]</span>
+                <span class="descrip" v-if="drugs >= 1">متوسط [{{episode.drugs.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
@@ -346,7 +346,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text" v-if="episode != ''">عدد المصوتين ({{episode.drugs.count}})</span>
+                      <span class="head-text" v-if="drugs >= 1">عدد المصوتين ({{episode.drugs.count}})</span>
                       <p class="head-text" v-else>لا يوجد</p>
                     </div>
                   </div>
@@ -370,7 +370,7 @@
         </div>
       </section>
 
-        <section id="top" class="section-padding casterslist">
+        <section v-if="casterslist != 0" id="top" class="section-padding casterslist">
             <div class="">
 
                 <div class="section-header">
@@ -384,7 +384,7 @@
                     <div class="carousel__item" style="width: 100%;">
                         <div class="row">
                             <a @click.prevent="goToPage(popular.id)">
-                            <div class="col-md-3 col-sm-6 serie-image">
+                            <div class="col-md-3 col-sm-6 char-image">
                                 <img v-lazy="latestSeri.profile_path" alt="" style="border-radius: 100px;height: 160px; border: 4px solid #B41D1E;">
                                 <h6 style="text-align: center;">
                                     {{latestSeri.name.toUpperCase().slice(0, 10)}}
@@ -609,6 +609,7 @@ export default{
       btnFavColor: "white-color",
       btnColor:"white-color",
       dropbtn:"white-color",
+      casterslist:0,
 
             settings: {
               itemsToShow: 1,
@@ -711,17 +712,32 @@ export default{
             this.axios.post('https://animeeplus.online/api/media/detail/'+id+'/code'
             ).then(res=>{
               
+                this.episode = res.data;
+
+                this.casterslist = res.data.casterslist.length
+
+                this.nasty = this.episode.nasty.count
+                this.drugs = this.episode.drugs.count
+                this.bloody = this.episode.bloody.count
+                this.scary = this.episode.scary.count
                 
-                console.log(this.episode);
-                let data = res.data;
-                // this.getTimeInHoursAndMins(data.runtime)
-                // data.runtime = data.runtime.toString().replace(/(\d{1,2})(\d{2})$/,"$1:$2")
+                if(this.nasty >=1){
+                  this.accordionButtonNasty = "after"
 
+                }
+                if(this.bloody >=1){
+                  this.accordionButtonBloody ="after"
 
-                this.episode = data;
+                }
+                 if(this.scary >=1){
+                  this.accordionButtonScary ="after"
+
+                }
+                 if(this.drugs >=1){
+                  this.accordionButtonDrugs ="after"
+                }                
 
                  this.isLoading = false
-
             }).catch(err=>{
                this.isLoading = false
                 console.log(err);
@@ -863,7 +879,7 @@ export default{
         },
 
         addClassify(id , type){
-
+console.log(type+'===='+id)
           const headers ={
                   'Authorization': 'Bearer '+ this.getToken,
                 }          
