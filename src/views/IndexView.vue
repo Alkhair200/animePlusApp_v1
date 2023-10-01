@@ -3,7 +3,7 @@
 
     <section class="home-carousel">
         <!-- :autoplay="10000"  -->
-        <Carousel :wrap-around="true" id="carousel-home">
+        <Carousel  :wrap-around="true" id="carousel-home">
             <Slide v-for="(item,index) in homeContents.featured" :key="index">
               <div class="carousel__item">
                 <div @click.prevent="goToPage(item.featured_id ,'season')" class="shadow"></div>

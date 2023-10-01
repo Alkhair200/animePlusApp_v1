@@ -176,6 +176,10 @@ body.light {
     overflow: visible !important;
 }
 
+.home-carousel {
+    overflow-x: clip;
+}
+
 /*Start carousel home */
 .home-carousel .shadow {
     position: absolute;
@@ -451,6 +455,7 @@ font-size: 16px;
 #top .char-image{
     width: 100%;
     padding: 0 5px;
+    height: 250px;
 }
 
 
