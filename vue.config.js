@@ -4,10 +4,16 @@ module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false,
 
-    // resolve: {
-    //   symlinks: false,
-    //   alias: {
-    //     vue: path.resolve('./node_modules/vue')
-    //   }
-    // }
+  configureWebpack:{
+    
+    performance: {
+      hints: false
+    },    
+    optimization: {
+      splitChunks: {
+        minSize: 10000,
+        maxSize: 250000,
+      }
+    }
+  }
 });

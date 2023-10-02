@@ -39,7 +39,7 @@ $(document).ready(function () {
                 width: '100%',
                 height: '70.4px',
                 top: 0,
-                boxShadow: 'rgba(42, 41, 41, 0.9) 0px 0px 24px',
+                // boxShadow: 'rgba(42, 41, 41, 0.9) 0px 0px 24px',
                 transition: '1s',
             }, 300);
 

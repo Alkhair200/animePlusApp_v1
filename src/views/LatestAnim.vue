@@ -9,8 +9,8 @@
                   <img v-lazy="latestSeri.poster_path" alt="">
 
                   <h6>
-                        {{latestSeri.name.slice(0, 20)}}
-                        <span v-if="latestSeri.name.length > 20">...</span>
+                        {{latestSeri.name.slice(0, 15)}}
+                        <span v-if="latestSeri.name.length > 15">...</span>
                   </h6> 
               </div>  
                

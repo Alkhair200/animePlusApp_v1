@@ -20,7 +20,7 @@
 				    <div class="col-md-8">
 				      <div class="card-body">
                         <h5 class="card-title">
-                          <span v-if="latest_episode.name.length > 20">...</span>{{latest_episode.name.slice(0, 20)}}
+                          <span v-if="latest_episode.name.length > 20">...</span>{{latest_episode.name.slice(0, 15)}}
                         </h5>
                             <span class="date">
 

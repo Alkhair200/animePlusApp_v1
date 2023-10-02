@@ -37,7 +37,6 @@
 
 <script>
     export default{
-        created(){console.log(this.getParams)},
         computed:{
             getParams(){
                 return this.$store.getters.get_params

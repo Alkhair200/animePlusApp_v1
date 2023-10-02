@@ -9,6 +9,7 @@
 
 .carousel{
     overflow: hidden !important;
+    overflow-x: clip;
 }
 
 .red-color{
@@ -91,6 +92,8 @@ position-relative{
 .slider .text-image .list-style {
   height: 25px !important;
   margin-bottom: 10px;
+  padding: 0;
+  font-size: 12px;
 }
 
 .slider .text-image .list-style .list-text-1 i {
@@ -305,13 +308,13 @@ border-radius: 10px;
 /* end comments */
 
 /* start story */
-/* .story .slug ul{
-  display: inline-flex;
-  justify-content: space-between;
-} */
+ .story .slug{
+  overflow: auto;
+} 
 
 .story .slug ul{
-  display: inline-flex;
+/*  display: flex;*/
+display: ruby-base-container;
 }
 .story .slug ul li{
     margin: 0;
@@ -1063,7 +1066,7 @@ object-fit: cover;
   }
 
   .navbar{
-    top: 15px !important;
+/*    top: 15px !important;*/
   }
 
   .slider .text-image{

@@ -17,6 +17,7 @@ import LatestMovie from "../views/LatestMovie.vue"
 
 
 import LatestAnim from "../views/LatestAnim.vue"
+import Anime from "../views/Anime.vue"
 import EpisodeReleaseDates from "../views/EpisodeReleaseDates.vue"
 import VideoPlayer from "../views/VideoPlayer.vue"
 import store from "../store"
@@ -102,6 +103,13 @@ const routes = [
     name: "latest-movie",
     component: LatestMovie,
     meta:{title:"latest movie"},
+  },
+
+      {
+    path: "/anime",
+    name: "anime",
+    component: Anime,
+    meta:{title:"anime"},
   },
 
 

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- Start navbar -->
-    <nav class="navbar  navbarDark">
+    <!-- Start navbar  navbarDark-->
+    <nav class="navbar " style="box-shadow: none">
       <div class="container   ">
         <div class="row" style="width: 100%;">
           <div class="col-11 text-center  logo-img" style="padding-right: 30px;">

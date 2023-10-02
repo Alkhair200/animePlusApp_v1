@@ -41,6 +41,7 @@
             <div class="col-md-12 col-sm-12">
               <div class="comment">
                 <button v-if="getLoggedIn" type="button" data-bs-toggle="modal" href="#series-comments" role="button"
+                 @click="getEpisodeComment(episode.id)"
                   class="btn btn">التعليقات</button>
 
                 <button v-if="!getLoggedIn" type="button" @click.prevent="message('يجب عليك تسجيل الخول اولاً')" role="button"
@@ -199,7 +200,7 @@
           {{episode.overview}}
         </p>
         <br>
-        <p class="slug">
+        <p class="slug" style="overview:auto">
           <ul>
             <li v-for="(list ,index) in episode.genreslist" :key="index">{{list}}</li>
           </ul>
@@ -561,19 +562,20 @@
             </div>
             <!--  End whatch and download -->
 
-            <!-- start episode comment -->
+           <!-- start episode comment -->
             <!-- Modal -->
-            <div class="modal fade" :id="'comments-'+index" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade latest-episode-comment " id="comments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">التعليقات</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">التعليقات </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body comments">
                     <div class="comm-info">
 
                       <div class="users-comments" v-for="(episodeComm , index) in episodeComments" :key="index">
+                        <!-- <div v-if="episodeComm.reacts.length != 0" v-for="item in episodeComm.reacts"> -->
                         <div class="row">
                           <div class="col-md-1 col-sm-1">
                             <div class="img-user">
@@ -587,57 +589,79 @@
                             </div>
                             <div class="active">
                               <span><a href="http://">1 ع</a></span>
-                              <span>
                                 <span>
-                                  <a href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                    aria-expanded="false">أعجبنى</a>
+                                  <a :class="'react-text-type-'+episodeComm.id" href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+
+                                    أعجبني
+                                    </a>
 
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="" href="#">
+
+                                    <li><a class="" @click.prevent="addlikeOrReplies('like',episodeComm.id ,episodeComm.commentable_id)" href="#">
                                         <img src="/front/img/like-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
                                     <li>
-                                      <a class="" href="#">
+                                      <a class="" href="#" @click.prevent="addlikeOrReplies('love',episodeComm.id ,episodeComm.commentable_id)">
                                         <img src="/front/img/heart-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
-                                    <li><a class="" href="#">
+                                    <li><a class="" href="#" @click.prevent="addlikeOrReplies('haha',episodeComm.id ,episodeComm.commentable_id)">
                                         <img src="/front/img/joy-100.png" alt="" srcset="">
                                       </a>
                                     </li>
 
-                                    <li><a class="" href="#">
+                                    <li><a class="" href="#" @click.prevent="addlikeOrReplies('dislike',episodeComm.id ,episodeComm.commentable_id)">
                                         <img src="/front/img/unlike-100.png" alt="" srcset="">
                                       </a>
                                     </li>
                                   </ul>
                                 </span>
-                              </span>
+
                               <span><a href="http://">رد</a></span>
-                              <span>
-                                <i class="fa fa-heart"></i>
-                                3
-                              </span>
+
+                                    <i
+                                    :class="['fa fa-thumbs-up', 'myLike-'+episodeComm.id]" 
+                                    style="color:#5b8cb8">
+                                     
+                                    </i> 
+
+
+                                    <i 
+                                    :class="['fa fa-thumbs-down', 'myDislike-'+episodeComm.id]" 
+                                    style="color:#f03"></i>                                    
+
+                                    <i
+                                    :class="['fa fa-heart', 'myLove-'+episodeComm.id]" 
+                                    style="color:#CA1919">
+                                    
+                                    </i>  
+
+                                    <i class="fa">
+                                        <span :class="'myHaha-'+episodeComm.id"></span>
+                                      <img src="/front/img/joy-100.png"
+                                      style="width:20px;" 
+                                       alt="" srcset="">
+                                    </i>                                                                  
                             </div>
                           </div>
                         </div>
+                      <!-- </div> -->
                       </div>
-
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button> -->
 
                     <div class="row" style="width: 100%;">
                       <div class="col-md-12">
                         <div class="type-comment">
                           <div class="input-group">
-                            <input type="text" class="form-control" placeholder="أكتب تعليق...."
+                            <input type="text" v-model="commentsEpisode.comments_message" class="form-control" placeholder="أكتب تعليق...."
                               aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <button class="btn btn-secondary">
+                            <button @click.prevent="addComentsEpisode" class="btn btn-secondary">
                               <i class="fa fa-send"></i>
                             </button>
                           </div>
@@ -648,7 +672,123 @@
                 </div>
               </div>
             </div>
-            <!--  End episode commet -->
+            <!--  End episode commet -->     
+
+
+           <!-- start episode anim comment -->
+            <!-- Modal -->
+            <div class="modal fade latest-episode-anim-comment" id="anim-comments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">التعليقات</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body comments">
+                    <div class="comm-info">
+
+                      <div class="users-comments" v-for="(episodeComm , index) in episodeAnimComments" :key="index">
+                        <div>
+                        <div class="row">
+                          <div class="col-md-1 col-sm-1">
+                            <div class="img-user">
+                              <img :src="episodeComm.user_image" alt="">
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-sm-12">
+                            <div class="info">
+                              <h6>{{episodeComm.user_name}}</h6>
+                              <p class="comment">{{episodeComm.comment}}</p>
+                            </div>
+                            <div class="active">
+                              <span><a href="http://">1 ع</a></span>
+                                <span>
+                                  <a :class="'react-text-type-'+episodeComm.id" href="http://" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+
+                                    أعجبني
+                                    </a>
+
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+
+<!--                                     <li>
+                                       <a class="" @click.prevent="addlikeOrRepliesAnim('like',episodeComm.id ,episodeComm.commentable_id ,item.reactable_type)" href="#">
+                                        <img src="/front/img/like-100.png" alt="" srcset="">
+                                      </a>
+                                    </li>
+
+                                    <li>
+                                    <a class="" href="#" @click.prevent="addlikeOrRepliesAnim('love',episodeComm.id ,episodeComm.commentable_id,item.reactable_type)">
+                                        <img src="/front/img/heart-100.png" alt="" srcset="">
+                                      </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="" href="#" @click.prevent="addlikeOrRepliesAnim('haha',episodeComm.id ,episodeComm.commentable_id,item.reactable_type)">
+                                        <img src="/front/img/joy-100.png" alt="" srcset="">
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="" href="#" @click.prevent="addlikeOrRepliesAnim('dislike',episodeComm.id ,episodeComm.commentable_id,item.reactable_type)">
+                                        <img src="/front/img/unlike-100.png" alt="" srcset="">
+                                      </a>
+                                    </li> -->
+                                  </ul>
+                                </span>
+
+                              <span><a href="http://">رد</a></span>
+
+                                    <i
+                                    :class="['fa fa-thumbs-up', 'myLike-'+episodeComm.id]" 
+                                    style="color:#5b8cb8">
+                                     
+                                    </i> 
+
+
+                                    <i 
+                                    :class="['fa fa-thumbs-down', 'myDislike-'+episodeComm.id]" 
+                                    style="color:#f03"></i>                                    
+
+                                    <i
+                                    :class="['fa fa-heart', 'myLove-'+episodeComm.id]" 
+                                    style="color:#CA1919">
+                                    
+                                    </i>  
+
+                                    <i class="fa">
+                                        <span :class="'myHaha-'+episodeComm.id"></span>
+                                      <img src="/front/img/joy-100.png"
+                                      style="width:20px;" 
+                                       alt="" srcset="">
+                                    </i>                                                                  
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+
+                    <div class="row" style="width: 100%;">
+                      <div class="col-md-12">
+                        <div class="type-comment">
+                          <div class="input-group">
+                            <input type="text" v-model="commentsEpisode.comments_message" class="form-control" placeholder="أكتب تعليق...."
+                              aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button @click.prevent="addComentsEpisode" class="btn btn-secondary">
+                              <i class="fa fa-send"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  End episode anim commet -->    
           </div>            
           </div>
         </div>
@@ -828,13 +968,13 @@
                 <slide v-for="(related, index) in relateds" :key="index">
                     <div class="carousel__item">
                         <div class="row">
-                            <a @click="goToPage(related.id ,'season')">
+                            <a @click="goToPage(related.id ,'anime')">
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="related.poster_path" alt="">
                             </div>  
                             <h6>
-                              {{related.name.toUpperCase().slice(0, 10)}}
-                                    <span v-if="related.name.length > 10">...</span>
+                              {{related.name.toUpperCase().slice(0, 15)}}
+                                    <span v-if="related.name.length > 15">...</span>
                             </h6>  
                             </a>                           
                         </div>
@@ -908,6 +1048,10 @@ export default{
             bloody:null,
             scary:null,
 
+            commentsEpisode:{
+              comments_message:null,
+              episode_id:null,
+            },
 
             settings: {
               itemsToShow: 1,
@@ -930,7 +1074,7 @@ export default{
             settingsLatestSeri: {
                 itemsToShow: 2,
                 snapAlign: 'center',
-                 dir:'rtl',
+                dir:'rtl',
             },
 
             breakpointsLatestSeri:{
@@ -1005,7 +1149,7 @@ export default{
           this.isLoading = true
           let id = this.get_pageId;
 
-            this.axios.post('https://animeeplus.online/api/series/show/'+id+'/code'
+            this.axios.post('https://animeeplus.online/api/animes/show/'+id+'/code'
             ).then(res=>{
 
                 this.episode = res.data;
@@ -1049,7 +1193,7 @@ export default{
         getRelatedsEpisode(){
           let id = this.get_pageId;
 
-            this.axios.get('https://animeeplus.online/api/series/relateds/'+id+'/code'
+            this.axios.get('https://animeeplus.online/api/animes/relateds/'+id+'/code'
             ).then(res=>{
 
                 this.relateds = res.data.relateds;
@@ -1061,7 +1205,7 @@ export default{
 
         getEpisode (id ,page){
 
-            this.axios.get('https://animeeplus.online/api/series/seasons/'+id+'/code?page='+page
+            this.axios.get('https://animeeplus.online/api/animes/seasons/'+id+'/code?page='+page
             ).then(res=>{
                 this.episodes = res.data;
 
@@ -1088,7 +1232,7 @@ export default{
 
         getCommentsSeries(){
 
-            this.axios.get('https://animeeplus.online/api/media/series/detail/comments/'+this.seariesId+'/code'
+            this.axios.get('https://animeeplus.online/api/media/animes/detail/comments/'+this.seariesId+'/code'
             ).then(res=>{
 
                 this.seriesComments = res.data;
@@ -1099,11 +1243,13 @@ export default{
         },
 
         getEpisodeComment(id){
-            this.axios.get('https://animeeplus.online/api/media/episodes/comments/'+id+'/code'
+          this.commentsEpisode.episode_id = id
+// console.log(id );
+
+            this.axios.get('https://animeeplus.online/api/media/episodesanimes/comments/'+id+'/code'
             ).then(res=>{
 
                 this.episodeComments = res.data.comments;                
-
             }).catch(err=>{
                 console.log(err);
             })
@@ -1116,7 +1262,7 @@ export default{
           this.getRelatedsEpisode();
           this.getCommentsSeries();
 
-            this.$router.push('season')
+            this.$router.push('anime')
         },         
 
         getEpisodeWithServer(id){
@@ -1129,6 +1275,27 @@ export default{
               console.log(err.message);
           })          
         },
+
+        addComentsEpisode(){
+          let episodeId = this.commentsEpisode.episode_id;
+          const headers ={
+                  'Authorization': 'Bearer '+ this.getToken,
+                }          
+
+            this.axios.post('https://animeeplus.online/api/media/episodeAnime/addcomment',{
+              movie_id: episodeId,
+              comments_message: this.commentsEpisode.comments_message,
+            },{headers}
+            ).then(res=>{
+
+              if (res.data != '') {
+                this.getEpisodeComment(episodeId);
+              }            
+
+            }).catch(err=>{
+                console.log(err);
+            })                
+        } , 
 
         addtofavAction(id,title,watch_type){
 
@@ -1253,11 +1420,11 @@ export default{
 
                    const type = ('music' ,'story','animation' ,'chars');
 
-              this.axios.post('https://animeeplus.online/api/serie/addEvaluation/'+id+'/'+type,
+              this.axios.post('https://animeeplus.online/api/anime/addEvaluation/'+id+'/'+type,
                  {typs :types},
                   {headers}
               ).then(res=>{
-
+                console.log(res.data)
                 if (!res.data.error) {
 
                   this.toggleColor()

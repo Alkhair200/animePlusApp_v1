@@ -203,7 +203,7 @@
           {{episode.overview}}
         </p>
         <br>
-        <p class="slug">
+        <p class="slug" style="overview:auto">
           <span style="margin-left:10px" v-for="(list ,index) in episode.genreslist" :key="index">{{list}}</span>
         </p>
       </section> 
@@ -384,8 +384,8 @@
                     <div class="carousel__item" style="width: 100%;">
                         <div class="row">
                             <a @click.prevent="goToPage(popular.id)">
-                            <div class="col-md-3 col-sm-6 char-image">
-                                <img v-lazy="latestSeri.profile_path" alt="" style="border-radius: 100px;height: 160px; border: 4px solid #B41D1E;">
+                            <div class="col-md-3 col-sm-6 serie-image" style="height: 100%;">
+                                <img v-lazy="latestSeri.profile_path" alt="" style="border-radius: 100px; border: 4px solid #B41D1E; height: 180px;">
                                 <h6 style="text-align: center;">
                                     {{latestSeri.name.toUpperCase().slice(0, 10)}}
                                     <span v-if="latestSeri.name.length > 10">...</span>
@@ -632,6 +632,7 @@ export default{
             settingsLatestSeri: {
                 itemsToShow: 2,
                 snapAlign: 'center',
+                 dir:'rtl',
             },
 
             breakpointsLatestSeri:{

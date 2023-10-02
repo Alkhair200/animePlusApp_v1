@@ -2,8 +2,8 @@
     <div>
 
     <section class="home-carousel">
-        <!-- :autoplay="10000"  -->
-        <Carousel  :wrap-around="true" id="carousel-home">
+        <!--  -->
+        <Carousel :autoplay="10000" :wrap-around="true" id="carousel-home">
             <Slide v-for="(item,index) in homeContents.featured" :key="index">
               <div class="carousel__item">
                 <div @click.prevent="goToPage(item.featured_id ,'season')" class="shadow"></div>
@@ -122,8 +122,8 @@
                             </div>  
                             <div class="col-md-12">
                             <h6 style="text-align: center;">
-                                <span v-if="latestSeri.name.length > 21">.....</span>
-                                {{latestSeri.name.slice(0, 21)}}
+                                <span v-if="latestSeri.name.length > 15">.....</span>
+                                {{latestSeri.name.slice(0, 15)}}
                             </h6>
                             </div>  
                                 
@@ -161,8 +161,8 @@
                     <div class="carousel__item" style="width: 100%;">
                         <div class="row">
                             <a @click.prevent="goToPage(popular.id ,'season')">
-                            <div class="col-md-3 col-sm-6 char-image">
-                                <img v-lazy="popular.profile_path" alt="" style="border-radius: 100px; border: 4px solid #B41D1E;">
+                            <div class="col-md-3 col-sm-6 serie-image" style="height: 100%;">
+                                <img v-lazy="popular.profile_path" alt="" style="border-radius: 100px; border: 4px solid #B41D1E; height: 180px;">
                                 <h6 style="text-align: center;">
                                     {{popular.name.toUpperCase().slice(0, 10)}}
                                     <span v-if="popular.name.length > 10">...</span>
@@ -218,8 +218,8 @@
                                 </div>
                              
                                 <h5>
-                                    {{latestSeri.name.slice(0, 20)}}  
-                                    <span v-if="latestSeri.name.length > 20">...</span> 
+                                    {{latestSeri.name.slice(0, 15)}}  
+                                    <span v-if="latestSeri.name.length > 15">...</span> 
                                 </h5>
 
                                 <span class="date">
@@ -303,8 +303,8 @@
                                 </div>
                                 
                                 <h5>
-                                    {{latestSeri.name.slice(0, 20)}}  
-                                    <span v-if="latestSeri.name.length > 20">...</span>                                     
+                                    {{latestSeri.name.slice(0, 15)}}  
+                                    <span v-if="latestSeri.name.length > 15">...</span>                                     
                                 </h5>
                                 <span class="date">
 
@@ -337,8 +337,7 @@
                                     <div class="col-6 text-center">
                                     <a 
 
-                                     
-
+                                    @click.prevent="goToPage(latestSeri.id ,'anime')"
                                         class="dics-dtn"><i class="fa fa-info-circle"></i> دخول
                                     </a>
                                     </div>
@@ -379,8 +378,8 @@
                                 <img v-lazy="latestMovei.poster_path" alt="">
                             </div>  
                             <h6 style="text-align: center;">
-                                <span v-if="latestMovei.title.length > 20">...</span>
-                                {{latestMovei.title.slice(0,20)}}
+                                <span v-if="latestMovei.title.length > 15">...</span>
+                                {{latestMovei.title.slice(0,15)}}
 
                             </h6>  
                             </a>                           
@@ -421,8 +420,8 @@
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
                             <h6 style="text-align: center;">
-                                <span v-if="latestSeri.name.length > 20">...</span>
-                                {{latestSeri.name.slice(0,20)}}
+                                <span v-if="latestSeri.name.length > 15">...</span>
+                                {{latestSeri.name.slice(0,15)}}
                                 
                             </h6>  
                             </a>                           
@@ -458,13 +457,13 @@
                 <slide v-for="(latestSeri, index) in latestAnim" :key="index">
                     <div class="carousel__item">
                         <div class="row">
-                            <a>
+                            <a @click.prevent="goToPage(latestSeri.id ,'anime')">
                             <div class="col-md-3 col-sm-6 serie-image">
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
                             <h6 style="text-align: center;">
-                                {{latestSeri.name.slice(0,20)}}
-                                <span v-if="latestSeri.name.length > 20">...</span>
+                                {{latestSeri.name.slice(0,15)}}
+                                <span v-if="latestSeri.name.length > 15">...</span>
                             </h6>  
                             </a>                           
                         </div>
@@ -504,8 +503,8 @@
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
                             <h6 style="text-align: center;">
-                                {{latestSeri.title.slice(0,20)}}
-                                <span v-if="latestSeri.title.length > 20">...</span>
+                                {{latestSeri.title.slice(0,15)}}
+                                <span v-if="latestSeri.title.length > 15">...</span>
                             </h6>  
                             </a>                           
                         </div>
@@ -545,8 +544,8 @@
                                 <img v-lazy="latestSeri.poster_path" alt="">
                             </div>  
                             <h6 style="text-align: center;">
-                                {{latestSeri.name.slice(0,20)}}
-                                <span v-if="latestSeri.name.length > 20">...</span>
+                                {{latestSeri.name.slice(0,15)}}
+                                <span v-if="latestSeri.name.length > 15">...</span>
                             </h6>  
                             </a>                           
                         </div>
@@ -586,12 +585,12 @@
                                 <img v-lazy="item.poster_path" alt="">
                             </div>  
                             <h6 v-if="item.title" style="text-align: center;">
-                                {{item.title.slice(0,20)}}
-                                <span v-show="item.title.length > 20">...</span>
+                                {{item.title.slice(0,15)}}
+                                <span v-show="item.title.length > 15">...</span>
                             </h6>  
                             <h6 v-if="item.name" style="text-align: center;">
-                                {{item.name.slice(0,20)}}
-                                <span v-show="item.name.length > 20">...</span>                                
+                                {{item.name.slice(0,15)}}
+                                <span v-show="item.name.length > 15">...</span>                                
                             </h6>
                             </a>                           
                         </div>
@@ -1046,7 +1045,7 @@ export default{
             breakpoints:{
               // 700px and up
               700: {
-                itemsToShow: 2,
+                itemsToShow: 3,
                 snapAlign: 'center',
               },
               // 1024 and up
@@ -1093,10 +1092,23 @@ export default{
 
     created(){
         this.getHomeContents();
+        this.test();
         this.$store.dispatch("getParams")
     },
 
     methods:{  
+
+        test(){
+            let id =81
+            this.axios.post('https://animeeplus.online/api/animes/show/'+id+'/code'
+            ).then(res=>{
+
+                console.log(res.data);
+
+            }).catch(err=>{
+                console.log(err);
+            })
+        },        
 
         getServerFeatured(id){
             this.axios.get('https://animeeplus.online/api/series/episodeshow/'+id+'/code'
@@ -1283,7 +1295,7 @@ export default{
                 this.trending =res.data.trending;
                 this.popularCasters = res.data.popular_casters;
                 this.isLoading = false
-                     console.log(res.data.anime); 
+                     console.log(res.data.latest_episodes_animes); 
             }).catch(err=>{
                 this.isLoading = false
                 console.log(err);
@@ -1383,6 +1395,27 @@ export default{
             })                
         } , 
 
+        // addComentsAnimeEpisode(){
+        //   let episodeId = this.commentsEpisode.episode_id;
+        //   const headers ={
+        //           'Authorization': 'Bearer '+ this.getToken,
+        //         }          
+
+        //     this.axios.post('https://animeeplus.online/api/media/episodeAnime/addcomment',{
+        //       movie_id: episodeId,
+        //       comments_message: this.commentsEpisode.comments_message,
+        //     },{headers}
+        //     ).then(res=>{
+
+        //       if (res.data != '') {
+        //         this.getEpisodeComment(episodeId);
+        //       }            
+
+        //     }).catch(err=>{
+        //         console.log(err);
+        //     })                
+        // } ,         
+
         addtofavAction(featured_id,title,watch_type){
 
             this.$store.dispatch('addtofavAction',{
@@ -1432,6 +1465,10 @@ export default{
 
                 this.$router.push('latest-movie')  
 
+            }else if(type == "anime"){
+                this.$store.dispatch("goToPage",{id: id});
+
+                this.$router.push('anime')                  
             }
         }, 
 
