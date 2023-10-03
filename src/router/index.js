@@ -14,6 +14,11 @@ import LatestSeries from "../views/LatestSeries.vue"
 import latestEpisodesAnimes from "../views/latestEpisodesAnimes.vue"
 import PopularCasters from "../views/PopularCasters.vue"
 import LatestMovie from "../views/LatestMovie.vue"
+import Popular from "../views/Popular.vue"
+import AllPopular from "../views/AllPopular.vue"
+import Search from "../views/Search.vue"
+
+
 
 
 import LatestAnim from "../views/LatestAnim.vue"
@@ -27,17 +32,17 @@ import store from "../store"
 const routes = [
   {
     path: "/login",
-    name: "login",
+    name: "تسجيل الدخول",
     component: Login,
-    meta:{title:"login",
+    meta:{title:"تسجيل الدخول",
     guest:true}
   },
 
   {
     path: "/reset-password",
-    name: "reset-password",
+    name: "إعادة ظبط كلةه المرور",
     component: ResetPassword,
-    meta:{title:"reset password",guest:true},
+    meta:{title:"إعادة ظبط كلةه المرور",guest:true},
   },  
 
   {
@@ -49,16 +54,41 @@ const routes = [
 
   {
     path: "/",
-    name: "index",
+    name: "الرئيسيه",
     component: IndexView,
-    meta:{title:"index"},
+    meta:{title:"الرئيسيه"},
   },
+
+    {
+    path: "/search",
+    name: "البحث",
+    component: Search,
+    meta:{title:"البحث"},
+  },
+
+
+  {
+    path: "/popular",
+    name: "الشخصيات",
+    component: Popular,
+    meta:{title:"الشخصيات"},
+  },
+
+    {
+    path: "/all-popular",
+    name: "كل الشخصيات",
+    component: AllPopular,
+    meta:{title:"كل الشخصيات"},
+  },
+
+
   {
     path: "/profile",
     name: "profile",
     component: Profile,
-    meta:{title:"profile"},
-  },,
+    meta:{title:"بروفايل"},
+  },
+
   {
     path: "/update-profile",
     name: "update-profile",

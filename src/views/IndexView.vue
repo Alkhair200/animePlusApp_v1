@@ -150,7 +150,7 @@
                     </div>
 
                     <div class="right">
-                        <router-link to="popular-casters">
+                        <router-link to="all-popular">
                             <p>مشاهدة الكل</p>
                             <i class="fa fa-arrow-left"></i>
                         </router-link>
@@ -160,7 +160,7 @@
                 <slide v-for="(popular, index) in popularCasters" :key="index">
                     <div class="carousel__item" style="width: 100%;">
                         <div class="row">
-                            <a @click.prevent="goToPage(popular.id ,'season')">
+                            <a @click.prevent="goToPage(popular.id ,'popular')">
                             <div class="col-md-3 col-sm-6 serie-image" style="height: 100%;">
                                 <img v-lazy="popular.profile_path" alt="" style="border-radius: 100px; border: 4px solid #B41D1E; height: 180px;">
                                 <h6 style="text-align: center;">
@@ -1468,7 +1468,12 @@ export default{
             }else if(type == "anime"){
                 this.$store.dispatch("goToPage",{id: id});
 
-                this.$router.push('anime')                  
+                this.$router.push('anime')      
+                            
+            }else if(type == "popular"){
+                this.$store.dispatch("goToPage",{id: id});
+
+                this.$router.push('popular')  
             }
         }, 
 
