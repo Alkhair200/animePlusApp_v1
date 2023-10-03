@@ -65,7 +65,7 @@
       getWidth(){
         let height = window.innerHeight
         let el= document.querySelectorAll(".search")[0]
-        let hei = height - 1000
+        let hei = height - 500
         el.style.marginTop = hei+'px'
       },
 
@@ -81,8 +81,7 @@
              this.notResults = false
             this.results = res.data.search;
           }
-          
-          console.log(res.data.search)
+        
 
           this.isLoading = false
         }).catch((err)=>{
