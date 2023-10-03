@@ -9,7 +9,7 @@
             </div>                      
               
            <h5 v-show="notResults">لا يوجد بيانات</h5>        
-          <div class="col-md-2 col-sm-12" v-for="(result, index) in results" :key="index">
+          <div class="col-md-2 col-sm-6" v-for="(result, index) in results" :key="index">
 
               <a @click.prevent="goToPage(result.id ,result.type)">
                 <span>cvmc,v</span>
@@ -24,17 +24,12 @@
                     <span v-if="result.title.length > 15">...</span>
                     {{result.title.slice(0,15)}}
                   </h6>                                 
-                  
-               
-               
               </a> 
             </div> 
 
                                    
         </div>		
         </div>  	
-
-          				
 		</section>
 	</div>
 
@@ -53,7 +48,11 @@
         isLoading:false,
         notResults:false,
 			}
-		},   
+		},  
+
+    mounted(){
+      this.getWidth()
+    } ,
 
     watch:{
       inputResult(val){
@@ -62,6 +61,13 @@
     },
 
 		methods:{ 
+
+      getWidth(){
+        let height = window.innerHeight
+        let el= document.querySelectorAll(".search")[0]
+        let hei = height - 1000
+        el.style.marginTop = hei+'px'
+      },
 
       getResult: function(value){
         this.isLoading = true
@@ -101,10 +107,6 @@
 
                 this.$router.push('anime')      
                             
-            }else if(type == "popular"){
-                this.$store.dispatch("goToPage",{id: id});
-
-                this.$router.push('popular')  
             }
         },                  
     }
@@ -141,9 +143,7 @@ color:#fff;
     border:none;
   }
 
-  .search{
-    margin-top: 7%;
-  }
+
 
   .search img:hover{
     cursor:pointer;
