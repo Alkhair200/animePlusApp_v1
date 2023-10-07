@@ -12,7 +12,6 @@
           <div class="col-md-2 col-sm-6" v-for="(result, index) in results" :key="index">
 
               <a @click.prevent="goToPage(result.id ,result.type)">
-                <span>cvmc,v</span>
                   <img v-lazy="result.poster_path" alt="" style="height: 200px; ">
                   <br>
                   <h6 v-if="result.name">
@@ -119,6 +118,7 @@
   height: 50%;
   transform: translate(50%,50%);
   right: 50%;  
+  top:5%;
 }
 
 .search h5{

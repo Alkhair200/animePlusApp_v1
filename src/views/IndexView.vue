@@ -2,8 +2,8 @@
     <div>
 
     <section class="home-carousel">
-        <!--  -->
-        <Carousel :autoplay="10000" :wrap-around="true" id="carousel-home">
+        <!-- :autoplay="10000" -->
+        <Carousel  :wrap-around="true" id="carousel-home">
             <Slide v-for="(item,index) in homeContents.featured" :key="index">
               <div class="carousel__item">
                 <div @click.prevent="goToPage(item.featured_id ,'season')" class="shadow"></div>
@@ -33,8 +33,16 @@
                             <div class="col-md-3 col-sm-12">
                                 <dropdown-menu v-if="getLoggedIn">
                                   <template #trigger>
-                                    <button class="btn btn-light btn-sm">
-                                        إضافة لقائمتي
+                                    <button 
+                                    class="btn btn-light btn-sm">
+
+                                        <span v-if="addToFav.featuredId == item.featured_id">
+                                            {{addToFav.type}}
+                                        </span>
+
+                                        <span v-if="addToFav.featuredId != item.featured_id">
+                                            إضافة لقائمتي
+                                        </span>                                    
                                         <i class="fa fa-bars" aria-hidden="true"></i>
                                     </button>                  
                                   </template>                
@@ -1014,8 +1022,10 @@ export default{
             thiWeeks:[],
             latestEpisodesAnimes:[],
             latestMovieWatched:[],
-
-            // screenWidth: window.innerWidth,
+            addToFav:{
+                featuredId:null,
+                type:null
+            },
 
             isLoading:false,
             countReacts:0,
@@ -1430,12 +1440,25 @@ export default{
                     this.btnLater = false
 
                     if (watch_type == "now") {
+
+                        this.addToFav.featuredId = featured_id
+                        this.addToFav.type = "اشاهدها حاليا"
                         this.btnNow = true
+
                     }else if(watch_type == "later"){
+
+                        this.addToFav.featuredId = featured_id
+                        this.addToFav.type = "أكملة لاحقاً"
                          this.btnLater = true
+
                     }else if(watch_type == "want"){
+                        this.addToFav.featuredId = featured_id
+                        this.addToFav.type = "أرغب بمشاهدتها"
                          this.btnWant= true
+
                     }else if(watch_type == "done"){
+                       this.addToFav.featuredId = featured_id
+                       this.addToFav.type = "تمت مشاهدتها"
                          this.btnDone = true
                     }
 

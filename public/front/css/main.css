@@ -235,11 +235,11 @@ height: 80vh;
 }
 
 .home-carousel .miniposter{
-/*    width: 50%;*/
-    height: 200px;
-    width: 100%;
-    position: absolute;
-    z-index: 2;
+height: 220px;
+width: 100%;
+position: absolute;
+z-index: 2;
+top: 55%;
 }
 
 .home-carousel .miniposter .sm-list{
