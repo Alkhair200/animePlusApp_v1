@@ -64,6 +64,12 @@ body.light {
     position: absolute !important;
 }
 
+#list-image{
+width: 30px;
+height: 30px;
+margin: 0;    
+}
+
 /*General Style*/
 .container {
     max-width: 1140px;

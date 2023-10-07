@@ -140,7 +140,7 @@
                   <li>
                     <div v-if="getLoggedIn" class="dropdown">
                       <button :class="dropbtn">
-                        <i class="fa fa-bars" aria-hidden="true"></i>
+                        <img style="padding:0;width: 20px;height: 20px;" src="/front/img/list2.png" alt="">
                         <br>    
                         إضافة لقائمتي
                       </button>

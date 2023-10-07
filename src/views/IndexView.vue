@@ -42,8 +42,8 @@
 
                                         <span v-if="addToFav.featuredId != item.featured_id">
                                             إضافة لقائمتي
-                                        </span>                                    
-                                        <i class="fa fa-bars" aria-hidden="true"></i>
+                                        </span>
+                                        <img id="list-image" src="/front/img/list.png" alt="">
                                     </button>                  
                                   </template>                
 
@@ -377,30 +377,29 @@
                         </router-link>
                     </div>
                 </div>
-            <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
-                <slide v-for="(latestMovei, index) in latestMovieWatched" :key="index">
-                    <div class="carousel__item">
-                        <div class="row">
-                            <a @click.prevent="goToPage(latestMovei.id , 'latestMovie')">
-                            <div class="col-md-3 col-sm-6 serie-image">
-                                <img v-lazy="latestMovei.poster_path" alt="">
-                            </div>  
-                            <h6 style="text-align: center;">
-                                <span v-if="latestMovei.title.length > 15">...</span>
-                                {{latestMovei.title.slice(0,15)}}
+                <carousel v-bind="settingsLatestSeri" :breakpoints="breakpointsLatestSeri">
+                    <slide v-for="(latestMovei, index) in latestMovieWatched" :key="index">
+                        <div class="carousel__item">
+                            <div class="row">
+                                <a @click.prevent="goToPage(latestMovei.id , 'latestMovie')">
+                                <div class="col-md-3 col-sm-6 serie-image">
+                                    <img v-lazy="latestMovei.poster_path" alt="">
+                                </div>  
+                                <h6 style="text-align: center;">
+                                    <span v-if="latestMovei.title.length > 15">...</span>
+                                    {{latestMovei.title.slice(0,15)}}
 
-                            </h6>  
-                            </a>                           
+                                </h6>  
+                                </a>                           
+                            </div>
                         </div>
-                    </div>
-                </slide>
+                    </slide>
 
-                <template #addons>
-                  <navigation />
-                  <!-- <pagination /> -->
-                </template>
-            </carousel>  
-             
+                    <template #addons>
+                      <navigation />
+                      <!-- <pagination /> -->
+                    </template>
+                </carousel>  
             </div>
         </section>
 
