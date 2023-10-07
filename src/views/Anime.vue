@@ -182,7 +182,7 @@
 
                   <li>
                     <a :class="btnFavColor" @click.prevent="addToFav(episode.id,episode.name)" href="#">
-                      <i class="fa fa-heart"></i>
+                      <i :class="iconFav"></i>
                       <br>
                       المفضلة                      
                     </a>
@@ -1042,6 +1042,7 @@ export default{
             accordionButtonScary:"before",
             accordionButtonDrugs:"before", 
             casterslist:0,
+            iconFav:"fa fa-heart-o",
 
             nasty:null,           
             drugs:null,
@@ -1131,6 +1132,10 @@ export default{
           if(this.btnFavColor === "white-color") {
             this.btnFavColor = "red-color";
           } 
+
+          if (this.iconFav === "fa fa-heart-o") {
+            this.iconFav = "fa fa-heart"
+          }          
           // else {
           //  this.btnFavColor = "white-color";
           // }    

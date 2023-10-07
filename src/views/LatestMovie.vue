@@ -186,7 +186,7 @@
 
                   <li>
                     <a :class="btnFavColor" @click.prevent="addToFav(episode.id,episode.title)" href="#">
-                      <i class="fa fa-heart"></i>
+                      <i :class="iconFav"></i>
                       <br>
                       المفضلة                      
                     </a>
@@ -606,11 +606,12 @@ export default{
             chars:null,
             animation:null,
             music:null,
-      btnRateColor: "btn-secondary",
-      btnFavColor: "white-color",
-      btnColor:"white-color",
-      dropbtn:"white-color",
-      casterslist:0,
+            btnRateColor: "btn-secondary",
+            btnFavColor: "white-color",
+            btnColor:"white-color",
+            dropbtn:"white-color",
+            casterslist:0,
+            iconFav:"fa fa-heart-o",
 
             settings: {
               itemsToShow: 1,
@@ -704,7 +705,11 @@ export default{
       this.btnFavColor = "red-color";
     } else {
      this.btnFavColor = "#fff";
-    }    
+    }  
+
+          if (this.iconFav === "fa fa-heart-o") {
+            this.iconFav = "fa fa-heart"
+          }      
   } ,  
 
         getMovieEpisode(){
