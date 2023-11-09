@@ -17,6 +17,9 @@ import LatestMovie from "../views/LatestMovie.vue"
 import Popular from "../views/Popular.vue"
 import AllPopular from "../views/AllPopular.vue"
 import Search from "../views/Search.vue"
+import VIP from "../views/VIP.vue"
+import Library from "../views/Library.vue"
+
 
 
 
@@ -65,6 +68,21 @@ const routes = [
     component: Search,
     meta:{title:"البحث"},
   },
+
+  {
+    path: "/vip",
+    name: "الأعضاء المميزون",
+    component: VIP,
+    meta:{title:"الأعضاء المميزون"},
+  },
+
+  {
+    path: "/Library",
+    name: "المكتبة",
+    component: Library,
+    meta:{title:"المكتبة"},
+  },
+  
 
 
   {

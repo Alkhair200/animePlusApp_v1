@@ -1,12 +1,19 @@
 <template>
 	<div>
 		<section class="all-latest-episodes">
+
+
+ <!-- <Artplayer @get-instance="getInstance" :option="option" :style="style" /> -->
+
+		            <Artplayer :option="option" :style="style"/>
+
+
 			<div class="player-v">
-			<!-- <plyr> -->
+			<plyr>
 		        <div class="">
-		            <iframe :src="serverLink" allowfullscreen allowtransparency allow="autoplay"></iframe>
+		            <video :src="serverLink" allowfullscreen allowtransparency allow="autoplay"></video>
 		        </div>
-			<!-- </plyr> -->
+			</plyr>
 			</div>
 			<div class="video-list">
                 <dropdown-menu>
@@ -36,21 +43,38 @@
 </template>
 
 <script>
-
+import Artplayer from "./Artplayer.vue";
 	export default{
-
+		components:{
+			Artplayer
+		},
 		data(){
 			return{
+
 				episodeServer:{},	
 				videoLink:null,			
 				serverLink:null,	
-				isLoading:false,		
+				isLoading:false,
+
+		      option: {
+		        url: null,
+		        autoPlay:true,
+		        setting:true,
+		        type:"video/*"
+		      },
+		      style: {
+		        width: "600px",
+		        height: "400px",
+		        margin: "60px auto 0",
+		      },						
 			}
 		},
 
 		created(){
             this.getEpisodeWithServer();
             this.serverLink =  this.getVideoLink
+            console.log(this.serverLink)
+            // this.option.url = 
 		},
 
         computed:{   
@@ -66,7 +90,6 @@
         },      
 
 		methods:{
-
         getEpisodeWithServer(){
         	this.isLoading = true
         	let id = this.getPlayId;
@@ -74,6 +97,8 @@
             ).then(res=>{
 
                 this.episodeServer = res.data.episode.videos;
+                console.log(res.data);
+           
                 this.isLoading = false
             }).catch(err=>{
             	this.isLoading = false

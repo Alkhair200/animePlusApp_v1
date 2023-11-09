@@ -2,8 +2,8 @@
     <div>
 
     <section class="home-carousel">
-        <!-- :autoplay="10000" -->
-        <Carousel  :wrap-around="true" id="carousel-home">
+        <!--  -->
+        <Carousel :autoplay="10000" :wrap-around="true" id="carousel-home">
             <Slide v-for="(item,index) in homeContents.featured" :key="index">
               <div class="carousel__item">
                 <div @click.prevent="goToPage(item.featured_id ,'season')" class="shadow"></div>
@@ -99,7 +99,7 @@
 
         <section class="premium-account">
             <div class="container">
-                <a href="subscription.html">
+                <a target="_blank" href="https://animeeplus.net/subscriptions">
                     <img src="https://animeeplus.online/api/image/custombanner" alt="">
                 </a>
             </div>

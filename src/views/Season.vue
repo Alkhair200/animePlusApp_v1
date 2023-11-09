@@ -113,7 +113,7 @@
                   <div class="col-md-6  col-sm-6">
                     <i class="fa fa-star"></i>
                     <br>
-                    <div v-if="episode.story">{{episode.story.aveg}}/10
+                    <div v-if="episode.story">{{Math.floor(episode.story.aveg)}}/10
                       <br>
                       <span v-show="episode.story.count != 0 ">({{episode.story.count}} &nbsp;صوت)</span>
                     </div>
@@ -373,7 +373,7 @@
           <div class="accordion-episode">
             <h2 class="accordion-header" id="headingThree">
               <button :class="['accordion-button , collapsed',accordionButtonScary ]" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                data-bs-target="#collapseFure" aria-expanded="false" aria-controls="collapseThree">
                 مشاهد مخيفه او صادمه
                 &nbsp;
                 <span class="descrip" v-if="scary >= 1">
@@ -387,7 +387,7 @@
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+            <div id="collapseFure" class="accordion-collapse collapse" aria-labelledby="headingThree"
               data-bs-parent="#accordionExample">
               <div class="accordion-body">
                 <div class="row">
@@ -531,14 +531,14 @@
               </div>
             </div>                 
 
-            <!-- start noty -->
+            <!-- start send report  -->
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
               aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">الموسم: 0 - الحلقة: 1</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">الموسم: {{episode.season}} - الحلقة: {{episode.episode_number}}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -562,31 +562,44 @@
                       </div>
                     </div>
 
+                    <form @submit.prevent="submitReport(episode.name)">
+                    
                     <div class='check-option'>
                       <div class="dpx">
                         <div class='py'>
-                          <label>
-                            <input type="radio" class="option-input radio" name="example" checked />
+                          <label class="lable-style">
+
+                            <input type="radio" value="الترجمة غير متزامنه مع الصوت" class="option-input radio" v-model="myOption.name" name="example" />
                             الترجمة غير متزامنه مع الصوت
                           </label>
-                          <label>
-                            <input type="radio" class="option-input radio" name="example" />
+                          <label class="lable-style">
+                            <input type="radio"
+                            value="ترجمة خاطئة" 
+                             class="option-input radio" v-model="myOption.name" name="example" />
                             ترجمة خاطئة
                           </label>
-                          <label>
-                            <input type="radio" class="option-input radio" name="example" />
+                          <label class="lable-style">
+                            <input type="radio" 
+                            value="الصوت غير واضح أو سيئ" 
+                            class="option-input radio" v-model="myOption.name" name="example" />
                             الصوت غير واضح أو سيئ
                           </label>
-                          <label>
-                            <input type="radio" class="option-input radio" name="example" />
+                          <label class="lable-style">
+                            <input type="radio" 
+                            value="سيرفر معطل" 
+                            class="option-input radio" v-model="myOption" name="example" />
                             سيرفر معطل
                           </label>
-                          <label>
-                            <input type="radio" class="option-input radio" name="example" />
+                          <label class="lable-style">
+                            <input type="radio" 
+                            value="الفيديو لا يعمل إطلاقاً" 
+                            class="option-input radio" v-model="myOption.name" name="example" />
                             الفيديو لا يعمل إطلاقاً
                           </label>
-                          <label>
-                            <input type="radio" class="option-input radio" name="example" />
+                          <label class="lable-style">
+                            <input type="radio" 
+                            value="آخرى" 
+                            class="option-input radio" v-model="myOption.name" name="example" />
                             آخرى
                           </label>
                         </div>
@@ -594,20 +607,17 @@
 
                       <div class="row">
                         <div class="col-md-12">
-                          <button type="button" class="btn send">إرسال</button>
+                          <button type="submit" class="btn send">إرسال</button>
                         </div>
                       </div>
 
                     </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">إغلاق</button>
-                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
-            <!--  End noty -->
+            <!--  End send report -->
 
             <!-- start whatch and download -->
             <!-- Modal -->
@@ -999,6 +1009,10 @@ export default{
             accordionButtonDrugs:"before", 
             accordionButtonAdoult: "before",
             casterslist:0,
+            myOption:{
+              name:null,
+              title:null,
+            },
 
             nasty:null,           
             drugs:null,
@@ -1081,6 +1095,28 @@ export default{
 
     methods:{
 
+      submitReport(title){
+        this.myOption.title = title;
+     
+        this.axios.post('https://animeeplus.online/api/report/code',{
+          title:this.myOption.title ,
+          message:  this.myOption.name
+        }).then(res=>{ 
+
+
+            if (res.data.message = "created successfully") {
+              this.$notify({
+                 
+                title: "تم تقديم بلاغك بنجاح 🎉",
+                type: "success",
+              }); 
+            }           
+
+        }).catch(err=>{
+            console.log(err);
+        })
+      },
+
         toggleColorFav(){
           if(this.btnFavColor === "white-color") {
             this.btnFavColor = "red-color";
@@ -1139,6 +1175,7 @@ export default{
                 //   this.accordionButtonDrugs ="after"
                 // }
 
+                // Download seasons on create page
                 this.getEpisode(seasonId)
                 this.isLoading = false
             }).catch(err=>{
@@ -1275,6 +1312,7 @@ export default{
             this.axios.get('https://animeeplus.online/api/series/seasons/'+id+'/code?page='+page
             ).then(res=>{
                 this.episodes = res.data;
+                console.log(res.data);
 
             }).catch(err=>{
                 console.log(err);

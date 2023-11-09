@@ -10,7 +10,7 @@ import loader from "vue-ui-preloader";
 import lazyPlugin from 'vue3-lazy';
 import DropdownMenu from 'v-dropdown-menu'
 
-// import { Bootstrap5Pagination } from 'laravel-vue-pagination';
+import VueObserveVisibility from 'vue-observe-visibility'
 
 import VuePlyr from 'vue-plyr';
 import 'vue-plyr/dist/vue-plyr.css';
@@ -18,7 +18,7 @@ import 'vue-plyr/dist/vue-plyr.css';
 createApp(App)
 .use(store)
 .use(VuePlyr)
-// .use(Bootstrap5Pagination)
+.use(VueObserveVisibility)
 .use(Notifications)
 .use(DropdownMenu)
 .use(loader)

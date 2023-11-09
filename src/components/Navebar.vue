@@ -4,12 +4,12 @@
     <nav class="navbar " style="box-shadow: none">
       <div class="container ">
         <div class="row" style="width: 100%;">        
-          <div class="col-11 text-center  logo-img" style="padding-right: 30px;">
+          <div class="col-md-9 col-sm-9 text-center logo-img">
             <router-link class="navbar-brand" to="/">
               <img src="front/img/logo.png" alt="" srcset="">
             </router-link>
           </div>
-          <div class="col-md-1 col-sm-12 nav-link-info">
+          <div class="col-md-3 col-sm-3 nav-link-info">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <router-link class="nav-link" aria-current="page" to="search">

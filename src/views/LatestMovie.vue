@@ -7,9 +7,9 @@
     </div>
     <div class="text-image">
       <img :src="episode.poster_path">
-<!--       <h4>
-        {{episode.serieName}}
-      </h4> -->
+      <h4>
+        {{episode.title}}
+      </h4>
       <p>
         <span class="views"><i class="fa fa-eye"></i> {{episode.views}} ألف </span>
       </p>
@@ -35,6 +35,11 @@
           <div class="row">
             <div class="col-md-12 col-sm-12">
               <div class="comment">
+
+                <button v-if="getLoggedIn" type="button" data-bs-toggle="modal" href="#send-report" role="button"
+                style="background:none;margin-bottom:10px; border:1px solid #ccc" 
+                  class="btn btn"><i class="fa fa-exclamation-circle"></i></button>
+
                 <button v-if="getLoggedIn" type="button" data-bs-toggle="modal" href="#whatch-episode" role="button"
                 style="background-color:var(--red);margin-bottom:10px;" 
                   class="btn btn">شاهد الاَن</button>
@@ -218,9 +223,16 @@
               <button id="accordion" :class="['accordion-button',accordionButtonNasty ]" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                 style="margin-right: auto; color:#fff">
-                الفاظ نابيه
+                الفاظ نابية
                 &nbsp;
-                <span class="descrip" v-if="nasty >= 1">شديد [{{episode.nasty.count}}]</span>
+                <span class="descrip" v-if="nasty >= 1">
+
+                  <span v-if="episode.nasty.rate > 75">شديد</span>
+                  <span v-if="episode.nasty.rate >= 50 && episode.nasty.rate <=75">متوسط</span>
+                  <span v-if="episode.nasty.rate >= 25 && episode.nasty.rate <=50">بسيط</span>
+                  <span v-show="episode.nasty.rate < 25">لا يوجد</span>
+
+                 [{{episode.nasty.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
@@ -231,14 +243,23 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text" v-if="nasty >= 1">عدد المصوتين ({{episode.nasty.count}})</span>
-                      <p class="head-text" v-else>لا يوجد</p>
+                      <p class="descrip" v-if="nasty >= 1">
+                        <p class="head-text" v-if="episode.nasty.rate > 75">شديد</p>
+                        <p class="head-text" v-if="episode.nasty.rate >= 50 && episode.nasty.rate <=75">متوسط</p>
+                        <p class="head-text" v-if="episode.nasty.rate >= 25 && episode.nasty.rate <=50">بسيط</p>
+                        <p class="head-text" v-show="episode.nasty.rate < 25">لا يوجد</p>
+                        <span class="head-text color-title">عدد المصوتين ({{episode.nasty.count}})</span>
+                      </p>
 
+                      <p class="descrip" v-else><p class="head-text">لا يوجد</p>
+                        
+                        <span class="head-text color-title">عدد المصوتين (0)</span>
+                      </p>
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="body">
-                      <p>هل يحتوي علي مشاهد بها الفاظ نابية ؟</p>
+                      <p class="color-title">هل يحتوي على مشاهد بها الفاظ نابية ؟</p>
                       <div class="row">
                         <div class="col-md-3 col-sm-12">
                           <button class="btn btn-danger" @click.prevent="addClassify(episode.id ,'nasty')">يحتوي</button>
@@ -262,7 +283,14 @@
                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 عنف و دمويه
                 &nbsp;
-                <span class="descrip" v-if="bloody >= 1">شديد [{{episode.bloody.count}}]</span>
+                <span class="descrip" v-if="bloody >= 1">
+
+                  <span v-if="episode.bloody.rate > 75">شديد</span>
+                  <span v-if="episode.bloody.rate >= 50 && episode.bloody.rate <=75">متوسط</span>
+                  <span v-if="episode.bloody.rate >= 25 && episode.bloody.rate <=50">بسيط</span>
+                  <span v-if="episode.bloody.rate < 25">لا يوجد</span>
+
+                 [{{episode.bloody.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
@@ -272,13 +300,24 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text"  v-if="bloody >= 1">عدد المصوتين ({{episode.bloody.count}})</span>
-                      <p class="head-text" v-else>لا يوجد</p>
+
+                      <p class="descrip" v-if="bloody >= 1">
+                        <p class="head-text" v-if="episode.bloody.rate > 75">شديد</p>
+                        <p class="head-text" v-if="episode.bloody.rate >= 50 && episode.bloody.rate <=75">متوسط</p>
+                        <p class="head-text" v-if="episode.bloody.rate >= 25 && episode.bloody.rate <=50">بسيط</p>
+                        <p class="head-text" v-show="episode.bloody.rate < 25">لا يوجد</p>
+                        <span class="head-text color-title">عدد المصوتين ({{episode.bloody.count}})</span>
+                      </p>
+
+                      <p class="descrip" v-else><p class="head-text">لا يوجد</p>
+                        
+                        <span class="head-text color-title">عدد المصوتين (0)</span>
+                      </p>                      
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="body">
-                      <p> هل يحتوي علي مشاهد بها عنف و دمويه ؟</p>
+                      <p class="color-title"> هل يحتوي على مشاهد بها عنف و دموية ؟</p>
                       <div class="row">
                         <div class="col-md-3 col-sm-12">
                           <button @click.prevent="addClassify(episode.id ,'bloody')" class="btn btn-danger">يحتوي</button>
@@ -295,11 +334,18 @@
           </div>
           <div class="accordion-episode">
             <h2 class="accordion-header" id="headingThree">
-              <button :class="['accordion-button , collapsed',accordionButtonScary ]" type="button" data-bs-toggle="collapse"
+              <button :class="['accordion-button , collapsed',accordionButtonAdoult ]" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                مشاهد مخيفه او صادمه
+                مشاهد غير لائقة
                 &nbsp;
-                <span class="descrip" v-if="scary >= 1">متوسط [{{episode.scary.count}}]</span>
+                <span class="descrip" v-if="adoult >= 1">
+
+                  <span v-if="episode.adoult.rate > 75">شديد</span>
+                  <span v-if="episode.adoult.rate >= 50 && episode.adoult.rate <=75">متوسط</span>
+                  <span v-if="episode.adoult.rate >= 25 && episode.adoult.rate <=50">بسيط</span>
+                  <span v-if="episode.adoult.rate < 25">لا يوجد</span>
+
+                 [{{episode.adoult.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
@@ -309,13 +355,60 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text" v-if="scary >= 1">عدد المصوتين ({{episode.scary.count}})</span>
-                      <p class="head-text" v-else>لا يوجد</p>
+
+                      <p class="head-text">متوسط</p>
+                      <span class="head-text color-title" v-if="scary >= 1">عدد المصوتين ({{episode.adoult.count}})</span>
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="body">
-                      <p>هل يحتوي علي مشاهد مخيفه او صادمه ؟</p>
+                      <p class="color-title"> هل يحتوي على مشاهد مخيفه او صادمة ؟</p>
+                      <div class="row">
+                        <div class="col-md-3 col-sm-12">
+                          <button class="btn btn-danger" @click.prevent="addClassify(episode.id ,'adoult')">يحتوي</button>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                          <button class="btn btn-success" @click.prevent="addClassify(episode.id ,'adoult')">لا يحتوي</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-episode">
+            <h2 class="accordion-header" id="headingThree">
+              <button :class="['accordion-button , collapsed',accordionButtonScary ]" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseFure" aria-expanded="false" aria-controls="collapseThree">
+                مشاهد مخيفه او صادمه
+                &nbsp;
+                <span class="descrip" v-if="scary >= 1">
+
+                  <span v-if="episode.scary.rate > 75">شديد</span>
+                  <span v-if="episode.scary.rate >= 50 && episode.scary.rate <=75">متوسط</span>
+                  <span v-if="episode.scary.rate >= 25 && episode.scary.rate <=50">بسيط</span>
+                  <span v-show="episode.scary.rate < 25">لا يوجد</span>
+
+                 [{{episode.scary.count}}]</span>
+                <span class="descrip" v-else>لا يوجد</span>
+              </button>
+            </h2>
+            <div id="collapseFure" class="accordion-collapse collapse" aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="head">
+
+                      <p class="head-text">متوسط</p>
+                      <span class="head-text color-title" v-if="scary >= 1">عدد المصوتين ({{episode.scary.count}})</span>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="body">
+                      <p class="color-title"> هل يحتوي على مشاهد مخيفه او صادمة ؟</p>
                       <div class="row">
                         <div class="col-md-3 col-sm-12">
                           <button class="btn btn-danger" @click.prevent="addClassify(episode.id ,'scary')">يحتوي</button>
@@ -337,7 +430,14 @@
                 data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
                 مخدرات و كحول و تدخين
                 &nbsp;
-                <span class="descrip" v-if="drugs >= 1">متوسط [{{episode.drugs.count}}]</span>
+                <span class="descrip" v-if="drugs >= 1">
+
+                  <span v-if="episode.drugs.rate > 75">شديد</span>
+                  <span v-if="episode.drugs.rate >= 50 && episode.drugs.rate <=75">متوسط</span>
+                  <span v-if="episode.drugs.rate >= 25 && episode.drugs.rate <=50">بسيط</span>
+                  <span v-show="episode.drugs.rate < 25">لا يوجد</span>
+
+                 [{{episode.drugs.count}}]</span>
                 <span class="descrip" v-else>لا يوجد</span>
               </button>
             </h2>
@@ -347,13 +447,13 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="head">
-                      <span class="head-text" v-if="drugs >= 1">عدد المصوتين ({{episode.drugs.count}})</span>
-                      <p class="head-text" v-else>لا يوجد</p>
+                      <p class="head-text">متوسط</p>
+                      <span class="head-text color-title" v-if="drugs >= 1">عدد المصوتين ({{episode.drugs.count}})</span>
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="body">
-                      <p> هل يحتوى علي مشاهد بها مخدرات ؟</p>
+                      <p class="color-title"> هل يحتوى على مشاهد بها مخدرات ؟</p>
                       <div class="row">
                         <div class="col-md-3 col-sm-12">
                           <button class="btn btn-danger" @click.prevent="addClassify(episode.id ,'drugs')">يحتوي</button>
@@ -368,7 +468,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </section>
 
         <section v-if="casterslist != 0" id="top" class="section-padding casterslist">
@@ -560,6 +660,95 @@
             </div>
             <!--  End whatch episode -->   
 
+
+            <!-- start send report  -->
+            <!-- Modal -->
+            <div class="modal fade" id="send-report" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{episode.title}}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row warning">
+                      <div class="container">
+                        <p>
+                          <i class="fa fa-warning"></i>
+                          &nbsp;
+                          أولاَ قم بالتأكد من سرعة الإنترنت عندك.
+                        </p>
+                        <p>
+                          <i class="fa fa-warning"></i>
+                          &nbsp;
+                          ثانياَ قم بتشغيل VPN قبل إرسال البلاغ.
+                        </p>
+                        <p>
+                          <i class="fa fa-warning"></i>
+                          &nbsp;
+                          ثالثاَ تكرار البلاغ يؤدي الي حظر حسابك.
+                        </p>
+                      </div>
+                    </div>
+
+                    <form @submit.prevent="submitReport(episode.name)">
+                    
+                    <div class='check-option'>
+                      <div class="dpx">
+                        <div class='py'>
+                          <label class="lable-style">
+
+                            <input type="radio" value="الترجمة غير متزامنه مع الصوت" class="option-input radio" v-model="myOption.name" name="example" />
+                            الترجمة غير متزامنه مع الصوت
+                          </label>
+                          <label class="lable-style">
+                            <input type="radio"
+                            value="ترجمة خاطئة" 
+                             class="option-input radio" v-model="myOption.name" name="example" />
+                            ترجمة خاطئة
+                          </label>
+                          <label class="lable-style">
+                            <input type="radio" 
+                            value="الصوت غير واضح أو سيئ" 
+                            class="option-input radio" v-model="myOption.name" name="example" />
+                            الصوت غير واضح أو سيئ
+                          </label>
+                          <label class="lable-style">
+                            <input type="radio" 
+                            value="سيرفر معطل" 
+                            class="option-input radio" v-model="myOption" name="example" />
+                            سيرفر معطل
+                          </label>
+                          <label class="lable-style">
+                            <input type="radio" 
+                            value="الفيديو لا يعمل إطلاقاً" 
+                            class="option-input radio" v-model="myOption.name" name="example" />
+                            الفيديو لا يعمل إطلاقاً
+                          </label>
+                          <label class="lable-style">
+                            <input type="radio" 
+                            value="آخرى" 
+                            class="option-input radio" v-model="myOption.name" name="example" />
+                            آخرى
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12">
+                          <button type="submit" class="btn send">إرسال</button>
+                        </div>
+                      </div>
+
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  End send report -->            
+
 <div v-show="isLoading">
     <loader object="#ffb600" color1="#ffffff" color2="#ca1919" size="5" speed="2" bg="#000000" objectbg="#999793" opacity="80" disableScrolling="" name="circular"></loader>   
 </div>                        
@@ -597,10 +786,18 @@ export default{
             season_id:null,
             relateds:[],
             isLoading:false,
+
             accordionButtonNasty: "before",
             accordionButtonBloody: "before",
             accordionButtonScary:"before",
-            accordionButtonDrugs:"before",
+            accordionButtonDrugs:"before", 
+            accordionButtonAdoult: "before",
+
+            nasty:null,           
+            drugs:null,
+            bloody:null,
+            scary:null,
+            adoult:null,            
 
             story:null,
             chars:null,
@@ -612,6 +809,11 @@ export default{
             dropbtn:"white-color",
             casterslist:0,
             iconFav:"fa fa-heart-o",
+
+            myOption:{
+              name:null,
+              title:null,
+            },            
 
             settings: {
               itemsToShow: 1,
@@ -686,6 +888,28 @@ export default{
 
     methods:{
 
+   submitReport(title){
+          // this.myOption.title = title;
+       
+          this.axios.post('https://animeeplus.online/api/report/code',{
+            title: this.episode.title ,
+            message:  this.myOption.name
+          }).then(res=>{ 
+
+
+              if (res.data.message = "created successfully") {
+                this.$notify({
+                   
+                  title: "تم تقديم بلاغك بنجاح 🎉",
+                  type: "success",
+                }); 
+              }           
+
+          }).catch(err=>{
+              console.log(err);
+          })
+        },      
+
     getTimeInHoursAndMins(timeInsSeconds) {
           const hours = Math.floor(timeInsSeconds / 3600);
           const minutes = Math.floor((timeInsSeconds % 3600) / 60);
@@ -720,29 +944,20 @@ export default{
             ).then(res=>{
               
                 this.episode = res.data;
-
+                // console.log(res.data)
                 this.casterslist = res.data.casterslist.length
 
                 this.nasty = this.episode.nasty.count
                 this.drugs = this.episode.drugs.count
                 this.bloody = this.episode.bloody.count
                 this.scary = this.episode.scary.count
-                
-                if(this.nasty >=1){
-                  this.accordionButtonNasty = "after"
+                this.adoult = this.episode.adoult.count
 
-                }
-                if(this.bloody >=1){
-                  this.accordionButtonBloody ="after"
-
-                }
-                 if(this.scary >=1){
-                  this.accordionButtonScary ="after"
-
-                }
-                 if(this.drugs >=1){
-                  this.accordionButtonDrugs ="after"
-                }                
+                this.setColorRate(this.episode.nasty.rate, "nasty")
+                this.setColorRate(this.episode.bloody.rate, "bloody")
+                this.setColorRate(this.episode.scary.rate, "scary")
+                this.setColorRate(this.episode.adoult.rate, "adoult")
+                this.setColorRate(this.episode.drugs.rate, "drugs")              
 
                  this.isLoading = false
             }).catch(err=>{
@@ -750,6 +965,116 @@ export default{
                 console.log(err);
             })
         },
+
+        setColorRate(rate ,type){
+          if (type == "nasty") {
+            // شديد
+            if(rate > 75){
+              this.accordionButtonNasty = "after"
+
+            // متوسط  
+            }else if(rate >= 50 && rate <= 75){
+              this.accordionButtonNasty = "orange"
+
+            // بسيط
+            }else if(rate >= 25 && rate <= 50){
+              this.accordionButtonNasty = "before"
+            }
+
+            // لا يوجد
+            else if(rate < 25){
+              this.accordionButtonNasty = "green-yellow"
+            }             
+          }
+
+          if (type == "bloody") {
+            // شديد
+            if(rate > 75){
+              this.accordionButtonBloody = "after"
+
+            // متوسط  
+            }else if(rate >= 50 && rate <= 75){
+              this.accordionButtonBloody = "orange"
+
+            // بسيط
+            }else if(rate >= 25 && rate <= 50){
+              this.accordionButtonBloody = "before"
+            }
+
+            // لا يوجد
+            else if(rate < 25){
+              this.accordionButtonBloody = "green-yellow"
+            }             
+          }   
+
+
+          if (type == "scary") {
+            // شديد
+            if(rate > 75){
+              this.accordionButtonScary = "after"
+
+            // متوسط  
+            }else if(rate >= 50 && rate <= 75){
+              this.accordionButtonScary = "orange"
+
+            // بسيط
+            }else if(rate >= 25 && rate <= 50){
+              this.accordionButtonScary = "before"
+            }
+
+            // لا يوجد
+            else if(rate < 25){
+              this.accordionButtonScary = "green-yellow"
+            }             
+          }   
+
+
+          if (type == "adoult") {
+            // شديد
+            if(rate > 75){
+              this.accordionButtonAdoult = "after"
+
+            // متوسط  
+            }else if(rate >= 50 && rate <= 75){
+              this.accordionButtonAdoult = "orange"
+
+            // بسيط
+            }else if(rate >= 25 && rate <= 50){
+              this.accordionButtonAdoult = "before"
+            }
+
+            // لا يوجد
+            else if(rate < 25){
+              this.accordionButtonAdoult = "green-yellow"
+            }             
+          }    
+
+
+          if (type == "drugs") {
+            // شديد
+            if(rate > 75){
+              this.accordionButtonDrugs = "after"
+
+            // متوسط  
+            }else if(rate >= 50 && rate <= 75){
+              this.accordionButtonDrugs = "orange"
+
+            // بسيط
+            }else if(rate >= 25 && rate <= 50){
+              this.accordionButtonDrugs = "before"
+            }
+
+            // لا يوجد
+            else if(rate < 25){
+              this.accordionButtonDrugs = "green-yellow"
+            }             
+          }                    
+
+
+
+                 
+         
+        },        
 
         getRelatedsEpisode(){
           let id = this.get_pageId;
@@ -886,7 +1211,6 @@ export default{
         },
 
         addClassify(id , type){
-console.log(type+'===='+id)
           const headers ={
                   'Authorization': 'Bearer '+ this.getToken,
                 }          
@@ -899,25 +1223,15 @@ console.log(type+'===='+id)
 
               if (res.data.classify) {
 
-                if(type == "nasty"){
-                  this.accordionButtonNasty = "after"
+                  this.getMovieEpisode();
 
-                }else if(type == "bloody"){
-                  this.accordionButtonBloody ="after"
-
-                }else if(type == "scary"){
-                  this.accordionButtonScary ="after"
-
-                }else if(type == "drugs"){
-                  this.accordionButtonDrugs ="after"
-                }             
                   this.$notify({
                      
                     title: "تمت الإضافه 🎉",
                     type: "success",
                   });  
 
-                  this.getMovieEpisode();
+                 
               }            
 
             }).catch(err=>{
@@ -1113,5 +1427,28 @@ text-align: right;
 #rating-modal .modal-body h5,
 .vue-star-rating{
   margin-bottom: 6px;
+}
+
+#send-report .modal-content {
+    background-color: var(--bg-section);
+    color: var(--white);
+}
+
+#send-report .modal-body .warning {
+    font-size: 14px;
+    border: 1px solid var(--white);
+    padding-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 10px;
+}
+
+#send-report .check-option .send {
+    border-radius: 10px;
+    border: 1px solid var(--red);
+    padding: 5px 30px;
+    color: var(--white);
+    width: 100%;
+    margin-top: 10px;
 }
 </style>

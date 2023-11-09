@@ -315,17 +315,17 @@ border-radius: 10px;
 } 
 
 .story .slug ul{
-/*  display: flex;*/
-display: ruby-base-container;
+  display: flex !important;
+  padding: 0;
 }
 .story .slug ul li{
     margin: 0;
-    padding: 3px 10px;
+    padding: 5px;
     border-radius: 10px;
     font-size: 12px;
     background-color: #555151;
     font-weight: bold;
-    margin: 0 10px;
+    margin: 0 4px;
 }
 /* end story */
 

@@ -90,6 +90,7 @@
       },     
 
         goToPage(id ,type){
+          console.log(type)
             if (type == "Serie") {
                 this.$store.dispatch("goToPage",{id: id});
 

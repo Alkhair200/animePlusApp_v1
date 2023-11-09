@@ -209,6 +209,7 @@ content: "";
 
   .all-coming-episodes .serie-image img{
     cursor:pointer;
-    height: 250px; border-radius: 15px;    
+    height: 250px; border-radius: 15px;   
+    width:100%; 
   }
 </style>
